@@ -1,7 +1,7 @@
 # Components
 
 ## Segment
-- Denotes a part of track (may include switch and branches) where only at most one train can be located. Normally start at a switch and end at a switch
+- Partitions the track layout into parts (may include switch and branches) where only at most one train can be located. Normally start at a switch and end at a switch
 - Occupied or free segment
 - One segment has several possible paths, that may depend on switches positions
 
