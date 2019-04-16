@@ -10,14 +10,10 @@ It uses a integer coordinate system (grid):
 ## Primitives: (footprint)
 - Straight: (0,0:1,1)
 - Diagonal: (0,0:1,1)
-- Switch Left, Straight: (0,-1:1,1)
-- Switch Left, Left: (0,-1:1,1)
-- Switch Right, Straight: (0,0:1,2)
-- Switch Right, Right: (0,0:1,2)
-- Signal Light, Green: (0,0:1,1)
-- Signal Light, Red: (0,0:1,1)
-- Train Presence, on: (0,0:1,1)
-- Train Presence, off: (0,0:1,1)
+- Switch Left: Straight | Left, (0,-1:1,1)
+- Switch Right: Straight | Right, (0,0:1,2)
+- Signal Light: Green | Red, (0,0:1,1)
+- Train Presence: On | Off, (0,0:1,1)
 
 ## Layout Descriptor
 - ID
@@ -27,5 +23,7 @@ It uses a integer coordinate system (grid):
 - ID
 - FromPos: x, y
 - ToPos: x, y
-- Primitive
 - Rotation: 0 | 90 | 180 | 270
+- PrimitiveID
+- DataID
+- SegmentID
