@@ -1,10 +1,10 @@
 export type Id = number;
 
 export interface Pos {
-  x: number,
-  y: number,
+  x: number;
+  y: number;
 }
 
-export type Data = { id: Id };
+export interface Data { id: Id; }
 
-export type SimpleMap<T extends Data> = { [id: Id]: T };
+export interface SimpleMap<T extends Data> { [key: number]: T; }

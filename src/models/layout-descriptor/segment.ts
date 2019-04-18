@@ -17,11 +17,11 @@ export interface Segment extends Data {
 }
 
 export function resolveSegmentsRefs(segments: SimpleMap<Segment>): SimpleMap<Segment> {
-  Object.keys(segments).forEach(resolveSegmentRefs);
+  Object.values(segments).forEach((segment: Segment) => segment.paths.forEach(resolveSegmentRefs));
   return segments;
 
-  function resolveSegmentRefs(segment): void {
-    segment.fromSegment = segments[segment.fromSegmentId];
-    segment.toSegment = segments[segment.toSegmentId];
+  function resolveSegmentRefs(path: Path): void {
+    path.fromSegment = segments[path.fromSegmentId];
+    path.toSegment = segments[path.toSegmentId];
   }
 }
