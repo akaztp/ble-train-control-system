@@ -14,7 +14,7 @@ export interface Segment extends Data {
   fromPaths: Path[];
   fromSignalLight: SignalLight;
   toPaths: Path[];
-  toSignalLight: SignalLight;
+  toSignalLight: SignalLight | null;
 }
 
 export function resolveSegmentsRefs(segments: SimpleMap<Segment>): SimpleMap<Segment> {
