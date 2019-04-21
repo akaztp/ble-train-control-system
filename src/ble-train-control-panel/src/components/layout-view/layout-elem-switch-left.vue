@@ -6,7 +6,8 @@
       height="100%"
       width="100%">
       <line x1="0" y1="50%" x2="50%" y2="50%"></line>
-      <line x1="50%" y1="50%" x2="0" y2="150%"></line>
+      <line x1="80%" y1="50%" x2="100%" y2="50%"></line>
+      <line x1="50%" y1="50%" x2="100%" y2="-50%"></line>
     </svg>
     <svg xmlns="http://www.w3.org/2000/svg"
       v-else-if="data.position === switchPositionStraight"
