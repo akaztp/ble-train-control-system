@@ -9,30 +9,30 @@ import {
 } from '@logic/models/layout-descriptor/signal-light';
 import { addSegment } from '../utils/add-segment';
 
-export const signalLights1: SimpleMap<SignalLight> = {
-  10: {
-    id: 10,
+export const signalLights2: SimpleMap<SignalLight> = {
+  20: {
+    id: 20,
     state: SignalLightState.Green,
   } as SignalLight,
-  11: {
-    id: 11,
+  21: {
+    id: 21,
     state: SignalLightState.Green,
   } as SignalLight,
 };
 
-export const segment1: SimpleMap<Segment> = {
-  1: {
-    id: 1,
+export const segment2: SimpleMap<Segment> = {
+  2: {
+    id: 2,
     fromPaths: [],
-    fromSignalLight: signalLights1[10],
+    fromSignalLight: signalLights2[20],
     toPaths: [],
-    toSignalLight: signalLights1[11],
+    toSignalLight: signalLights2[21],
   } as Segment,
 };
 
-export const primitives1: PlacedPrimitive[] = addSegment(segment1[1], [
+export const primitives2: PlacedPrimitive[] = addSegment(segment2[2], [
   {
-    fromPos: {x: 54, y: 12}, toPos: {x: 1, y: 12}, rotation: Rotation.R0,
+    fromPos: {x: 54, y: 14}, toPos: {x: 1, y: 14}, rotation: Rotation.R0,
     primitive: Primitive.Straight,
   },
 ]);

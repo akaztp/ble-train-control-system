@@ -13,12 +13,13 @@ export interface Segment extends Data {
   id: Id;
   fromPaths: Path[];
   fromSignalLight: SignalLight;
-  toPaths: Path[]
+  toPaths: Path[];
   toSignalLight: SignalLight;
 }
 
 export function resolveSegmentsRefs(segments: SimpleMap<Segment>): SimpleMap<Segment> {
-  Object.values(segments).forEach((segment: Segment) => {
+  Object.keys(segments).forEach((key) => {
+    const segment = segments[key as any];
     segment.fromPaths.forEach(resolveSegmentRefs);
     segment.toPaths.forEach(resolveSegmentRefs);
   });

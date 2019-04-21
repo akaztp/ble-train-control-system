@@ -8,11 +8,14 @@ import {
   SignalLightState,
 } from '@logic/models/layout-descriptor/signal-light';
 import { addSegment } from '../utils/add-segment';
-import { switches } from './switches';
 
-export const signalLights: SimpleMap<SignalLight> = {
+export const signalLights0: SimpleMap<SignalLight> = {
   0: {
     id: 0,
+    state: SignalLightState.Green,
+  } as SignalLight,
+  1: {
+    id: 1,
     state: SignalLightState.Green,
   } as SignalLight,
 };
@@ -20,23 +23,14 @@ export const signalLights: SimpleMap<SignalLight> = {
 export const segment0: SimpleMap<Segment> = {
   0: {
     id: 0,
-    paths: [
-      {
-        fromSegmentId: 1,
-        fromSignal: signalLights[0],
-        toSegmentId: 2,
-        switchesStates: [switches[0]],
-      },
-    ],
+    fromPaths: [],
+    fromSignalLight: signalLights0[0],
+    toPaths: [],
+    toSignalLight: signalLights0[1],
   } as Segment,
 };
 
 export const primitives0: PlacedPrimitive[] = addSegment(segment0[0], [
-  {
-    fromPos: {x: 0, y: 7}, toPos: null, rotation: Rotation.R270,
-    primitive: Primitive.SwitchRight,
-    data: switches[0],
-  },
   {
     fromPos: {x: 0, y: 6}, toPos: {x: 0, y: 1}, rotation: Rotation.R270,
     primitive: Primitive.Straight,

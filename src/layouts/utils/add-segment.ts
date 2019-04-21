@@ -13,7 +13,7 @@ export interface PartialPlacedPrimitive {
 }
 
 export function addSegment(
-  segment: Segment,
+  segment: Segment | null,
   primitives: PartialPlacedPrimitive[],
 ): PlacedPrimitive[] {
   return primitives.map((p) => ({

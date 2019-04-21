@@ -8,6 +8,10 @@ export const switches: SimpleMap<Switch> = {
   } as Switch,
   1: {
     id: 1,
+    position: SwitchPosition.Straight,
+  } as Switch,
+  7: {
+    id: 7,
     position: SwitchPosition.Turnout,
   } as Switch,
 };
