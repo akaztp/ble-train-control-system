@@ -9,7 +9,8 @@ It uses a integer coordinate system (grid):
 
 ## Primitives: (footprint)
 - Straight: (0,0:1,1)
-- Diagonal: (0,0:1,1)
+- Corner: (0,0:1,1)
+- Diagonal: (0,0.5:1,1.5)
 - Switch Left: Straight | Left, (0,-1:1,1)
 - Switch Right: Straight | Right, (0,0:1,2)
 - Signal Light: Green | Red, (0,0:1,1)

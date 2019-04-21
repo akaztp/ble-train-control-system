@@ -3,7 +3,7 @@
     version="1.1"
     baseProfile="full"
     height="100%" width="100%">
-    <line x1="0" y1="50%" x2="100%" y2="150%"></line>
+    <line x1="50%" y1="0" x2="0" y2="50%"></line>
   </svg>
 </template>
 
@@ -11,8 +11,7 @@
   import { Component, Vue } from 'vue-property-decorator';
 
   @Component({})
-  export default class LayoutElemDiagonal extends Vue {
+  export default class LayoutElemCorner extends Vue {
   }
 
 </script>
-s

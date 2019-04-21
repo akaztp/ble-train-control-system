@@ -49,19 +49,19 @@ export const primitives0: PlacedPrimitive[] = addSegment(
     data: signalLights0[0],
   }, {
     fromPos: {x: 0, y: 1 - h1}, toPos: null, rotation: Rotation.R180,
-    primitive: Primitive.Diagonal,
+    primitive: Primitive.Corner,
   }, {
     fromPos: {x: 1, y: 1 - h1}, toPos: {x: w - 2 , y: 1 - h1}, rotation: Rotation.R0,
     primitive: Primitive.Straight,
   }, {
     fromPos: {x: w - 1, y: 1 - h1}, toPos: null, rotation: Rotation.R270,
-    primitive: Primitive.Diagonal,
+    primitive: Primitive.Corner,
   }, {
     fromPos: {x: w - 1, y: 2 - h1}, toPos: {x: w - 1, y: h2 - h1 - 1}, rotation: Rotation.R90,
     primitive: Primitive.Straight,
   }, {
     fromPos: {x: w - 1, y: h2 - h1}, toPos: null, rotation: Rotation.R0,
-    primitive: Primitive.Diagonal,
+    primitive: Primitive.Corner,
   }, {
     fromPos: {x: w - 2, y: h2 - h1}, toPos: null, rotation: Rotation.R0,
     primitive: Primitive.Straight,
