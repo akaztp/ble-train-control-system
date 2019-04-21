@@ -3,8 +3,7 @@ import { Primitive } from './primitive';
 import { Rotation } from './rotation';
 import { Segment } from './segment';
 
-export interface PlacedPrimitive extends Data {
-  id: Id;
+export interface PlacedPrimitive {
   fromPos: Pos;
   toPos: Pos | null;
   rotation: Rotation;

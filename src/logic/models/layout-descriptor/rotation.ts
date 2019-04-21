@@ -1,3 +1,6 @@
+/**
+ * Clockwise rotation
+ */
 export enum Rotation {
   R0 = 0,
   R90 = 90,
