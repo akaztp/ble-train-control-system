@@ -15,8 +15,12 @@
       "webpack-env"
     ],
     "paths": {
-      "@/*": [
-        "src/*"
+      "@/*": ["src/*"],
+      "@logic/*": [
+        "../logic/*"
+      ],
+      "@layout/*": [
+        "../layouts/hat-city-layout/*"
       ]
     },
     "lib": [
