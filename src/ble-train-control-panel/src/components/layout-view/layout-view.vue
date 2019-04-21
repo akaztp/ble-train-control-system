@@ -16,7 +16,7 @@
   import { Component, Vue } from 'vue-property-decorator';
   import LayoutElem from './layout-elem.vue';
 
-  const scale = 15;
+  const scale = 30;
 
   function getCanvasPx(): Pos {
     return {

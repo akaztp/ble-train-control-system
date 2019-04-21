@@ -30,7 +30,10 @@ export const segment1: SimpleMap<Segment> = {
   } as Segment,
 };
 
-export const primitives1: PlacedPrimitive[] = addSegment(segment1[1], [
+export const primitives1: PlacedPrimitive[] = addSegment(
+  segment1[1],
+  undefined,
+  [
   {
     fromPos: {x: 54, y: 12}, toPos: {x: 1, y: 12}, rotation: Rotation.R0,
     primitive: Primitive.Straight,

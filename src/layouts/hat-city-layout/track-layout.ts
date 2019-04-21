@@ -4,24 +4,30 @@ import {
   resolveSegmentsRefs,
   Segment,
 } from '@logic/models/layout-descriptor/segment';
-import { interSegments } from './inter-segments';
+import { interSegment0 } from './inter-segment0';
 import { primitives0, segment0 } from './segment0';
 import { primitives1, segment1 } from './segment1';
 import { primitives2, segment2 } from './segment2';
+import { primitives4, segment4 } from './segment4';
+import { primitives5, segment5 } from './segment5';
 
 export const segments: SimpleMap<Segment> = resolveSegmentsRefs({
   ...segment0,
   ...segment1,
   ...segment2,
+  ...segment4,
+  ...segment5,
 });
 
 export const trackLayout: LayoutDescriptor = {
   id: 1,
   canvas: {x: 57, y: 15},
   primitives: [
-    ...interSegments,
+    ...interSegment0,
     ...primitives0,
     ...primitives1,
     ...primitives2,
+    ...primitives4,
+    ...primitives5,
   ],
 };

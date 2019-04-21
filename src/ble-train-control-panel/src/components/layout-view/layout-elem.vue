@@ -9,6 +9,7 @@
       <layout-elem-diagonal v-if="p.primitive === primitiveDiagonal"></layout-elem-diagonal>
       <layout-elem-switch-left v-if="p.primitive === primitiveSwitchLeft" v-bind:data="p.data"></layout-elem-switch-left>
       <layout-elem-switch-right v-if="p.primitive === primitiveSwitchRight" v-bind:data="p.data"></layout-elem-switch-right>
+      <layout-elem-signal-light v-if="p.primitive === primitiveSignalLight" v-bind:data="p.data"></layout-elem-signal-light>
     </div>
   </div>
 </template>
@@ -22,6 +23,7 @@
   import LayoutElemStraight from './layout-elem-straight.vue';
   import LayoutElemSwitchRight from './layout-elem-switch-right.vue';
   import LayoutElemSwitchLeft from './layout-elem-switch-left.vue';
+  import LayoutElemSignalLight from './layout-elem-signal-light.vue';
 
   @Component({
     components: {
@@ -29,6 +31,7 @@
       LayoutElemDiagonal,
       LayoutElemSwitchLeft,
       LayoutElemSwitchRight,
+      LayoutElemSignalLight,
     },
   })
   export default class LayoutElem extends Vue {
@@ -39,6 +42,7 @@
     private primitiveDiagonal = Primitive.Diagonal;
     private primitiveSwitchLeft = Primitive.SwitchLeft;
     private primitiveSwitchRight = Primitive.SwitchRight;
+    private primitiveSignalLight = Primitive.SignalLight;
 
     private expandPrimitive(): PrimitiveInstance[] {
       const expansion: PrimitiveInstance[] = [];
@@ -107,6 +111,6 @@
 
   .layout-view-primitive {
     stroke: #f0f0f0;
-    stroke-width: 4px;
+    stroke-width: 15%;
   }
 </style>
