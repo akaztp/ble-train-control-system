@@ -6,7 +6,8 @@
       class="layout-view-primitive"
     >
       <layout-elem-straight v-if="p.primitive === primitiveStraight"></layout-elem-straight>
-      <layout-elem-diagonal v-if="p.primitive === primitiveDiagonal"></layout-elem-diagonal>
+      <layout-elem-diagonal-l v-if="p.primitive === primitiveDiagonalL"></layout-elem-diagonal-l>
+      <layout-elem-diagonal-r v-if="p.primitive === primitiveDiagonalR"></layout-elem-diagonal-r>
       <layout-elem-corner v-if="p.primitive === primitiveCorner"></layout-elem-corner>
       <layout-elem-switch-left v-if="p.primitive === primitiveSwitchLeft" v-bind:data="p.data"></layout-elem-switch-left>
       <layout-elem-switch-right v-if="p.primitive === primitiveSwitchRight" v-bind:data="p.data"></layout-elem-switch-right>
@@ -25,7 +26,8 @@
   import LayoutElemSwitchRight from './layout-elem-switch-right.vue';
   import LayoutElemSwitchLeft from './layout-elem-switch-left.vue';
   import LayoutElemSignalLight from './layout-elem-signal-light.vue';
-  import LayoutElemDiagonal from './layout-elem-diagonal.vue';
+  import LayoutElemDiagonalL from './layout-elem-diagonal-l.vue';
+  import LayoutElemDiagonalR from './layout-elem-diagonal-r.vue';
 
   @Component({
     components: {
@@ -34,7 +36,8 @@
       LayoutElemSwitchLeft,
       LayoutElemSwitchRight,
       LayoutElemSignalLight,
-      LayoutElemDiagonal,
+      LayoutElemDiagonalL,
+      LayoutElemDiagonalR,
     },
   })
   export default class LayoutElem extends Vue {
@@ -43,7 +46,8 @@
 
     private primitiveStraight = Primitive.Straight;
     private primitiveCorner = Primitive.Corner;
-    private primitiveDiagonal = Primitive.Diagonal;
+    private primitiveDiagonalL = Primitive.DiagonalL;
+    private primitiveDiagonalR = Primitive.DiagonalR;
     private primitiveSwitchLeft = Primitive.SwitchLeft;
     private primitiveSwitchRight = Primitive.SwitchRight;
     private primitiveSignalLight = Primitive.SignalLight;
