@@ -9,25 +9,28 @@
       <layout-elem-diagonal-l v-if="p.primitive === primitiveDiagonalL"></layout-elem-diagonal-l>
       <layout-elem-diagonal-r v-if="p.primitive === primitiveDiagonalR"></layout-elem-diagonal-r>
       <layout-elem-corner v-if="p.primitive === primitiveCorner"></layout-elem-corner>
-      <layout-elem-switch-left v-if="p.primitive === primitiveSwitchLeft" v-bind:data="p.data"></layout-elem-switch-left>
-      <layout-elem-switch-right v-if="p.primitive === primitiveSwitchRight" v-bind:data="p.data"></layout-elem-switch-right>
-      <layout-elem-signal-light v-if="p.primitive === primitiveSignalLight" v-bind:data="p.data"></layout-elem-signal-light>
+      <layout-elem-switch-left v-if="p.primitive === primitiveSwitchLeft"
+        v-bind:data="p.data"></layout-elem-switch-left>
+      <layout-elem-switch-right v-if="p.primitive === primitiveSwitchRight"
+        v-bind:data="p.data"></layout-elem-switch-right>
+      <layout-elem-signal-light v-if="p.primitive === primitiveSignalLight"
+        v-bind:data="p.data"></layout-elem-signal-light>
     </div>
   </div>
 </template>
 
 <script lang="ts">
   import { Data } from '@logic/models/base';
-  import { Component, Prop, Vue } from 'vue-property-decorator';
   import { PlacedPrimitive } from '@logic/models/layout-descriptor/placed-primitive';
   import { Primitive } from '@logic/models/layout-descriptor/primitive';
+  import { Component, Prop, Vue } from 'vue-property-decorator';
   import LayoutElemCorner from './layout-elem-corner.vue';
-  import LayoutElemStraight from './layout-elem-straight.vue';
-  import LayoutElemSwitchRight from './layout-elem-switch-right.vue';
-  import LayoutElemSwitchLeft from './layout-elem-switch-left.vue';
-  import LayoutElemSignalLight from './layout-elem-signal-light.vue';
   import LayoutElemDiagonalL from './layout-elem-diagonal-l.vue';
   import LayoutElemDiagonalR from './layout-elem-diagonal-r.vue';
+  import LayoutElemSignalLight from './layout-elem-signal-light.vue';
+  import LayoutElemStraight from './layout-elem-straight.vue';
+  import LayoutElemSwitchLeft from './layout-elem-switch-left.vue';
+  import LayoutElemSwitchRight from './layout-elem-switch-right.vue';
 
   @Component({
     components: {
@@ -120,5 +123,13 @@
   .layout-view-primitive {
     stroke: #f0f0f0;
     stroke-width: 15%;
+  }
+
+  svg.selectable {
+    background-color: rgba(127, 127, 127, 0.2);
+
+    &:hover {
+      background-color: rgba(127, 127, 127, 0.5);
+    }
   }
 </style>
