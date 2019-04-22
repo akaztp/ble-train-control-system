@@ -7,7 +7,7 @@ export const switches: SimpleMap<Switch> = new Array(8).fill(null)
     ...acc,
     [idx]: {
       id: idx,
-      position: SwitchPosition.Turnout,
+      position: SwitchPosition.Straight,
     } as Switch,
   }),
   {},

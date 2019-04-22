@@ -10,35 +10,35 @@ import {
 import { addSegment } from '../utils/add-segment';
 
 const signalLights: SimpleMap<SignalLight> = {
-  70: {
-    id: 70,
+  90: {
+    id: 90,
     state: SignalLightState.Green,
   } as SignalLight,
 };
 
-export const segment7: SimpleMap<Segment> = {
-  7: {
-    id: 7,
+export const segment9: SimpleMap<Segment> = {
+  9: {
+    id: 9,
     fromPaths: [],
-    fromSignalLight: signalLights[70],
+    fromSignalLight: signalLights[90],
     toPaths: [],
     toSignalLight: null,
   } as Segment,
 };
 
-export const p1: Pos = {x: 6, y: 6};
+export const p1: Pos = {x: 8, y: 8};
 
-export const primitives7: PlacedPrimitive[] = addSegment(
-  segment7[7],
+export const primitives9: PlacedPrimitive[] = addSegment(
+  segment9[9],
   p1,
   [
     {
-      fromPos: {x: 0, y: 0}, toPos: {x: -3, y: 0}, rotation: Rotation.R0,
+      fromPos: {x: 0, y: 0}, toPos: {x: -6, y: 0}, rotation: Rotation.R0,
       primitive: Primitive.Straight,
     }, {
-    fromPos: {x: 0, y: 0}, toPos: null, rotation: Rotation.R0,
+    fromPos: {x: -2, y: 0}, toPos: null, rotation: Rotation.R0,
     primitive: Primitive.SignalLight,
-    data: signalLights[70],
+    data: signalLights[90],
   },
   ],
 );

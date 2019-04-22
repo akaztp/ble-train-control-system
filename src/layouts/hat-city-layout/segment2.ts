@@ -35,7 +35,7 @@ export const primitives2: PlacedPrimitive[] = addSegment(
   undefined,
   [
     {
-      fromPos: {x: 54, y: 14}, toPos: {x: 1, y: 14}, rotation: Rotation.R0,
+      fromPos: {x: 24, y: 14}, toPos: {x: 15, y: 14}, rotation: Rotation.R0,
       primitive: Primitive.Straight,
     },
   ],

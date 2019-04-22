@@ -48,7 +48,7 @@ export const interSegment0: PlacedPrimitive[] = addSegment(
     fromPos: {x: pSW2.x - 1, y: pSW1.y + 1},
     toPos: null,
     rotation: Rotation.R0,
-    primitive: Primitive.Diagonal,
+    primitive: Primitive.DiagonalL,
   }, {
     fromPos: pSW2, toPos: null, rotation: Rotation.R0,
     primitive: Primitive.SwitchRight,
@@ -62,7 +62,7 @@ export const interSegment0: PlacedPrimitive[] = addSegment(
     fromPos: {x: pSW3.x - 1, y: pSW2.y + 1},
     toPos: null,
     rotation: Rotation.R0,
-    primitive: Primitive.Diagonal,
+    primitive: Primitive.DiagonalL,
   }, {
     fromPos: pSW3, toPos: null, rotation: Rotation.R180,
     primitive: Primitive.SwitchLeft,

@@ -26,7 +26,7 @@ export const segment6: SimpleMap<Segment> = {
   } as Segment,
 };
 
-export const p1: Pos = {x: 11, y: 6};
+export const p1: Pos = {x: 13, y: 6};
 
 export const primitives6: PlacedPrimitive[] = addSegment(
   segment6[6],

@@ -31,7 +31,7 @@ export const segment0: SimpleMap<Segment> = {
 };
 
 const h1 = 4;
-const h2 = 8;
+const h2 = 12;
 const w = 30;
 export const p1: Pos = {x: 0, y: h1 - 1};
 export const p2: Pos = addPos(p1, {x: w - 2, y: h2 - h1});
