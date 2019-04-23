@@ -4,6 +4,7 @@
       v-for="p in expandPrimitive()"
       v-bind:style="p.style"
       class="layout-view-primitive"
+      v-bind:title="dataId"
     >
       <layout-elem-straight v-if="p.primitive === primitiveStraight"></layout-elem-straight>
       <layout-elem-diagonal-l v-if="p.primitive === primitiveDiagonalL"></layout-elem-diagonal-l>
@@ -46,6 +47,10 @@
   export default class LayoutElem extends Vue {
     @Prop() private primitive!: PlacedPrimitive;
     @Prop() private scale!: number;
+
+    get dataId(): string {
+      return this.primitive.data ? this.primitive.data.id.toString() : '';
+    }
 
     private primitiveStraight = Primitive.Straight;
     private primitiveCorner = Primitive.Corner;
