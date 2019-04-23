@@ -6,7 +6,7 @@ import { Segment } from '@logic/models/layout-descriptor/segment';
 
 export interface PartialPlacedPrimitive {
   fromPos: Pos;
-  toPos: Pos | null;
+  toPos?: Pos | null;
   rotation: Rotation;
   primitive: Primitive;
   data?: Data;

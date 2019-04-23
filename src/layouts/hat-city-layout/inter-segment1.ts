@@ -13,24 +13,24 @@ export const interSegment1: PlacedPrimitive[] = addSegment(
   pSW0,
   [
     {
-      fromPos: {x: -1, y: 1}, toPos: null, rotation: Rotation.R0,
+      fromPos: {x: -1, y: 1},  rotation: Rotation.R0,
       primitive: Primitive.Straight,
     },
     {
-      fromPos: {x: -2, y: 1}, toPos: null, rotation: Rotation.R0,
+      fromPos: {x: -2, y: 1},  rotation: Rotation.R0,
       primitive: Primitive.DiagonalR,
     },
     {
-      fromPos: {x: -3, y: 2}, toPos: null, rotation: Rotation.R180,
+      fromPos: {x: -3, y: 2},  rotation: Rotation.R180,
       primitive: Primitive.SwitchRight,
       data: switches[4],
     },
     {
-      fromPos: {x: -4, y: 1}, toPos: null, rotation: Rotation.R0,
+      fromPos: {x: -4, y: 1},  rotation: Rotation.R0,
       primitive: Primitive.Straight,
     },
     {
-      fromPos: {x: -5, y: 0}, toPos: null, rotation: Rotation.R0,
+      fromPos: {x: -5, y: 0},  rotation: Rotation.R0,
       primitive: Primitive.DiagonalL,
     },
   ],

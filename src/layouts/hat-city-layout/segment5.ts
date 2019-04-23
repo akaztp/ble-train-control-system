@@ -26,7 +26,7 @@ export const segment5: SimpleMap<Segment> = {
   } as Segment,
 };
 
-export const p1: Pos = {x: 10, y: 4};
+export const p1: Pos = {x: 10, y: 5};
 
 export const primitives5: PlacedPrimitive[] = addSegment(
   segment5[5],
@@ -36,7 +36,7 @@ export const primitives5: PlacedPrimitive[] = addSegment(
       fromPos: {x: 0, y: 0}, toPos: {x: 12, y: 0}, rotation: Rotation.R0,
       primitive: Primitive.Straight,
     }, {
-    fromPos: {x: 1, y: 0}, toPos: null, rotation: Rotation.R180,
+    fromPos: {x: 1, y: 0},  rotation: Rotation.R180,
     primitive: Primitive.SignalLight,
     data: signalLights[50],
   },

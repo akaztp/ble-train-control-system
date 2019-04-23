@@ -19,7 +19,7 @@ export const interSegment0: PlacedPrimitive[] = addSegment(
   pSW0,
   [
     {
-      fromPos: {x: 0, y: 0}, toPos: null, rotation: Rotation.R270,
+      fromPos: {x: 0, y: 0},  rotation: Rotation.R270,
       primitive: Primitive.SwitchRight,
       data: switches[0],
     }, {
@@ -28,7 +28,7 @@ export const interSegment0: PlacedPrimitive[] = addSegment(
     rotation: Rotation.R90,
     primitive: Primitive.Straight,
   }, {
-    fromPos: {x: 1, y: pSW1.y}, toPos: null, rotation: Rotation.R180,
+    fromPos: {x: 1, y: pSW1.y},  rotation: Rotation.R180,
     primitive: Primitive.Corner,
   }, {
     fromPos: {x: 2, y: pSW1.y},
@@ -36,7 +36,7 @@ export const interSegment0: PlacedPrimitive[] = addSegment(
     rotation: Rotation.R0,
     primitive: Primitive.Straight,
   }, {
-    fromPos: pSW1, toPos: null, rotation: Rotation.R0,
+    fromPos: pSW1,  rotation: Rotation.R0,
     primitive: Primitive.SwitchRight,
     data: switches[1],
   }, {
@@ -46,11 +46,11 @@ export const interSegment0: PlacedPrimitive[] = addSegment(
     primitive: Primitive.Straight,
   }, {
     fromPos: {x: pSW2.x - 1, y: pSW1.y + 1},
-    toPos: null,
+
     rotation: Rotation.R0,
     primitive: Primitive.DiagonalL,
   }, {
-    fromPos: pSW2, toPos: null, rotation: Rotation.R0,
+    fromPos: pSW2,  rotation: Rotation.R0,
     primitive: Primitive.SwitchRight,
     data: switches[2],
   }, {
@@ -60,11 +60,11 @@ export const interSegment0: PlacedPrimitive[] = addSegment(
     primitive: Primitive.Straight,
   }, {
     fromPos: {x: pSW3.x - 1, y: pSW2.y + 1},
-    toPos: null,
+
     rotation: Rotation.R0,
     primitive: Primitive.DiagonalL,
   }, {
-    fromPos: pSW3, toPos: null, rotation: Rotation.R180,
+    fromPos: pSW3,  rotation: Rotation.R180,
     primitive: Primitive.SwitchLeft,
     data: switches[3],
   },

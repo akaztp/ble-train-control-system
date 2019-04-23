@@ -26,17 +26,17 @@ export const segment4: SimpleMap<Segment> = {
   } as Segment,
 };
 
-export const p1: Pos = {x: 6, y: 2};
+export const p1: Pos = {x: 6, y: 3};
 
 export const primitives4: PlacedPrimitive[] = addSegment(
   segment4[4],
   p1,
   [
     {
-      fromPos: {x: 0, y: 0}, toPos: {x: 12, y: 0}, rotation: Rotation.R0,
+      fromPos: {x: 0, y: 0}, toPos: {x: 10, y: 0}, rotation: Rotation.R0,
       primitive: Primitive.Straight,
     }, {
-    fromPos: {x: 1, y: 0}, toPos: null, rotation: Rotation.R180,
+    fromPos: {x: 1, y: 0},  rotation: Rotation.R180,
     primitive: Primitive.SignalLight,
     data: signalLights[40],
   },
