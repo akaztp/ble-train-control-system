@@ -37,7 +37,7 @@
 - Receives commands through BLE Connection
 - Routes BLE advertising through BLE Connection, bidirectionally
 
-## Command Center UI
+## Train Control Panel
 - Progressive WebApp with Web Bluetooth integration
 - Shows layout map
 - Shows trains presences on segments
