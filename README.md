@@ -2,9 +2,6 @@
 
 <img src="docs/layout-example.png" alt="Track layout" width="800"/>
 
-
-<img src="docs/train-layout-control-panel.png" alt="Track layout" width="800"/>
-
 ## Description
 Software for controlling a physical train layout, with automated track switches, trains and signal lights by using [Bluetooth LE](https://en.wikipedia.org/wiki/Bluetooth_Low_Energy). 
 The control is made within a WebApp, on a tablet/computer device with BLE support, that features:
@@ -23,6 +20,16 @@ The system inter-communication is accomplished by Bluetooth advertising packets.
 The Bluetooth connection from the WebApp to the train drivers allow for low latency commands of the trains, which would not be possible with advertising.
 
 Several WebApp can participate in the system controlling different trains.
+
+## BLE Train Control Panel
+<img src="docs/train-layout-control-panel.png" alt="Track layout" width="800"/>
+Included is the control panel webapp.
+
+To run it:
+- Clone this repo and go to `src/ble-train-control-panel`
+- `$ npm i`
+- `$ npm run serve` 
+
 
 ## Requirements: Hardware
 
