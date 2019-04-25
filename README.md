@@ -21,6 +21,11 @@ The Bluetooth connection from the WebApp to the train drivers allow for low late
 
 Several WebApp can participate in the system controlling different trains.
 
+## Documentation
+- [Components](./docs/components.md)
+- [State Machine](./docs/state-machine.md)
+- [Layout Descriptors](./docs/layout-descriptor.md)
+
 ## BLE Train Control Panel
 <img src="docs/train-layout-control-panel.png" alt="Track layout" width="800"/>
 Included is the control panel webapp.
