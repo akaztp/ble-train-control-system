@@ -1,7 +1,9 @@
 # BLE Train Control System
 
 <img src="docs/layout-example.png" alt="Track layout" width="800"/>
-<a data-flickr-embed="true"  href="https://www.flickr.com/photos/ztp/47626846272/in/dateposted-public/" title="Train Layout Control Panel (WIP)"><img src="https://live.staticflickr.com/65535/47626846272_b5a82d395f_c.jpg" width="800" height="399" alt="Train Layout Control Panel (WIP)"></a>
+
+
+<img src="docs/train-layout-control-panel.png" alt="Track layout" width="800"/>
 
 ## Description
 Software for controlling a physical train layout, with automated track switches, trains and signal lights by using [Bluetooth LE](https://en.wikipedia.org/wiki/Bluetooth_Low_Energy). 
