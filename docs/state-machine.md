@@ -7,7 +7,6 @@ State machine diagram (a bit outdated)
 ## State:
   - Segments
   - Trains
-  - SignalLights
   - Switches
   - CurrentDeviceInfo
   - layoutId
@@ -26,8 +25,8 @@ State machine diagram (a bit outdated)
     - Updates Trains
   - Switch(switchId, direction, enabled)
     - Updates Layout
-  - SignalLight(signalId, state)
-    - Updates Signals
+  - SignalLight(segmentId, signalId, state)
+    - Updates Segments
   - MilestoneHit(trainId, segmentId, signalId, signalLightState)
   - TrainSensor(state, segmentId, signalId)
   
@@ -109,11 +108,11 @@ State machine diagram (a bit outdated)
 On Action: TrainPosition(trainId, segmentId, enteringSegment)
   Layout.segments.ForEach(segment)
       If isSegmentOccupied(segment) // a train in between segments occupies both
-          getSignalLightsIntoSegment(segment).forEach(signal)
-              >SignalLight(signalId, red), if it is not already and if owned by current device
+          getSignalLightsIntoSegment(segment).forEach(segmentId, signalId)
+              >SignalLight(segmentId, signalId, red), if it is not already and if owned by current device
       Else
-          getSignalLightsIntoSegment(segment).forEach(signal)
-              >SignalLight(signalId, green), if it is not already and if owned by current device
+          getSignalLightsIntoSegment(segment).forEach(segmentId, signal)
+              >SignalLight(segmentId, signalId, green), if it is not already and if owned by current device
 ```
 
 - Effect: Switch Availability
@@ -164,9 +163,8 @@ On Action: TrainSensor(state, segmentId, signalId)
   - Devices: Train Control Panel for external trains
   - Devices: Train Actuator, Train Control Panel (simulator)
 ```text
-On Action: SignalLight(signalId, state)
+On Action: SignalLight(segmentId, signalId, state)
   If state == GREEN
-      segmentId = findSignalLight(signalId)
       train =  findTrainInsideSegment(segmentId)
       if train && train.speed == 0 &&  && isInCurrentDevice(trainId) 
           >TrainPosition(trainId, train.segmentId, enteringSegment = nextSegment(segmentId, signalId))
