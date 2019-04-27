@@ -2,11 +2,11 @@ import { addPos, Pos, SimpleMap } from '@logic/models/base';
 import { PlacedPrimitive } from '@logic/models/layout-descriptor/placed-primitive';
 import { Primitive } from '@logic/models/layout-descriptor/primitive';
 import { Rotation } from '@logic/models/layout-descriptor/rotation';
-import { Segment } from '@logic/models/layout-descriptor/segment';
+import { Segment } from '@logic/models/segment';
 import {
   SignalLight,
   SignalLightState,
-} from '@logic/models/layout-descriptor/signal-light';
+} from '@logic/models/signal-light';
 import { addSegment } from '../utils/add-segment';
 import { p2 as seg1P2 } from './segment1';
 

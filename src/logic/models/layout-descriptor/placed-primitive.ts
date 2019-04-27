@@ -1,7 +1,7 @@
 import { Data, Id, Pos } from '../base';
 import { Primitive } from './primitive';
 import { Rotation } from './rotation';
-import { Segment } from './segment';
+import { Segment } from '../segment';
 
 export interface PlacedPrimitive {
   fromPos: Pos;

@@ -1,4 +1,4 @@
-import { Data, Id, SimpleMap } from '../base';
+import { Data, Id, SimpleMap } from './base';
 import { SignalLight } from './signal-light';
 import { Switch } from './switch';
 

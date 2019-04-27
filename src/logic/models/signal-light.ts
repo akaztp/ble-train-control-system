@@ -1,4 +1,4 @@
-import { Data, Id } from '../base';
+import { Data, Id } from './base';
 
 export interface SignalLight extends Data {
   id: Id;

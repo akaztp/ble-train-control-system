@@ -40,7 +40,7 @@
   import {
     SignalLight,
     SignalLightState,
-  } from '@logic/models/layout-descriptor/signal-light';
+  } from '@logic/models/signal-light';
   import { Component, Prop, Vue } from 'vue-property-decorator';
 
   @Component({})

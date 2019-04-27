@@ -1,4 +1,4 @@
-import { Data, Id } from '../base';
+import { Data, Id } from './base';
 import { Device } from './device';
 import { SignalLight } from './signal-light';
 

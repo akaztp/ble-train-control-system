@@ -2,7 +2,7 @@ import { addPos, Data, Pos } from '@logic/models/base';
 import { PlacedPrimitive } from '@logic/models/layout-descriptor/placed-primitive';
 import { Primitive } from '@logic/models/layout-descriptor/primitive';
 import { Rotation } from '@logic/models/layout-descriptor/rotation';
-import { Segment } from '@logic/models/layout-descriptor/segment';
+import { Segment } from '@logic/models/segment';
 
 export interface PartialPlacedPrimitive {
   fromPos: Pos;

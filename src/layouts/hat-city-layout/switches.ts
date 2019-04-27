@@ -1,5 +1,5 @@
 import { SimpleMap } from '@logic/models/base';
-import { Switch, SwitchPosition } from '@logic/models/layout-descriptor/switch';
+import { Switch, SwitchPosition } from '@logic/models/switch';
 
 export const switches: SimpleMap<Switch> = new Array(8).fill(null)
 .reduce(

@@ -28,7 +28,7 @@
   import {
     Switch,
     SwitchPosition,
-  } from '@logic/models/layout-descriptor/switch';
+  } from '@logic/models/switch';
   import { Component, Prop, Vue } from 'vue-property-decorator';
 
   @Component({})
