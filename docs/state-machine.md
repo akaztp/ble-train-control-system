@@ -60,6 +60,10 @@ State machine diagram (a bit outdated)
   - \>TrainPosition
   - \>TrainSpeed
 
+- Actions Source: Switch Change
+  - Devices: Train Control Panel
+  - \>Switch
+
 - Actions Source: BLE Advertisement
   - Devices: All, except Train Control Panel
   - Input: BLE hardware
