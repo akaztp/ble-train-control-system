@@ -13,6 +13,9 @@
     "paths": {
       "@logic/*": [
         "./logic/*"
+      ],
+      "@layout/*": [
+        "../layouts/hat-city-layout/*"
       ]
     }
   }
