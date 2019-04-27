@@ -3,6 +3,7 @@ import { interSegment0 } from './inter-segment0';
 import { interSegment1 } from './inter-segment1';
 import { interSegment2 } from './inter-segment2';
 import { interSegment3 } from './inter-segment3';
+import { layoutId } from './layout-id';
 import { primitives0 } from './segment0';
 import { primitives1 } from './segment1';
 import { primitives2 } from './segment2';
@@ -15,7 +16,7 @@ import { primitives8 } from './segment8';
 import { primitives9 } from './segment9';
 
 export const trackLayout: LayoutDescriptor = {
-  id: 1,
+  id: layoutId,
   canvas: {x: 30, y: 15},
   primitives: [
     ...interSegment0,
