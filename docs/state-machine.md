@@ -19,7 +19,7 @@ State machine diagram (a bit outdated)
   
   
 ## Actions and Reducers
-  - TrainPosition(trainId, segmentId, enteringSegment)
+  - TrainPosition(trainId, segmentId, enteringSegmentId)
     - Updates Trains
   - TrainSpeed(trainId, speed)
     - Updates Trains
@@ -105,7 +105,7 @@ State machine diagram (a bit outdated)
 - Effect: Signal Lights Calculation
   - Devices: Signal Light, Train Control Panel (simulator)
 ```text
-On Action: TrainPosition(trainId, segmentId, enteringSegment)
+On Action: TrainPosition(trainId, segmentId, enteringSegmentId)
   Layout.segments.ForEach(segment)
       If isSegmentOccupied(segment) // a train in between segments occupies both
           getSignalLightsIntoSegment(segment).forEach(segmentId, signalId)
@@ -118,10 +118,10 @@ On Action: TrainPosition(trainId, segmentId, enteringSegment)
 - Effect: Switch Availability
   - Devices: Train Control Panel
 ```text
-On Action: TrainPosition(trainId, segmentId, enteringSegment)
-    If enteringSegment != null
+On Action: TrainPosition(trainId, segmentId, enteringSegmentId)
+    If enteringSegmentId != null
         Layout.switches.forEach(switch)
-            If isSwitchInPath(segmentId, enteringSegment)
+            If isSwitchInPath(segmentId, enteringSegmentId)
                 >Switch(switch, pos, enabled=false), set broadcasted to true
             Else
                 >Switch(switch, pos, enabled=true), set broadcasted to true
@@ -134,11 +134,11 @@ On Action: MilestoneHit(trainId, segmentId, signalId)
   If isInCurrentDevice(trainId) 
       If isTrainInsideSegment(trainId, segmentId)
           If isGreen(signalId)
-              >TrainPosition(trainId, train.segmentId, enteringSegment = nextSegment(segmentId, signalId))
+              >TrainPosition(trainId, train.segmentId, enteringSegmentId = nextSegment(segmentId, signalId))
           Else
               >TrainSpeed(trainId, 0) // this can be done by "Actions Source: Milestone Sensor"
       ElseIf isTrainEnterSegment(trainId, segmentId)
-          >TrainPosition(trainId, segmentId, enteringSegment = null)
+          >TrainPosition(trainId, segmentId, enteringSegmentId = null)
 ```
 
 - Effect: Train Position Calculation for Sensor
@@ -150,13 +150,13 @@ On Action: TrainSensor(state, segmentId, signalId)
       train = findTrainInsideSegment(segmentId)
       if train && isInCurrentDevice(trainId) 
           If isGreen(signalId)
-              >TrainPosition(train.Id, train.segmentId, enteringSegment = nextSegment(segmentId, signalId)))
+              >TrainPosition(train.Id, train.segmentId, enteringSegmentId = nextSegment(segmentId, signalId)))
           Else
               >TrainSpeed(trainId, 0)
       Else
           train = findTrainEnterSegment(segmentId)
           if train && isInCurrentDevice(trainId) 
-              >TrainPosition(trainId, segmentId, enteringSegment = null)
+              >TrainPosition(trainId, segmentId, enteringSegmentId = null)
 ```
 
 - Effect: Train Green-Go
@@ -167,6 +167,6 @@ On Action: SignalLight(segmentId, signalId, state)
   If state == GREEN
       train =  findTrainInsideSegment(segmentId)
       if train && train.speed == 0 &&  && isInCurrentDevice(trainId) 
-          >TrainPosition(trainId, train.segmentId, enteringSegment = nextSegment(segmentId, signalId))
+          >TrainPosition(trainId, train.segmentId, enteringSegmentId = nextSegment(segmentId, signalId))
           >TrainSpeed(train.speedBeforeStop)
 ```
