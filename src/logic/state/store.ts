@@ -18,7 +18,7 @@ export interface Store<S> {
   dispatcher: Dispatcher;
 }
 
-export function initStore<S>(
+export function createStore<S>(
   state: S,
   reducers: Reducer<S>[],
   effects: Effect<S>[],

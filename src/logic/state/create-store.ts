@@ -1,6 +1,6 @@
 import { State } from '@logic/models/state';
 import { initialState } from '@logic/state/initial-state';
-import { ActionSource, Effect, initStore, Reducer } from '@logic/state/store';
+import { ActionSource, Effect, createStore, Reducer } from '@logic/state/store';
 
 const reducers: Reducer<State>[] = [
 
@@ -14,7 +14,7 @@ const actionSources: ActionSource<State>[] = [
 
 ];
 
-initStore<State>(
+createStore<State>(
   initialState,
   reducers,
   effects,
