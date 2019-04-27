@@ -1,4 +1,5 @@
 # State Machine
+All logic is implemented via a custom state machine similar to [Redux](https://redux.js.org/)
 
 ![State Machine](./state-machine.png)
 
@@ -31,7 +32,7 @@ State machine diagram (a bit outdated)
   - TrainSensor(state, segmentId, signalId)
   
   
- ## Actions Sources
+ ## Action Sources
 
 - Actions Source: Milestone Sensor
   - Devices: Train Driver
