@@ -1,19 +1,31 @@
+import { layoutId } from '@layout/layout-id';
 import { Id } from '@logic/models/base';
 import { SignalLightState } from '@logic/models/signal-light';
 import { SwitchPosition } from '@logic/models/switch';
 import { StoreAction } from '@logic/state/store';
 
-export interface BroadcastAction<T> extends StoreAction<T> {
+export interface BroadcastAction<P> extends StoreAction<P> {
   layoutId: Id;
   timestamp: number;
-  payload: T;
+  payload: P;
 }
 
-export interface LocalAction<T> extends BroadcastAction<T> {
+export interface LocalAction<P> extends BroadcastAction<P> {
   isBroadcasted: boolean;
 }
 
-enum ActionTypes {
+export function localActionCreator<P>(
+  type: ActionType, payload: P): LocalAction<P> {
+  return {
+    layoutId: layoutId,
+    timestamp: Date.now(),
+    isBroadcasted: false,
+    type,
+    payload,
+  } as LocalAction<P>;
+}
+
+export enum ActionType {
   TrainPosition = 1,
   TrainSpeed,
   Switch,
@@ -21,23 +33,40 @@ enum ActionTypes {
   TrainSensor,
 }
 
-
 export interface ActionPayloadTrainPosition {
   trainId: Id;
   segmentId: Id;
   enteringSegmentId: Id;
 }
 
-export interface ActionTrainPosition
-  extends LocalAction<ActionPayloadTrainPosition> {
+export function createActionTrainPosition(
+  trainId: Id,
+  segmentId: Id,
+  enteringSegmentId: Id,
+): LocalAction<ActionPayloadTrainPosition> {
+  return localActionCreator<ActionPayloadTrainPosition>(
+    ActionType.TrainPosition,
+    {
+      trainId,
+      segmentId,
+      enteringSegmentId,
+    },
+  );
 }
 
 export interface ActionPayloadTrainSpeed {
   speed: number;
 }
 
-export interface ActionTrainSpeed
-  extends LocalAction<ActionPayloadTrainSpeed> {
+export function createActionTrainSpeed(
+  speed: number,
+): LocalAction<ActionPayloadTrainSpeed> {
+  return localActionCreator<ActionPayloadTrainSpeed>(
+    ActionType.TrainSpeed,
+    {
+      speed,
+    },
+  );
 }
 
 export interface ActionPayloadSwitch {
@@ -46,8 +75,19 @@ export interface ActionPayloadSwitch {
   enabled: boolean;
 }
 
-export interface ActionSwitch
-  extends LocalAction<ActionPayloadSwitch> {
+export function createActionSwitch(
+  switchId: Id,
+  position: SwitchPosition,
+  enabled: boolean,
+): LocalAction<ActionPayloadSwitch> {
+  return localActionCreator<ActionPayloadSwitch>(
+    ActionType.Switch,
+    {
+      switchId,
+      position,
+      enabled,
+    },
+  );
 }
 
 export interface ActionPayloadSignalLight {
@@ -56,12 +96,38 @@ export interface ActionPayloadSignalLight {
   state: SignalLightState;
 }
 
-export interface ActionSignalLight
-  extends LocalAction<ActionPayloadSignalLight> {
+export function createActionSignalLight(
+  segmentId: Id,
+  signalId: Id,
+  state: SignalLightState,
+): LocalAction<ActionPayloadSignalLight> {
+  return localActionCreator<ActionPayloadSignalLight>(
+    ActionType.SignalLight,
+    {
+      segmentId,
+      signalId,
+      state,
+    },
+  );
 }
 
 export interface ActionPayloadTrainSensor {
-  state: boolean;
   segmentId: Id;
+  state: boolean;
   signalId: Id;
+}
+
+export function createActionTrainSensor(
+  segmentId: Id,
+  state: boolean,
+  signalId: Id,
+): LocalAction<ActionPayloadTrainSensor> {
+  return localActionCreator<ActionPayloadTrainSensor>(
+    ActionType.TrainSensor,
+    {
+      segmentId,
+      state,
+      signalId,
+    },
+  );
 }
