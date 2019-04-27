@@ -3,6 +3,7 @@ import { Data, Id } from './base';
 export interface Switch extends Data {
   id: Id;
   position: SwitchPosition | null;
+  enabled: boolean;
 }
 
 export enum SwitchPosition {
