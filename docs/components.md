@@ -1,38 +1,45 @@
-# Components
+# Abstraction
+
+- A train layout is partitioned into *segments* and *inter-segments*. Segments are connected by means of inter-segments.
+- Every segment has at most two ends, with a signal light and a milestone/sensor at each end.
+- A Train can be in one segment OR a Train can be in two segments connected by an inter-segment.
+- Track switches are inside inter-segments only.
+- An inter-segment can have several paths, some enabled, other disabled according to its switches positions.  
+
+# Modeled Components
 
 ## Segment
-- Partitions the track layout into parts (may include switch and branches) where only at most one train can be located. Normally start at a switch and end at a switch
-- Occupied or free segment
-- One segment has several possible paths, that may depend on switches positions
+- On each end: has one Signal Light
+- On each end: has paths to other segment specifying the necessary states of switches
 
 ## Switch
 - Track switch (or turnout) with two positions
-- Micro-controlled with BLE
 - Two positions
 - Commanded only by UI
-- Can change segment configuration between positions (?)
-- Defers/prevents switching if train is in-between segments
-- Receives commands through BLE Advertising
+- Prevents switching if train is in-between segments
+- Micro-controlled with BLE Advertising
 
-## Signal light
-- Is a two mutual exclusive LEDs: reg and green
-- Micro-controlled with BLE
+## Signal Light
+- Is a two mutual exclusive LEDs: red and green
 - Pertains to exiting one segment
 - Set green light, if: next segment is free, red otherwise
 - Calculates "next segment" with map, switch positions and trains presences
-- Receives commands through BLE Advertising
+- Micro-controlled with BLE Advertising
 
-## Track milestone
-- Emitter to signal segment exit and thus a signal light
-- Micro-controlled with BLE
-- Advertises at low power
-- Only advertises if corresponding signal light is red
-- Sends/Receives commands through BLE Advertising
+## Track Milestone (excludes Train Sensor component)
+- Emitter to signal segment exit and a signal light
+- Picked up by Train Drivers that immediately react to signal light state
+- Micro-controlled with BLE Advertising
+- BLE Advertises the corresponding signal light state, at low power
+
+## Train Sensor (excludes Track Milestone component)
+- IR presence sensor
+- Communicates state using BLE Advertising
 
 ## Train Driver
+- Sets the speed/dir of train motor
+- Stops when milestone with red signal is detected
 - Micro-controlled with BLE
-- Stops when milestone is detected
-- Filters for milestone that is in segment and according to train dir
 - Sends/Receives commands through BLE Advertising
 - Receives commands through BLE Connection
 - Routes BLE advertising through BLE Connection, bidirectionally
@@ -41,12 +48,14 @@
 - Progressive WebApp with Web Bluetooth integration
 - Shows layout map
 - Shows trains presences on segments
-- Shows switch status
+- Shows switches status
 - Shows lights status
 - Command for each switch
 - Command for each train speed, direction, stop
 - Receives commands through BLE Connection
 - Sends commands through BLE Connection
+- Adds trains (controlled or uncontrolled) to a layout
+- Simulator mode
 - Requirements:
   - Windows 10, Chrome 70
   - Android 6, Mobile Chrome

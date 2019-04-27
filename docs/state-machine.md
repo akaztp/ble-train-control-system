@@ -5,90 +5,170 @@
 State machine diagram (a bit outdated)
 
 ## State:
-  - Layout: segmentMap
-  - Trains: trainPosition[]
-  - Signals: signalState[]
+  - Segments
+  - Trains
+  - SignalLights
+  - Switches
   - CurrentDeviceInfo
+  - layoutId
+  
   
 ## Action common payload
   - layoutId
   - timestamp
-  - sourceId
+  - broadcasted (not present on BLE packets)
+  
   
 ## Actions and Reducers
-  - TrainPosition(trainId, segmentId, dir, betweenNextSegment)
+  - TrainPosition(trainId, segmentId, enteringSegment)
     - Updates Trains
-  - TrainSpeed(trainId, speed, dir)
+  - TrainSpeed(trainId, speed)
     - Updates Trains
   - Switch(switchId, direction, enabled)
     - Updates Layout
-  - SignalLight(lightId, state)
+  - SignalLight(signalId, state)
     - Updates Signals
-  - MilestoneHit
+  - MilestoneHit(trainId, segmentId, signalId, signalLightState)
+  - TrainSensor(state, segmentId, signalId)
+  
   
  ## Actions Sources
-- Actions Source: Milestone Sensor
-  - \>MilestoneHit
-- Actions Source: Milestone Simulator
-  - \>MilestoneHit
-- Actions Source: Train Position Reset
-  - \>TrainSpeed
-  - \>TrainPosition
-- Actions Source: BLE Advertisement
-  - Dispatch BLE received action
-  - Manage repeated received actions by using timestamp
-- Actions Source: BLE Connection
-  - Dispatch BLE received action, setting sourceId to currentDeviceId
 
- 
+- Actions Source: Milestone Sensor
+  - Devices: Train Driver
+  - Input: BLE Advertising sensing for Milestone (provides: segmentId, signalId, signalLightState)
+  - \>MilestoneHit
+  - \>TrainSpeed(0) if sensor segmentId equals current train segmentId and sensor is red
+
+- Actions Source: Milestone Sensor Simulator
+  - Devices: Train Control Panel (simulator)
+  - Input: train movement simulation
+  - Same logic as "Actions Source: Milestone Sensor"
+
+- Actions Source: Train Sensor
+  - Devices: Train Sensor
+  - Input: hardware sensor (provides: state)
+  - \>TrainSensor
+
+- Actions Source: Train Sensor Simulator
+  - Devices: Train Control Panel (simulator)
+  - Input: train movement simulation
+  - Same logic as "Actions Source: Train Sensor"
+
+- Actions Source: Train Position Reset
+  - Devices: Train Control Panel
+  - \>TrainPosition
+  - \>TrainSpeed
+
+- Actions Source: BLE Advertisement
+  - Devices: All, except Train Control Panel
+  - Input: BLE hardware
+  - Dispatch BLE received action
+  - Ignores repeated received actions by using timestamp
+
+- Actions Source: BLE Connection
+  - Devices: Train Driver
+  - Input: BLE hardware
+  - Dispatch BLE received action, setting broadcasted to false
+
+
 ## Effects
+
 - Effect: BLE Advertisement
-  - Send all Action through BLE Advertising, IF sourceId == currentDeviceId
-  - BLE advertisement repeat last action repeatedly at intervals
+  - Devices: All, except: Train Control Panel, Track Milestone
+  - Send all state Actions through BLE Advertising, if not broadcasted
+  - BLE advertisement repeats last action at intervals
+
 - Effect: BLE Connection
-  - Send all Action through BLE Connection, IF sourceId != connectionDestinationDeviceId
+  - Devices: Train Driver
+  - Send all state Actions through BLE Connection, if not broadcasted
+
 - Effect: Train Actuator
-  - TrainSpeed
+  - Devices: Train Driver
+  - On TrainSpeed
     - Updates hardware
+
 - Effect: Switch Actuator
-  - Switch
+  - Devices: Switch
+  - On Switch
     - Updates hardware
+
 - Effect: Signal Light Actuator
-  - SignalLight
+  - Devices: Signal Light
+  - On SignalLight
     - Updates hardware
-- Effect: Train Position Calculation
-  - Only works if on same device with "Actions Source: Milestone Sensor"
-```
-On Action: MilestoneHit(milestoneId)
-    If isTrainHitted(currentDeviceTrain, milestoneId) && state action source == currentDeviceId
-        If isTrainOutside(train)
-            >TrainPosition(train, segmentId, betweenNextSegment=null)
-        Else
-            If isSignalRed(milestoneId, train.dir)
-                >TrainSpeed(train, speed=0, train.dir)
-                If (train.segment == unknown)
-                    >TrainPosition(train, segmentId, betweenNextSegment=null)
-            Else
-                >TrainPosition(train, segmentId, betweenNextSegment)
-```
+
+- Effect: Milestone Update
+  - Devices: Track Milestone
+  - On SignalLight
+    - Sets milestone device BLE Advertising with segmentId, signal light (id and state)
+
 - Effect: Signal Lights Calculation
-```
-On Action: TrainPosition(trainId, segmentId, dir (FW|REV), betweenNextSegment)
+  - Devices: Signal Light, Train Control Panel (simulator)
+```text
+On Action: TrainPosition(trainId, segmentId, enteringSegment)
   Layout.segments.ForEach(segment)
       If isSegmentOccupied(segment) // a train in between segments occupies both
           getSignalLightsIntoSegment(segment).forEach(signal)
-              >SignalLight(lightId, red), if it is not already and if owned by current device
+              >SignalLight(signalId, red), if it is not already and if owned by current device
       Else
           getSignalLightsIntoSegment(segment).forEach(signal)
-              >SignalLight(lightId, green), if it is not already and if owned by current device
+              >SignalLight(signalId, green), if it is not already and if owned by current device
 ```
+
 - Effect: Switch Availability
-```
-On Action: TrainPosition(trainId, segmentId, dir (FW|REV), betweenNextSegment)
-    If betweenNextSegment != null
+  - Devices: Train Control Panel
+```text
+On Action: TrainPosition(trainId, segmentId, enteringSegment)
+    If enteringSegment != null
         Layout.switches.forEach(switch)
-            If isSwitchInPath(segmentId, betweenNextSegment)
-                >Switch(switch, pos, enabled=false)
+            If isSwitchInPath(segmentId, enteringSegment)
+                >Switch(switch, pos, enabled=false), set broadcasted to true
             Else
-                >Switch(switch, pos, enabled=true)
+                >Switch(switch, pos, enabled=true), set broadcasted to true
+```
+
+- Effect: Train Position Calculation for Milestone
+  - Devices: Train Actuator, Train Control Panel (simulator)
+```text
+On Action: MilestoneHit(trainId, segmentId, signalId)
+  If isInCurrentDevice(trainId) 
+      If isTrainInsideSegment(trainId, segmentId)
+          If isGreen(signalId)
+              >TrainPosition(trainId, train.segmentId, enteringSegment = nextSegment(segmentId, signalId))
+          Else
+              >TrainSpeed(trainId, 0) // this can be done by "Actions Source: Milestone Sensor"
+      ElseIf isTrainEnterSegment(trainId, segmentId)
+          >TrainPosition(trainId, segmentId, enteringSegment = null)
+```
+
+- Effect: Train Position Calculation for Sensor
+  - Devices: Train Control Panel for external trains
+  - Devices: Train Actuator, Train Control Panel (simulator)
+```text
+On Action: TrainSensor(state, segmentId, signalId)
+  If state == ON
+      train = findTrainInsideSegment(segmentId)
+      if train && isInCurrentDevice(trainId) 
+          If isGreen(signalId)
+              >TrainPosition(train.Id, train.segmentId, enteringSegment = nextSegment(segmentId, signalId)))
+          Else
+              >TrainSpeed(trainId, 0)
+      Else
+          train = findTrainEnterSegment(segmentId)
+          if train && isInCurrentDevice(trainId) 
+              >TrainPosition(trainId, segmentId, enteringSegment = null)
+```
+
+- Effect: Train Green-Go
+  - Devices: Train Control Panel for external trains
+  - Devices: Train Actuator, Train Control Panel (simulator)
+```text
+On Action: SignalLight(signalId, state)
+  If state == GREEN
+      segmentId = findSignalLight(signalId)
+      train =  findTrainInsideSegment(segmentId)
+      if train && train.speed == 0 &&  && isInCurrentDevice(trainId) 
+          >TrainPosition(trainId, train.segmentId, enteringSegment = nextSegment(segmentId, signalId))
+          >TrainSpeed(train.speedBeforeStop)
 ```
