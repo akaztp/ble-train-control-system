@@ -24,7 +24,7 @@ State machine diagram (a bit outdated)
     - Updates Trains
   - TrainSpeed(trainId, speed)
     - Updates Trains
-  - Switch(switchId, direction, enabled)
+  - Switch(switchId, position, enabled)
     - Updates Layout
   - SignalLight(segmentId, signalId, state)
     - Updates Segments
