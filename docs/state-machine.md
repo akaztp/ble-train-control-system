@@ -116,7 +116,7 @@ State machine diagram (a bit outdated)
 - Effect: Signal Lights Calculation
   - Devices: Signal Light, Train Control Panel (simulator)
 ```text
-On Action: TrainPosition(trainId, segmentId, enteringSegmentId)
+On Action: TrainPosition() or Switch()
   Layout.segments.ForEach(segment)
       If isSegmentOccupied(segment) // a train in between segments occupies both
           getSignalLightsIntoSegment(segment).forEach(segmentId, signalId)
