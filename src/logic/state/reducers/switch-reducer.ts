@@ -7,10 +7,7 @@ import {
 import { Reducer } from '@logic/state/store';
 
 export const switchReducer: Reducer<State, LocalAction<ActionPayloadSwitch>> =
-  function (
-    state,
-    action,
-  ): void {
+  (state, action): void => {
     switch (action.type) {
       case ActionType.Switch: {
         const sw = state.switches[action.payload.switchId];

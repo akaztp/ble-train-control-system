@@ -17,7 +17,7 @@ export interface LocalAction<P> extends BroadcastAction<P> {
 export function localActionCreator<P>(
   type: ActionType, payload: P): LocalAction<P> {
   return {
-    layoutId: layoutId,
+    layoutId,
     timestamp: Date.now(),
     isBroadcasted: false,
     type,
