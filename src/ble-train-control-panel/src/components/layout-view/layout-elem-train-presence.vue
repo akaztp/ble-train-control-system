@@ -1,16 +1,22 @@
 <template>
-  <div><span class="indicator">{{trainName}}</span></div>
+  <div
+    v-on:click="click()"
+  ><span class="indicator">{{trainName}}</span></div>
 </template>
 
 <script lang="ts">
   import { Segment } from '@logic/models/segment';
   import { Train } from '@logic/models/train';
-  import { Component, Prop, Vue } from 'vue-property-decorator';
+  import { Component, Emit, Prop, Vue } from 'vue-property-decorator';
 
   @Component({})
   export default class LayoutElemTrainPresence extends Vue {
     @Prop() train!: Train;
     @Prop() segment!: Segment;
+
+    @Emit()
+    click(): void {
+    }
 
     get trainName(): string {
       if (!this.train) {

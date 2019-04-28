@@ -17,8 +17,9 @@
       <layout-elem-signal-light v-if="p.primitive === primitiveSignalLight"
         v-bind:data="p.data"></layout-elem-signal-light>
       <layout-elem-train-presence v-if="p.primitive === primitiveTrainPresence"
-        v-bind:segment="p.segment"
+        v-bind:segment="primitive.segment"
         v-bind:train="train"
+        v-on:click="onTrainPresenceClick($event, primitive.segment, train)"
       ></layout-elem-train-presence>
     </div>
   </div>
@@ -34,8 +35,9 @@
   import { Data } from '@logic/models/base';
   import { PlacedPrimitive } from '@logic/models/layout-descriptor/placed-primitive';
   import { Primitive } from '@logic/models/layout-descriptor/primitive';
+  import { Segment } from '@logic/models/segment';
   import { Train } from '@logic/models/train';
-  import { Component, Inject, Prop, Vue } from 'vue-property-decorator';
+  import { Component, Emit, Inject, Prop, Vue } from 'vue-property-decorator';
   import LayoutElemCorner from './layout-elem-corner.vue';
   import LayoutElemDiagonalL from './layout-elem-diagonal-l.vue';
   import LayoutElemDiagonalR from './layout-elem-diagonal-r.vue';
@@ -57,8 +59,14 @@
     },
   })
   export default class LayoutElem extends Vue {
-    @Prop() private primitive!: PlacedPrimitive;
-    @Prop() private scale!: number;
+    @Prop() primitive!: PlacedPrimitive;
+    @Prop() scale!: number;
+
+    @Emit() trainPresenceClick(
+      segment: Segment,
+      train: Train,
+    ) {}
+
     @Inject(storeInterfaceInjectorKey) readonly storeInterface!: StoreInterface;
 
     get dataId(): string {
@@ -110,7 +118,15 @@
       return expansion;
     }
 
-    createPrimitiveInstance(x: number, y: number): PrimitiveInstance {
+    onTrainPresenceClick(
+      event: Event,
+      segment: Segment,
+      train: Train,
+    ): void {
+      this.trainPresenceClick(segment, train);
+    }
+
+    private createPrimitiveInstance(x: number, y: number): PrimitiveInstance {
       return {
         primitive: this.primitive.primitive,
         data: this.primitive.data,

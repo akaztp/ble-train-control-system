@@ -4,7 +4,9 @@
     <template v-for="p in primitives">
       <layout-elem
         v-bind:primitive="p"
-        v-bind:scale="scale"></layout-elem>
+        v-bind:scale="scale"
+        v-on:train-presence-click="trainPresenceClick"
+      ></layout-elem>
     </template>
   </div>
 </template>
@@ -13,7 +15,9 @@
   import { trackLayout } from '@layout/track-layout';
   import { Pos } from '@logic/models/base';
   import { PlacedPrimitive } from '@logic/models/layout-descriptor/placed-primitive';
-  import { Component, Vue } from 'vue-property-decorator';
+  import { Segment } from '@logic/models/segment';
+  import { Train } from '@logic/models/train';
+  import { Component, Emit, Vue } from 'vue-property-decorator';
   import LayoutElem from './layout-elem.vue';
 
   const scale = 30;
@@ -31,9 +35,14 @@
     },
   })
   export default class LayoutView extends Vue {
-    private canvas: Pos = getCanvasPx();
-    private primitives: PlacedPrimitive[] = trackLayout.primitives;
-    private scale: number = scale;
+    @Emit() trainPresenceClick(
+      segment: Segment,
+      train: Train,
+    ) {}
+
+    canvas: Pos = getCanvasPx();
+    primitives: PlacedPrimitive[] = trackLayout.primitives;
+    scale: number = scale;
   }
 
 </script>
