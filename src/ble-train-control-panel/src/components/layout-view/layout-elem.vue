@@ -16,15 +16,26 @@
         v-bind:data="p.data"></layout-elem-switch-right>
       <layout-elem-signal-light v-if="p.primitive === primitiveSignalLight"
         v-bind:data="p.data"></layout-elem-signal-light>
+      <layout-elem-train-presence v-if="p.primitive === primitiveTrainPresence"
+        v-bind:segment="p.segment"
+        v-bind:train="train"
+      ></layout-elem-train-presence>
     </div>
   </div>
 </template>
 
 <script lang="ts">
+  import LayoutElemTrainPresence
+    from '@/components/layout-view/layout-elem-train-presence.vue';
+  import {
+    StoreInterface,
+    storeInterfaceInjectorKey,
+  } from '@/store/store-interface';
   import { Data } from '@logic/models/base';
   import { PlacedPrimitive } from '@logic/models/layout-descriptor/placed-primitive';
   import { Primitive } from '@logic/models/layout-descriptor/primitive';
-  import { Component, Prop, Vue } from 'vue-property-decorator';
+  import { Train } from '@logic/models/train';
+  import { Component, Inject, Prop, Vue } from 'vue-property-decorator';
   import LayoutElemCorner from './layout-elem-corner.vue';
   import LayoutElemDiagonalL from './layout-elem-diagonal-l.vue';
   import LayoutElemDiagonalR from './layout-elem-diagonal-r.vue';
@@ -35,6 +46,7 @@
 
   @Component({
     components: {
+      LayoutElemTrainPresence,
       LayoutElemStraight,
       LayoutElemCorner,
       LayoutElemSwitchLeft,
@@ -47,20 +59,30 @@
   export default class LayoutElem extends Vue {
     @Prop() private primitive!: PlacedPrimitive;
     @Prop() private scale!: number;
+    @Inject(storeInterfaceInjectorKey) readonly storeInterface!: StoreInterface;
 
     get dataId(): string {
       return this.primitive.data ? this.primitive.data.id.toString() : '';
     }
 
-    private primitiveStraight = Primitive.Straight;
-    private primitiveCorner = Primitive.Corner;
-    private primitiveDiagonalL = Primitive.DiagonalL;
-    private primitiveDiagonalR = Primitive.DiagonalR;
-    private primitiveSwitchLeft = Primitive.SwitchLeft;
-    private primitiveSwitchRight = Primitive.SwitchRight;
-    private primitiveSignalLight = Primitive.SignalLight;
+    get train(): Train | null {
+      if (this.primitive.segment) {
+        return this.storeInterface.findTrainTouchingSegment(this.primitive.segment) ||
+          null;
+      }
+      return null;
+    }
 
-    private expandPrimitive(): PrimitiveInstance[] {
+    primitiveStraight = Primitive.Straight;
+    primitiveCorner = Primitive.Corner;
+    primitiveDiagonalL = Primitive.DiagonalL;
+    primitiveDiagonalR = Primitive.DiagonalR;
+    primitiveSwitchLeft = Primitive.SwitchLeft;
+    primitiveSwitchRight = Primitive.SwitchRight;
+    primitiveSignalLight = Primitive.SignalLight;
+    primitiveTrainPresence = Primitive.TrainPresence;
+
+    expandPrimitive(): PrimitiveInstance[] {
       const expansion: PrimitiveInstance[] = [];
 
       const fromPos = this.primitive.fromPos;
@@ -88,7 +110,7 @@
       return expansion;
     }
 
-    private createPrimitiveInstance(x: number, y: number): PrimitiveInstance {
+    createPrimitiveInstance(x: number, y: number): PrimitiveInstance {
       return {
         primitive: this.primitive.primitive,
         data: this.primitive.data,
@@ -99,6 +121,7 @@
           height: this.scale + 'px',
           transform: 'rotate(' + this.primitive.rotation + 'deg)',
         },
+
       };
     }
   }

@@ -50,7 +50,7 @@
     stateGreen = SignalLightState.Green;
     stateRed = SignalLightState.Red;
 
-    toggleSwitch($event) {
+    toggleSwitch(event: Event) {
       this.data.state =
         this.data.state === SignalLightState.Green ? SignalLightState.Red :
           SignalLightState.Green;

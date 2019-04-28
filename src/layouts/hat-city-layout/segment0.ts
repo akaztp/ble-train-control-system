@@ -54,6 +54,9 @@ export const primitives0: PlacedPrimitive[] = addSegment(
     fromPos: {x: 1, y: 1 - h1}, toPos: {x: w - 2 , y: 1 - h1}, rotation: Rotation.R0,
     primitive: Primitive.Straight,
   }, {
+    fromPos: {x: Math.round((w -  1) / 2), y: 1 - h1}, rotation: Rotation.R0,
+    primitive: Primitive.TrainPresence,
+  }, {
     fromPos: {x: w - 1, y: 1 - h1},  rotation: Rotation.R270,
     primitive: Primitive.Corner,
   }, {

@@ -1,4 +1,5 @@
 import { switchChanger } from '@/store/action-sources/switch-changer';
+import { findTrainTouchingSegment } from '@/store/selectors/find-train-touching-segment';
 import { StoreInterface } from '@/store/store-interface';
 import { layoutId } from '@layout/layout-id';
 import { State } from '@logic/models/state';
@@ -28,13 +29,17 @@ const effects: Effect<State>[] = [];
 export function createStoreInterface(): StoreInterface {
   const initialStoreInterface: StoreInterface = {
     switchChanger: noop,
+    findTrainTouchingSegment: () => null,
   };
-  const {context} = baseCreateStore<State, StoreInterface>(
+
+  const {store, context} = baseCreateStore<State, StoreInterface>(
     createInitialState(layoutId, deviceId),
     reducers,
     effects,
     actionSources,
     initialStoreInterface,
   );
+
+  context.findTrainTouchingSegment = findTrainTouchingSegment(store.state);
   return context;
 }

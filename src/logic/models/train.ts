@@ -3,8 +3,8 @@ import { Segment } from '@logic/models/segment';
 
 export interface Train extends Data {
   id: Id;
-  segmentId: Segment | null;
-  enteringSegmentId: Segment | null;
+  segment: Segment | null;
+  enteringSegment: Segment | null;
   speed: number;
   speedBeforeStop: number;
   isUncontrolled: boolean;

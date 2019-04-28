@@ -11,6 +11,15 @@ export function createInitialState(
     currentDeviceId,
     segments,
     switches,
-    trains: {},
+    trains: {
+      0 : {
+        id: 0,
+        segment: segments[0],
+        enteringSegment: null,
+        speed: 0,
+        isUncontrolled: false,
+        speedBeforeStop: 0,
+      },
+    },
   };
 }
