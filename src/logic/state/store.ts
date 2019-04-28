@@ -7,7 +7,7 @@ export type Reducer<S, A extends StoreAction<any> = StoreAction<any>> = (state: 
 
 export type Dispatcher = (action: StoreAction<any>) => void;
 
-export type ActionSource<S> = (state: S, dispatcher: Dispatcher) => void;
+export type ActionSource<S, C> = (state: S, dispatcher: Dispatcher, context: C) => C;
 
 export type Effect<S> = (action: StoreAction<any>, state: S) => StoreAction<any>[];
 
@@ -18,12 +18,18 @@ export interface Store<S> {
   dispatcher: Dispatcher;
 }
 
-export function createStore<S>(
+export interface CreatedStore<S, C> {
+  store: Store<S>;
+  context: C;
+}
+
+export function createStore<S, C>(
   state: S,
   reducers: Reducer<S, any>[],
   effects: Effect<S>[],
-  actionSources: ActionSource<S>[],
-): Store<S> {
+  actionSources: ActionSource<S, C>[],
+  initialContext: C,
+): CreatedStore<S, C> {
   const store: Store<S> = {
     state,
     reducers,
@@ -31,9 +37,15 @@ export function createStore<S>(
     dispatcher,
   };
 
-  actionSources.forEach(actionSource => actionSource(store.state, store.dispatcher));
+  const context =
+    actionSources.reduce(
+      (prevContext, actionSource) => actionSource(store.state, store.dispatcher, prevContext),
+      initialContext);
 
-  return store;
+  return {
+    store,
+    context
+  };
 
   function dispatcher<S>(action: StoreAction<any>): void {
     console.log('dispatcher(). action: ', action);
