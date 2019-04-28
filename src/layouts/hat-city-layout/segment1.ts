@@ -45,6 +45,10 @@ export const primitives1: PlacedPrimitive[] = addSegment(
       rotation: Rotation.R0,
       primitive: Primitive.Straight,
     }, {
+    fromPos: addPos({x: Math.round(p1.x + p2.x) / 2, y: p2.y}, {x: -p1.x, y: -p1.y}),
+    rotation: Rotation.R0,
+    primitive: Primitive.TrainPresence,
+  }, {
     fromPos: {x: -1, y: 0},  rotation: Rotation.R0,
     primitive: Primitive.SignalLight,
     data: signalLights1[10],
