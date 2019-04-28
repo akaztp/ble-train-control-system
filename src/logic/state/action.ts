@@ -40,17 +40,11 @@ export interface ActionPayloadTrainPosition {
 }
 
 export function createActionTrainPosition(
-  trainId: Id,
-  segmentId: Id,
-  enteringSegmentId: Id,
+  payload: ActionPayloadTrainPosition,
 ): LocalAction<ActionPayloadTrainPosition> {
   return localActionCreator<ActionPayloadTrainPosition>(
     ActionType.TrainPosition,
-    {
-      trainId,
-      segmentId,
-      enteringSegmentId,
-    },
+    payload,
   );
 }
 
@@ -59,13 +53,11 @@ export interface ActionPayloadTrainSpeed {
 }
 
 export function createActionTrainSpeed(
-  speed: number,
+  payload: ActionPayloadTrainSpeed,
 ): LocalAction<ActionPayloadTrainSpeed> {
   return localActionCreator<ActionPayloadTrainSpeed>(
     ActionType.TrainSpeed,
-    {
-      speed,
-    },
+    payload,
   );
 }
 
@@ -76,17 +68,11 @@ export interface ActionPayloadSwitch {
 }
 
 export function createActionSwitch(
-  switchId: Id,
-  position: SwitchPosition,
-  enabled: boolean,
+  payload: ActionPayloadSwitch,
 ): LocalAction<ActionPayloadSwitch> {
   return localActionCreator<ActionPayloadSwitch>(
     ActionType.Switch,
-    {
-      switchId,
-      position,
-      enabled,
-    },
+    payload,
   );
 }
 
@@ -97,17 +83,11 @@ export interface ActionPayloadSignalLight {
 }
 
 export function createActionSignalLight(
-  segmentId: Id,
-  signalId: Id,
-  state: SignalLightState,
+  payload: ActionPayloadSignalLight,
 ): LocalAction<ActionPayloadSignalLight> {
   return localActionCreator<ActionPayloadSignalLight>(
     ActionType.SignalLight,
-    {
-      segmentId,
-      signalId,
-      state,
-    },
+    payload,
   );
 }
 
@@ -118,16 +98,10 @@ export interface ActionPayloadTrainSensor {
 }
 
 export function createActionTrainSensor(
-  segmentId: Id,
-  state: boolean,
-  signalId: Id,
+  payload: ActionPayloadTrainSensor,
 ): LocalAction<ActionPayloadTrainSensor> {
   return localActionCreator<ActionPayloadTrainSensor>(
     ActionType.TrainSensor,
-    {
-      segmentId,
-      state,
-      signalId,
-    },
+    payload,
   );
 }
