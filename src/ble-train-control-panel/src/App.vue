@@ -10,7 +10,7 @@
     StoreInterface,
     storeInterfaceInjectorKey,
   } from '@/store/store-interface';
-  import { createStoreInterface } from '@/store/train-control-panel';
+  import { createStoreInterface } from '@/store/create-store-interface';
   import { Component, Provide, Vue } from 'vue-property-decorator';
 
   @Component({
