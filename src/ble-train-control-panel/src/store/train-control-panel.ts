@@ -27,7 +27,7 @@ const effects: Effect<State>[] = [];
 
 export function createStoreInterface(): StoreInterface {
   const initialStoreInterface: StoreInterface = {
-    switchChange: noop,
+    switchChanger: noop,
   };
   const {context} = baseCreateStore<State, StoreInterface>(
     createInitialState(layoutId, deviceId),

@@ -15,7 +15,7 @@ export class LayoutElemSwitch extends Vue {
   toggleSwitch(event: Event) {
     const newPosition = this.data.position === SwitchPosition.Straight ?
       SwitchPosition.Turnout : SwitchPosition.Straight;
-    this.storeInterface.switchChange(
+    this.storeInterface.switchChanger(
       this.data.id,
       newPosition,
       true,

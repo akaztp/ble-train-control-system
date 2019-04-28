@@ -10,7 +10,7 @@ export function switchChanger(
   dispatcher: Dispatcher,
   storeInterface: StoreInterface,
 ): StoreInterface {
-  storeInterface.switchChange = (
+  storeInterface.switchChanger = (
     switchId: Id,
     position: SwitchPosition,
     enabled: boolean,
