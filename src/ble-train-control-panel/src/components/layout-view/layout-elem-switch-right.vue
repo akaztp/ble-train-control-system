@@ -25,22 +25,10 @@
 </template>
 
 <script lang="ts">
-  import {
-    Switch,
-    SwitchPosition,
-  } from '@logic/models/switch';
-  import { Component, Prop, Vue } from 'vue-property-decorator';
+  import { LayoutElemSwitch } from '@/components/layout-view/layout-elem-switch';
+  import { Component } from 'vue-property-decorator';
 
   @Component({})
-  export default class LayoutElemSwitchRight extends Vue {
-    @Prop() private data!: Switch;
-
-    private switchPositionStraight = SwitchPosition.Straight;
-    private switchPositionTurnout = SwitchPosition.Turnout;
-
-    toggleSwitch($event) {
-      this.data.position = this.data.position === SwitchPosition.Straight ?
-        SwitchPosition.Turnout : SwitchPosition.Straight;
-    }
+  export default class LayoutElemSwitchRight extends LayoutElemSwitch {
   }
 </script>

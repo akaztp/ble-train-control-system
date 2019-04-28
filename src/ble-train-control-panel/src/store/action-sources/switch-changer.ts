@@ -1,11 +1,20 @@
 import { StoreInterface } from '@/store/store-interface';
+import { Id } from '@logic/models/base';
 import { State } from '@logic/models/state';
-import { ActionPayloadSwitch, createActionSwitch } from '@logic/state/action';
+import { SwitchPosition } from '@logic/models/switch';
+import { createActionSwitch } from '@logic/state/action';
 import { Dispatcher } from '@logic/state/store';
 
-export const switchChanger =
-  (state: State, dispatcher: Dispatcher, storeInterface: StoreInterface) => {
-    storeInterface.switchChange = (payload: ActionPayloadSwitch): void =>
-      dispatcher(createActionSwitch(payload));
-    return storeInterface;
-  };
+export function switchChanger(
+  state: State,
+  dispatcher: Dispatcher,
+  storeInterface: StoreInterface,
+): StoreInterface {
+  storeInterface.switchChange = (
+    switchId: Id,
+    position: SwitchPosition,
+    enabled: boolean,
+  ): void =>
+    dispatcher(createActionSwitch({switchId, position, enabled}));
+  return storeInterface;
+}
