@@ -5,18 +5,23 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue } from 'vue-property-decorator';
-  import HelloWorld from '@/components/HelloWorld.vue';
   import LayoutView from '@/components/layout-view/layout-view.vue';
+  import {
+    StoreInterface,
+    storeInterfaceInjectorKey,
+  } from '@/store/store-interface';
+  import { createStoreInterface } from '@/store/train-control-panel';
+  import { Component, Provide, Vue } from 'vue-property-decorator';
 
   @Component({
     components: {
-      HelloWorld,
       LayoutView,
     },
   })
   export default class App extends Vue {
+    @Provide(storeInterfaceInjectorKey) storeInterface: StoreInterface = createStoreInterface();
   }
+
 </script>
 
 <style lang="scss">
