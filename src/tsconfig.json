@@ -15,7 +15,7 @@
         "./logic/*"
       ],
       "@layout/*": [
-        "../layouts/hat-city-layout/*"
+        "./layouts/hat-city-layout/*"
       ]
     }
   }
