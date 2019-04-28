@@ -6,30 +6,32 @@ All logic is implemented via a custom state machine similar to [Redux](https://r
 State machine diagram (a bit outdated)
 
 ## State:
-  - Segments
-  - Trains
-  - Switches
-  - CurrentDeviceInfo
-  - layoutId
+- Segments
+- Trains
+- Switches
+- CurrentDeviceInfo
+- layoutId
   
   
 ## Action common payload
-  - layoutId
-  - timestamp
-  - broadcasted (not present on BLE packets)
+- layoutId
+- timestamp
+- broadcasted (not present on BLE packets)
   
   
 ## Actions and Reducers
-  - TrainPosition(trainId, segmentId, enteringSegmentId)
-    - Updates Trains
-  - TrainSpeed(trainId, speed)
-    - Updates Trains
-  - Switch(switchId, position, enabled)
-    - Updates Layout
-  - SignalLight(segmentId, signalId, state)
-    - Updates Segments
-  - MilestoneHit(trainId, segmentId, signalId, signalLightState)
-  - TrainSensor(state, segmentId, signalId)
+- TrainAdd(name, segmentId, isUncontrolled)
+  - Updates Trains
+- TrainPosition(trainId, segmentId, enteringSegmentId)
+  - Updates Trains
+- TrainSpeed(trainId, speed)
+  - Updates Trains
+- Switch(switchId, position, enabled)
+  - Updates Layout
+- SignalLight(segmentId, signalId, state)
+  - Updates Segments
+- MilestoneHit(trainId, segmentId, signalId, signalLightState)
+- TrainSensor(state, segmentId, signalId)
   
   
  ## Action Sources
@@ -54,6 +56,10 @@ State machine diagram (a bit outdated)
   - Devices: Train Control Panel (simulator)
   - Input: train movement simulation
   - Same logic as "Actions Source: Train Sensor"
+
+- Actions Source: Train Add
+  - Devices: Train Control Panel
+  - \>TrainAdd
 
 - Actions Source: Train Position Reset
   - Devices: Train Control Panel

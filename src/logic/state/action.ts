@@ -26,11 +26,27 @@ export function localActionCreator<P>(
 }
 
 export enum ActionType {
-  TrainPosition = 1,
+  TrainAdd = 1,
+  TrainPosition,
   TrainSpeed,
   Switch,
   SignalLight,
   TrainSensor,
+}
+
+export interface ActionPayloadTrainAdd {
+  name: string;
+  segmentId: Id;
+  isUncontrolled: boolean;
+}
+
+export function createActionTrainAdd(
+  payload: ActionPayloadTrainAdd,
+): LocalAction<ActionPayloadTrainAdd> {
+  return localActionCreator<ActionPayloadTrainAdd>(
+    ActionType.TrainAdd,
+    payload,
+  );
 }
 
 export interface ActionPayloadTrainPosition {

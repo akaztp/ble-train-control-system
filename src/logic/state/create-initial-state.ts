@@ -14,6 +14,7 @@ export function createInitialState(
     trains: {
       0 : {
         id: 0,
+        name: 'TR01',
         segment: segments[0],
         enteringSegment: null,
         speed: 0,

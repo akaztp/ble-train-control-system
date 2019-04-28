@@ -16,7 +16,7 @@
       if (!this.train) {
         return '-';
       }
-      return this.train.id.toString();
+      return this.train.name || this.train.id.toString();
     }
   }
 </script>
@@ -33,10 +33,11 @@
     border: 2px solid #f0f0f0;
     border-radius: 4px;
     box-sizing: border-box;
+    padding: 2px;
 
     .indicator {
       color: #f0f0f0;
-      font-size: 20px;
+      font-size: 18px;
       font-weight: bold;
       line-height: 1;
     }

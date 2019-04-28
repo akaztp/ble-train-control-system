@@ -6,6 +6,7 @@ import { State } from '@logic/models/state';
 import { LocalAction } from '@logic/state/action';
 import { createInitialState } from '@logic/state/create-initial-state';
 import { switchReducer } from '@logic/state/reducers/switch-reducer';
+import { trainAddReducer } from '@logic/state/reducers/train-add-reducer';
 import { trainPositionReducer } from '@logic/state/reducers/train-position-reducer';
 import {
   ActionSource,
@@ -18,6 +19,7 @@ import { noop } from 'vue-class-component/lib/util';
 export const deviceId = '????';
 
 const reducers: Reducer<State, LocalAction<any>>[] = [
+  trainAddReducer,
   trainPositionReducer,
   switchReducer,
 ];
