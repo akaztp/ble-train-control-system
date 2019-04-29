@@ -1,3 +1,4 @@
+import { addTrain } from '@/store/action-sources/add-train';
 import { switchChanger } from '@/store/action-sources/switch-changer';
 import { findTrainTouchingSegment } from '@/store/selectors/find-train-touching-segment';
 import { StoreInterface } from '@/store/store-interface';
@@ -18,22 +19,24 @@ import { noop } from 'vue-class-component/lib/util';
 
 export const deviceId = '????';
 
-const reducers: Reducer<State, LocalAction<any>>[] = [
+const reducers: Array<Reducer<State, LocalAction<any>>> = [
   trainAddReducer,
   trainPositionReducer,
   switchReducer,
 ];
 
-const actionSources: ActionSource<State, StoreInterface>[] = [
+const actionSources: Array<ActionSource<State, StoreInterface>> = [
+  addTrain,
   switchChanger,
 ];
 
-const effects: Effect<State>[] = [];
+const effects: Array<Effect<State>> = [];
 
 export function createStoreInterface(): StoreInterface {
   const initialStoreInterface: StoreInterface = {
-    switchChanger: noop,
+    addTrain: noop,
     findTrainTouchingSegment: () => null,
+    switchChanger: noop,
   };
 
   const {store, context} = baseCreateStore<State, StoreInterface>(

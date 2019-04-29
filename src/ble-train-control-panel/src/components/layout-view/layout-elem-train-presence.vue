@@ -14,9 +14,7 @@
     @Prop() train!: Train;
     @Prop() segment!: Segment;
 
-    @Emit()
-    click(): void {
-    }
+    @Emit() click(): void {}
 
     get trainName(): string {
       if (!this.train) {
