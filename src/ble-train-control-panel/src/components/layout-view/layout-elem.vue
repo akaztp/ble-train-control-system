@@ -28,6 +28,7 @@
 <script lang="ts">
   import LayoutElemTrainPresence
     from '@/components/layout-view/layout-elem-train-presence.vue';
+  import { Unsubscriber } from '@/store/observer';
   import {
     StoreInterface,
     storeInterfaceInjectorKey,
@@ -73,13 +74,8 @@
       return this.primitive.data ? this.primitive.data.id.toString() : '';
     }
 
-    get train(): Train | null {
-      if (this.primitive.segment) {
-        return this.storeInterface.findTrainTouchingSegment(this.primitive.segment) ||
-          null;
-      }
-      return null;
-    }
+    train: Train | null = null;
+    train$$: Unsubscriber | null = null;
 
     primitiveStraight = Primitive.Straight;
     primitiveCorner = Primitive.Corner;
@@ -124,6 +120,27 @@
       train: Train,
     ): void {
       this.trainPresenceClick(segment, train);
+    }
+
+    created() {
+      if (this.primitive.segment) {
+        this.train$$ = this.storeInterface.findTrainTouchingSegment$(
+          (train: Train | null) => this.train = train,
+          this.primitive.segment,
+        );
+      } else {
+        this.train = null;
+        if (this.train$$) {
+          this.train$$();
+          this.train$$ = null;
+        }
+      }
+    }
+
+    destroyed() {
+      if (this.train$$) {
+        this.train$$();
+      }
     }
 
     private createPrimitiveInstance(x: number, y: number): PrimitiveInstance {

@@ -1,3 +1,4 @@
+import { Observer, Subscriber, Unsubscriber } from '@/store/observer';
 import { Id } from '@logic/models/base';
 import { Segment } from '@logic/models/segment';
 import { SwitchPosition } from '@logic/models/switch';
@@ -9,12 +10,13 @@ export interface StoreInterface {
     segmentId: Id,
     isUncontrolled: boolean,
   ) => void;
-  findTrainTouchingSegment: (segment: Segment) => Train | null;
+  findTrainTouchingSegment$: (s: Subscriber<Train | null>, segment: Segment) => Unsubscriber;
   switchChanger: (
     switchId: Id,
     position: SwitchPosition,
     enabled: boolean,
   ) => void;
+  trainsList$: (s: Subscriber<Train[]>) => Unsubscriber;
 }
 
 export const storeInterfaceInjectorKey = 'StoreInterface';

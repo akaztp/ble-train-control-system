@@ -1,3 +1,5 @@
+import { ActionType } from '@logic/state/action';
+
 export interface StoreAction<T> {
   type: number;
   payload: T;
@@ -15,7 +17,7 @@ export interface Store<S> {
   state: S;
   reducers: Array<Reducer<S, any>>;
   effects: Array<Effect<S>>;
-  dispatcher: Dispatcher;
+  dispatch: Dispatcher;
 }
 
 export interface CreatedStore<S, C> {
@@ -34,24 +36,39 @@ export function createStore<S, C>(
     state,
     reducers,
     effects,
-    dispatcher,
+    dispatch,
   };
 
   const context =
     actionSources.reduce(
-      (prevContext, actionSource) => actionSource(store.state, store.dispatcher, prevContext),
-      initialContext);
+      (prevContext, actionSource) => actionSource(store.state, store.dispatch, prevContext),
+      initialContext,
+    );
+
+  store.dispatch({type: ActionType.Init, payload: null} as StoreAction<null>);
 
   return {
     store,
     context,
   };
 
-  function dispatcher(action: StoreAction<any>): void {
-    console.log('dispatcher(). action: ', action);
+  function dispatch(action: StoreAction<any>): void {
+    console.log('dispatch(). action: ', action);
     store.reducers.forEach((r) => r(store.state, action));
+    console.log('dispatch(). Updated state:', store.state);
     store.effects.forEach(
       (effect) => effect(action, store.state).forEach(
-        (newAction) => dispatcher(newAction)));
+        (newAction) => dispatch(newAction)));
   }
+}
+
+export function triggerEffectForAction<S>(types: ActionType | ActionType[], effect: Effect<S>): Effect<S> {
+  return (action: StoreAction<any>, state: S): Array<StoreAction<any>> => {
+    const isType = typeof(types) === 'object' ? types.indexOf(action.type) !== -1 : types === action.type;
+    if (isType) {
+      return effect(action, state);
+    } else {
+      return [];
+    }
+  };
 }

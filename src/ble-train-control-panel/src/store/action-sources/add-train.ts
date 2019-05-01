@@ -1,5 +1,5 @@
 import { StoreInterface } from '@/store/store-interface';
-import { Id } from '@logic/models/base';
+import { getUniqueId, Id } from '@logic/models/base';
 import { State } from '@logic/models/state';
 import { createActionTrainAdd } from '@logic/state/action';
 import { Dispatcher } from '@logic/state/store';
@@ -13,7 +13,9 @@ export function addTrain(
     name: string,
     segmentId: Id,
     isUncontrolled: boolean,
-  ): void =>
-    dispatcher(createActionTrainAdd({name, segmentId, isUncontrolled}));
+  ): void => {
+    const id = getUniqueId(state.trains);
+    return dispatcher(createActionTrainAdd({id, name, segmentId, isUncontrolled}));
+  };
   return storeInterface;
 }

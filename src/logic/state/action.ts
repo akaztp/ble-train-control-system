@@ -26,6 +26,7 @@ export function localActionCreator<P>(
 }
 
 export enum ActionType {
+  Init = 0,
   TrainAdd = 1,
   TrainPosition,
   TrainSpeed,
@@ -35,6 +36,7 @@ export enum ActionType {
 }
 
 export interface ActionPayloadTrainAdd {
+  id: Id;
   name: string;
   segmentId: Id;
   isUncontrolled: boolean;
@@ -52,7 +54,7 @@ export function createActionTrainAdd(
 export interface ActionPayloadTrainPosition {
   trainId: Id;
   segmentId: Id;
-  enteringSegmentId: Id;
+  enteringSegmentId: Id | null;
 }
 
 export function createActionTrainPosition(
