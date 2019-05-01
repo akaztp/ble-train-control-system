@@ -1,6 +1,5 @@
 <template>
   <svg xmlns="http://www.w3.org/2000/svg"
-    @click="toggleSwitch($event)"
     version="1.1"
     baseProfile="full"
     height="100%"
@@ -49,12 +48,5 @@
 
     stateGreen = SignalLightState.Green;
     stateRed = SignalLightState.Red;
-
-    toggleSwitch(event: Event) {
-      this.data.state =
-        this.data.state === SignalLightState.Green ? SignalLightState.Red :
-          SignalLightState.Green;
-    }
-
   }
 </script>
