@@ -15,7 +15,7 @@ const p1: Pos = addPos(seg1P2, {x: 2, y: -2});
 export const signalLights7: SimpleMap<SignalLight> = {
   70: {
     id: 70,
-    state: SignalLightState.Green,
+    state: SignalLightState.Red,
   } as SignalLight,
 };
 

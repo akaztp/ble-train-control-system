@@ -14,11 +14,11 @@ export const p2: Pos = {x: seg3P2.x + 5, y: seg0P2.y - 2};
 export const signalLights1: SimpleMap<SignalLight> = {
   10: {
     id: 10,
-    state: SignalLightState.Green,
+    state: SignalLightState.Red,
   } as SignalLight,
   11: {
     id: 11,
-    state: SignalLightState.Green,
+    state: SignalLightState.Red,
   } as SignalLight,
 };
 

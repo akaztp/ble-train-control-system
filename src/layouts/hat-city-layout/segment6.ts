@@ -12,7 +12,7 @@ import { addSegment } from '../utils/add-segment';
 const signalLights: SimpleMap<SignalLight> = {
   60: {
     id: 60,
-    state: SignalLightState.Green,
+    state: SignalLightState.Red,
   } as SignalLight,
 };
 

@@ -12,11 +12,11 @@ import { addSegment } from '../utils/add-segment';
 export const signalLights0: SimpleMap<SignalLight> = {
   0: {
     id: 0,
-    state: SignalLightState.Green,
+    state: SignalLightState.Red,
   } as SignalLight,
   1: {
     id: 1,
-    state: SignalLightState.Green,
+    state: SignalLightState.Red,
   } as SignalLight,
 };
 
