@@ -10,6 +10,7 @@ import { layoutId } from '@layout/layout-id';
 import { State } from '@logic/models/state';
 import { LocalAction } from '@logic/state/action';
 import { createInitialState } from '@logic/state/create-initial-state';
+import { signalLightReducer } from '@logic/state/reducers/signal-light-reducer';
 import { switchReducer } from '@logic/state/reducers/switch-reducer';
 import { trainPositionReducer } from '@logic/state/reducers/train-position-reducer';
 import { ActionSource, createStore as baseCreateStore, Effect, Reducer } from '@logic/state/store';
@@ -23,6 +24,7 @@ const reducers: Array<Reducer<State, LocalAction<any>>> = [
   trainAddReducer,
   trainPositionReducer,
   switchReducer,
+  signalLightReducer,
   (state, _action) => stateObserver$.notify(state),
 ];
 
