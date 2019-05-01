@@ -2,12 +2,12 @@ import { Pos } from '@logic/models/base';
 import { PlacedPrimitive } from '@logic/models/layout-descriptor/placed-primitive';
 import { Primitive } from '@logic/models/layout-descriptor/primitive';
 import { Rotation } from '@logic/models/layout-descriptor/rotation';
-import { addSegment } from '../utils/add-segment';
-import { p1 as seg0P1 } from './segment0';
-import { p1 as seg4P1 } from './segment4';
-import { p1 as seg5P1 } from './segment5';
-import { p1 as seg6P1 } from './segment6';
-import { switches } from './switches';
+import { addSegment } from '../../utils/add-segment';
+import { p1 as seg0P1 } from '../segments/segment0';
+import { p1 as seg4P1 } from '../segments/segment4';
+import { p1 as seg5P1 } from '../segments/segment5';
+import { p1 as seg6P1 } from '../segments/segment6';
+import { switches } from '../switches';
 
 const pSW0: Pos = {x: seg0P1.x, y: seg0P1.y + 1};
 const pSW1: Pos = {x: seg4P1.x - pSW0.x - 1, y: seg4P1.y - pSW0.y};

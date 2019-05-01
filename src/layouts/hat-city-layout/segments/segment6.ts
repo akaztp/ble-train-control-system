@@ -7,41 +7,41 @@ import {
   SignalLight,
   SignalLightState,
 } from '@logic/models/signal-light';
-import { addSegment } from '../utils/add-segment';
+import { addSegment } from '../../utils/add-segment';
 
 const signalLights: SimpleMap<SignalLight> = {
-  90: {
-    id: 90,
+  60: {
+    id: 60,
     state: SignalLightState.Red,
   } as SignalLight,
 };
 
-export const segment9: SimpleMap<Segment> = {
-  9: {
-    id: 9,
+export const segment6: SimpleMap<Segment> = {
+  6: {
+    id: 6,
     fromPaths: [],
-    fromSignalLight: signalLights[90],
+    fromSignalLight: signalLights[60],
     toPaths: [],
     toSignalLight: null,
   } as Segment,
 };
 
-export const p1: Pos = {x: 8, y: 9};
+export const p1: Pos = {x: 13, y: 7};
 
-export const primitives9: PlacedPrimitive[] = addSegment(
-  segment9[9],
+export const primitives6: PlacedPrimitive[] = addSegment(
+  segment6[6],
   p1,
   [
     {
-      fromPos: {x: 0, y: 0}, toPos: {x: -5, y: 0}, rotation: Rotation.R0,
+      fromPos: {x: 0, y: 0}, toPos: {x: 9, y: 0}, rotation: Rotation.R0,
       primitive: Primitive.Straight,
     }, {
-    fromPos: {x: -4, y: 0}, rotation: Rotation.R0,
+    fromPos: {x: 4, y: 0}, rotation: Rotation.R0,
     primitive: Primitive.TrainPresence,
   }, {
-    fromPos: {x: -2, y: 0},  rotation: Rotation.R0,
+    fromPos: {x: 1, y: 0},  rotation: Rotation.R180,
     primitive: Primitive.SignalLight,
-    data: signalLights[90],
+    data: signalLights[60],
   },
   ],
 );

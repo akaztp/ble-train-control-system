@@ -3,11 +3,8 @@ import { PlacedPrimitive } from '@logic/models/layout-descriptor/placed-primitiv
 import { Primitive } from '@logic/models/layout-descriptor/primitive';
 import { Rotation } from '@logic/models/layout-descriptor/rotation';
 import { Segment } from '@logic/models/segment';
-import {
-  SignalLight,
-  SignalLightState,
-} from '@logic/models/signal-light';
-import { addSegment } from '../utils/add-segment';
+import { SignalLight, SignalLightState } from '@logic/models/signal-light';
+import { addSegment } from '../../utils/add-segment';
 import { p1 as seg0P1, p2 as seg0P2 } from './segment0';
 
 const p1: Pos = addPos(seg0P1, {x: 0, y: 2});
@@ -61,7 +58,7 @@ export const primitives3: PlacedPrimitive[] = addSegment(
     rotation: Rotation.R0,
     primitive: Primitive.Straight,
   }, {
-    fromPos: addPos(p2, {x: -p1.x-1, y: -p1.y}),
+    fromPos: addPos(p2, {x: -p1.x - 1, y: -p1.y}),
     rotation: Rotation.R0,
     primitive: Primitive.SignalLight,
     data: signalLights3[31],

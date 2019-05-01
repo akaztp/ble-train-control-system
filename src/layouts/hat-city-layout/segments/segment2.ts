@@ -7,7 +7,7 @@ import {
   SignalLight,
   SignalLightState,
 } from '@logic/models/signal-light';
-import { addSegment } from '../utils/add-segment';
+import { addSegment } from '../../utils/add-segment';
 import { p2 as seg0P2 } from './segment0';
 import { p2 as seg3P2 } from './segment3';
 

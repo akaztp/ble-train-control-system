@@ -7,7 +7,7 @@ import {
   SignalLight,
   SignalLightState,
 } from '@logic/models/signal-light';
-import { addSegment } from '../utils/add-segment';
+import { addSegment } from '../../utils/add-segment';
 import { p2 as seg1P2 } from './segment1';
 
 const p1: Pos = addPos(seg1P2, {x: 2, y: -2});

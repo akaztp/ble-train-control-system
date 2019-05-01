@@ -1,19 +1,24 @@
 import { Data, Id, SimpleMap } from './base';
 import { SignalLight } from './signal-light';
-import { Switch } from './switch';
+import { Switch, SwitchPosition } from './switch';
 
-export interface Path {
+export interface SwitchState {
+  id: Id;
+  position: SwitchPosition;
+}
+
+export interface PathToSegment {
   segmentId: Id;
-  segment: Segment;
-  signal: SignalLight;
-  switchesStates: Switch[];
+  segment?: Segment;
+  signalLightId: Id;
+  switchesStates: SwitchState[];
 }
 
 export interface Segment extends Data {
   id: Id;
-  fromPaths: Path[];
+  fromPaths: PathToSegment[];
   fromSignalLight: SignalLight;
-  toPaths: Path[];
+  toPaths: PathToSegment[];
   toSignalLight: SignalLight | null;
 }
 
@@ -25,7 +30,7 @@ export function resolveSegmentsRefs(segments: SimpleMap<Segment>): SimpleMap<Seg
   });
   return segments;
 
-  function resolveSegmentRefs(path: Path): void {
+  function resolveSegmentRefs(path: PathToSegment): void {
     path.segment = segments[path.segmentId];
   }
 }

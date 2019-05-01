@@ -10,6 +10,7 @@ import { layoutId } from '@layout/layout-id';
 import { State } from '@logic/models/state';
 import { LocalAction } from '@logic/state/action';
 import { createInitialState } from '@logic/state/create-initial-state';
+import { signalLightsCalcEffect } from '@logic/state/effects/signal-lights-calc-effect';
 import { signalLightReducer } from '@logic/state/reducers/signal-light-reducer';
 import { switchReducer } from '@logic/state/reducers/switch-reducer';
 import { trainPositionReducer } from '@logic/state/reducers/train-position-reducer';
@@ -35,6 +36,7 @@ const actionSources: Array<ActionSource<State, StoreInterface>> = [
 
 const effects: Array<Effect<State>> = [
   addTrainEffect,
+  signalLightsCalcEffect,
 ];
 
 

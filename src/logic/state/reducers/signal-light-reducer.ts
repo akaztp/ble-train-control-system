@@ -1,6 +1,7 @@
 import { State } from '@logic/models/state';
 import { ActionPayloadSignalLight, ActionType, LocalAction } from '@logic/state/action';
 import { Reducer } from '@logic/state/store';
+import { segmentSignalLight } from '@logic/state/utils/segment-signal-light';
 
 export const signalLightReducer: Reducer<State, LocalAction<ActionPayloadSignalLight>> =
   (state: State, action: LocalAction<ActionPayloadSignalLight>): void => {
@@ -8,10 +9,7 @@ export const signalLightReducer: Reducer<State, LocalAction<ActionPayloadSignalL
       case ActionType.SignalLight:
         const segment = state.segments[action.payload.segmentId];
         if (segment) {
-          let signalLight = segment.fromSignalLight.id === action.payload.signalId ? segment.fromSignalLight : null;
-          if (!signalLight && segment.toSignalLight) {
-            signalLight = segment.toSignalLight.id === action.payload.signalId ? segment.toSignalLight : null;
-          }
+          const signalLight = segmentSignalLight(segment, action.payload.signalId);
           if (signalLight) {
             signalLight.state = action.payload.state;
           }

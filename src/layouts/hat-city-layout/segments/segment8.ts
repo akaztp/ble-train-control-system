@@ -7,7 +7,7 @@ import {
   SignalLight,
   SignalLightState,
 } from '@logic/models/signal-light';
-import { addSegment } from '../utils/add-segment';
+import { addSegment } from '../../utils/add-segment';
 
 const signalLights: SimpleMap<SignalLight> = {
   80: {
