@@ -14,6 +14,7 @@ import { signalLightsCalcEffect } from '@logic/state/effects/signal-lights-calc-
 import { signalLightReducer } from '@logic/state/reducers/signal-light-reducer';
 import { switchReducer } from '@logic/state/reducers/switch-reducer';
 import { trainPositionReducer } from '@logic/state/reducers/train-position-reducer';
+import { trainSpeedReducer } from '@logic/state/reducers/train-speed-reducer';
 import { ActionSource, createStore as baseCreateStore, Effect, Reducer } from '@logic/state/store';
 import { noop } from 'vue-class-component/lib/util';
 
@@ -26,6 +27,7 @@ const reducers: Array<Reducer<State, LocalAction<any>>> = [
   trainPositionReducer,
   switchReducer,
   signalLightReducer,
+  trainSpeedReducer,
   (state, _action) => stateObserver$.notify(state),
 ];
 
