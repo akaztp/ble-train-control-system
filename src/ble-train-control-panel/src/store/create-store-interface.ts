@@ -1,4 +1,5 @@
 import { addTrain } from '@/store/action-sources/add-train';
+import { changeTrainSpeed } from '@/store/action-sources/change-train-speed';
 import { switchChanger } from '@/store/action-sources/switch-changer';
 import { addTrainEffect } from '@/store/effects/add-train-effect';
 import { Observer } from '@/store/observer';
@@ -33,6 +34,7 @@ const reducers: Array<Reducer<State, LocalAction<any>>> = [
 
 const actionSources: Array<ActionSource<State, StoreInterface>> = [
   addTrain,
+  changeTrainSpeed,
   switchChanger,
 ];
 
@@ -46,6 +48,7 @@ export function createStoreInterface(): StoreInterface {
 
   const initialStoreInterface: StoreInterface = {
     addTrain: noop,
+    changeTrainSpeed: noop,
     findTrainTouchingSegment$: () => () => undefined,
     switchChanger: noop,
     trainsList$: () => () => undefined,

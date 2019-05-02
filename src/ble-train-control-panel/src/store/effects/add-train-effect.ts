@@ -18,7 +18,7 @@ const effect: Effect<State> =
           segmentId: train.segment.id,
           enteringSegmentId: !!train.enteringSegment ? train.enteringSegment.id : null,
         }),
-        createActionTrainSpeed({speed: 0}),
+        createActionTrainSpeed({trainId: train.id, speed: 0}),
       ];
     } else {
       // TODO: emit an error notification about the train hasn't been added

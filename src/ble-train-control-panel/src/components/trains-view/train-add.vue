@@ -12,8 +12,7 @@
     components: {},
   })
   export default class TrainAdd extends Vue {
-    @Emit() addTrain() {
-    }
+    @Emit() addTrain(): void {}
   }
 </script>
 
