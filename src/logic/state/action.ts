@@ -112,8 +112,8 @@ export function createActionSignalLight(
 
 export interface ActionPayloadTrainSensor {
   segmentId: Id;
-  state: boolean;
   signalId: Id;
+  state: boolean;
 }
 
 export function createActionTrainSensor(
