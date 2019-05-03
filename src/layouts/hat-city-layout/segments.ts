@@ -1,4 +1,4 @@
-import { applyPaths } from '@layout/segment-path-switches';
+import { applyPaths } from '@layout/paths';
 import { SimpleMap } from '@logic/models/base';
 import { resolveSegmentsRefs, Segment } from '@logic/models/segment';
 import { segment0 } from './segments/segment0';

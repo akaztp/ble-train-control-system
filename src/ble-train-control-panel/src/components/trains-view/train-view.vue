@@ -1,6 +1,6 @@
 <template>
 <div class="panel">
-  <div>Train {{train.name}}</div>
+  <div>Train {{train.name}}&nbsp;&nbsp;&nbsp;id: {{train.id}}</div>
   <div>
     <button v-on:click="revClick">REV</button>
     <button v-on:click="fwClick">FW</button>

@@ -17,7 +17,7 @@ export interface PathToSegment {
 export interface Segment extends Data {
   id: Id;
   fromPaths: PathToSegment[];
-  fromSignalLight: SignalLight;
+  fromSignalLight: SignalLight | null;
   toPaths: PathToSegment[];
   toSignalLight: SignalLight | null;
 }

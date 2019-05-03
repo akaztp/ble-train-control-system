@@ -51,7 +51,7 @@
     created() {
       this.trainsList$$ = this.storeInterface.trainsList$((trains: Train[]) => {
         this.trainsList = trains;
-        console.log('TrainsView. Updated Trains: ', trains);
+        // console.log('TrainsView. Updated Trains: ', trains);
       });
     }
 

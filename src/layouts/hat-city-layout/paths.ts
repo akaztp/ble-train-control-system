@@ -121,7 +121,7 @@ export function applyPaths(
           switchesStates: path.switchesStates,
           signalLightId: otherEndSignalLightId!,
         };
-        if (foundSegmentSignalLightId === segment.fromSignalLight.id) {
+        if (segment.fromSignalLight !== null && foundSegmentSignalLightId === segment.fromSignalLight.id) {
           segment.fromPaths.push(pathToOtherSegment);
         } else if (segment.toSignalLight !== null && foundSegmentSignalLightId === segment.toSignalLight.id) {
           segment.toPaths.push(pathToOtherSegment);

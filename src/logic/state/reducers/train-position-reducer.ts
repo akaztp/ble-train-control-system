@@ -13,7 +13,7 @@ export const trainPositionReducer: Reducer<State, LocalAction<ActionPayloadTrain
         const train = state.trains[action.payload.trainId];
         if (train) {
           train.segment = state.segments[action.payload.segmentId];
-          train.enteringSegment = action.payload.enteringSegmentId ?
+          train.enteringSegment = action.payload.enteringSegmentId !== null ?
             state.segments[action.payload.enteringSegmentId] :
             null;
         }

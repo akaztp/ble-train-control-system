@@ -19,7 +19,7 @@
       <layout-elem-train-presence v-if="p.primitive === primitiveTrainPresence"
         v-bind:segment="primitive.segment"
         v-bind:train="train"
-        v-on:click="onTrainPresenceClick($event, primitive.segment, train)"
+        v-on:click="trainPresenceClick(primitive.segment, train)"
       ></layout-elem-train-presence>
     </div>
   </div>
@@ -112,14 +112,6 @@
       }
 
       return expansion;
-    }
-
-    onTrainPresenceClick(
-      event: Event,
-      segment: Segment,
-      train: Train,
-    ): void {
-      this.trainPresenceClick(segment, train);
     }
 
     created() {

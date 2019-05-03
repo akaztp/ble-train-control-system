@@ -1,7 +1,14 @@
 <template>
   <div
     v-on:click="click()"
-  ><span class="indicator">{{trainName}}</span></div>
+  >
+    <span v-if="!train"
+      v-bind:class="{indicator: true}"
+      v-bind:title="segment.id">-</span>
+    <span v-if="train"
+      v-bind:class="{indicator: true, moving: train.speed !== 0, stopped: train.speed === 0}"
+      v-bind:title="segment.id">{{train.name}}</span>
+  </div>
 </template>
 
 <script lang="ts">
@@ -11,17 +18,10 @@
 
   @Component({})
   export default class LayoutElemTrainPresence extends Vue {
-    @Prop() train!: Train;
+    @Prop() train!: Train | null;
     @Prop() segment!: Segment;
 
     @Emit() click(): void {}
-
-    get trainName(): string {
-      if (!this.train) {
-        return '-';
-      }
-      return this.train.name || this.train.id.toString();
-    }
   }
 </script>
 
@@ -44,6 +44,14 @@
       font-size: 18px;
       font-weight: bold;
       line-height: 1;
+      white-space: nowrap;
+      &.stopped {
+        color: #f06060;
+      }
+      &.moving {
+        color: #60d060;
+        font-style: italic;
+      }
     }
   }
 </style>

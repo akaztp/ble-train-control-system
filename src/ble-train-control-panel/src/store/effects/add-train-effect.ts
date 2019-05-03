@@ -1,4 +1,4 @@
-import { findTrainTouchingSegment } from '@logic/state/utils/find-train-touching-segment';
+import { findTrainTouchingSegment } from '@logic/state/utils/find-train';
 import { State } from '@logic/models/state';
 import {
   ActionPayloadTrainAdd,
@@ -16,7 +16,7 @@ const effect: Effect<State> =
         createActionTrainPosition({
           trainId: train.id,
           segmentId: train.segment.id,
-          enteringSegmentId: !!train.enteringSegment ? train.enteringSegment.id : null,
+          enteringSegmentId: (train.enteringSegment !== null) ? train.enteringSegment.id : null,
         }),
         createActionTrainSpeed({trainId: train.id, speed: 0}),
       ];

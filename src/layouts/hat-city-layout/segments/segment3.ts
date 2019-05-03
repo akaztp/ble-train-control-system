@@ -25,9 +25,9 @@ export const segment3: SimpleMap<Segment> = {
   3: {
     id: 3,
     fromPaths: [],
-    fromSignalLight: signalLights3[30],
+    fromSignalLight: signalLights3[31],
     toPaths: [],
-    toSignalLight: signalLights3[31],
+    toSignalLight: signalLights3[30],
   } as Segment,
 };
 

@@ -43,7 +43,7 @@
     }
 
     addTrain(segment: Segment): void {
-      this.storeInterface.addTrain('TR02', segment.id, true);
+      this.storeInterface.addTrain('TR-' + Math.round(Math.random() * 100), segment.id, true);
       this.addingTrainToSegment = null;
     }
   }

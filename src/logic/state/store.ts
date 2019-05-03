@@ -53,9 +53,9 @@ export function createStore<S, C>(
   };
 
   function dispatch(action: StoreAction<any>): void {
-    console.log('dispatch(). action: ', action);
+    logAction(action);
     store.reducers.forEach((r) => r(store.state, action));
-    console.log('dispatch(). Updated state:', store.state);
+    // console.log('dispatch(). Updated state:', store.state);
     store.effects.forEach(
       (effect) => effect(action, store.state).forEach(
         (newAction) => dispatch(newAction)));
@@ -72,3 +72,17 @@ export function triggerEffectForAction<S>(types: ActionType | ActionType[], effe
     }
   };
 }
+
+function logAction(action: StoreAction<any>): void {
+  console.log('ACTION: ', logActionType[action.type], action.payload);
+}
+
+const logActionType = [
+  'Init',
+  'TrainAdd',
+  'TrainPosition',
+  'TrainSpeed',
+  'Switch',
+  'SignalLight',
+  'TrainSensor',
+];
