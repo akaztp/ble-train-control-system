@@ -140,10 +140,10 @@
         primitive: this.primitive.primitive,
         data: this.primitive.data,
         style: {
-          left: x * this.scale + 'px',
-          top: y * this.scale + 'px',
-          width: this.scale + 'px',
-          height: this.scale + 'px',
+          left: x * this.scale * 100 + 'vw',
+          top: y * this.scale * 100 + 'vw',
+          width: this.scale * 100 + 'vw',
+          height: this.scale * 100 + 'vw',
           transform: 'rotate(' + this.primitive.rotation + 'deg)',
         },
 

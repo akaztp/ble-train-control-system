@@ -1,6 +1,6 @@
 <template>
   <div class="layout-view"
-    v-bind:style="{width: canvas.x + 'px', height: canvas.y + 'px'}">
+    v-bind:style="{width: canvas.x, height: canvas.y}">
     <template v-for="p in primitives">
       <layout-elem
         v-bind:primitive="p"
@@ -12,38 +12,31 @@
 </template>
 
 <script lang="ts">
-  import { trackLayout } from '@layout/track-layout';
-  import { Pos } from '@logic/models/base';
-  import { PlacedPrimitive } from '@logic/models/layout-descriptor/placed-primitive';
-  import { Segment } from '@logic/models/segment';
-  import { Train } from '@logic/models/train';
-  import { Component, Emit, Vue } from 'vue-property-decorator';
-  import LayoutElem from './layout-elem.vue';
+    import { trackLayout } from '@layout/track-layout';
+    import { PlacedPrimitive } from '@logic/models/layout-descriptor/placed-primitive';
+    import { Segment } from '@logic/models/segment';
+    import { Train } from '@logic/models/train';
+    import { Component, Emit, Vue } from 'vue-property-decorator';
+    import LayoutElem from './layout-elem.vue';
 
-  const scale = 30;
+    @Component({
+        components: {
+            LayoutElem,
+        },
+    })
+    export default class LayoutView extends Vue {
+        @Emit() trainPresenceClick(
+            segment: Segment,
+            train: Train,
+        ) {}
 
-  function getCanvasPx(): Pos {
-    return {
-      x: trackLayout.canvas.x * scale,
-      y: trackLayout.canvas.y * scale,
-    } as Pos;
-  }
-
-  @Component({
-    components: {
-      LayoutElem,
-    },
-  })
-  export default class LayoutView extends Vue {
-    @Emit() trainPresenceClick(
-      segment: Segment,
-      train: Train,
-    ) {}
-
-    canvas: Pos = getCanvasPx();
-    primitives: PlacedPrimitive[] = trackLayout.primitives;
-    scale: number = scale;
-  }
+        scale = 1 / trackLayout.canvas.x;
+        canvas = {
+            x: trackLayout.canvas.x * this.scale * 100 + 'vw',
+            y: trackLayout.canvas.y * this.scale * 100 + 'vw',
+        };
+        primitives: PlacedPrimitive[] = trackLayout.primitives;
+    }
 
 </script>
 
