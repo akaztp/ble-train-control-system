@@ -1,5 +1,5 @@
 import { addPos, Pos, SimpleMap } from '@logic/models/base';
-import { PlacedPrimitive } from '@logic/models/layout-descriptor/placed-primitive';
+import { PlacedPrimitive, trainFrontLeft } from '@logic/models/layout-descriptor/placed-primitive';
 import { Primitive } from '@logic/models/layout-descriptor/primitive';
 import { Rotation } from '@logic/models/layout-descriptor/rotation';
 import { Segment } from '@logic/models/segment';
@@ -48,6 +48,7 @@ export const primitives2: PlacedPrimitive[] = addSegment(
     fromPos: addPos({x: Math.round(p1.x + p2.x) / 2, y: p2.y}, {x: -p1.x, y: -p1.y}),
     rotation: Rotation.R0,
     primitive: Primitive.TrainPresence,
+    data: trainFrontLeft,
   }, {
     fromPos: {x: -1, y: 0}, rotation: Rotation.R0,
     primitive: Primitive.SignalLight,

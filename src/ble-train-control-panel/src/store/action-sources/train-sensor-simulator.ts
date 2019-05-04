@@ -89,7 +89,7 @@ function moveTrain(id: Id, speed: number): void {
     trainState.speed = speed;
     trainState.timerId = setTimeout(
         () => triggerExitSensor(id),
-        3000 + Math.random() * 2000,
+        2000 + Math.random() * 1000,
     );
 }
 

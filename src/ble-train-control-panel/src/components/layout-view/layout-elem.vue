@@ -21,6 +21,7 @@
       <layout-elem-train-presence v-if="p.primitive === primitiveTrainPresence"
         v-bind:segment="primitive.segment"
         v-bind:train="train"
+        v-bind:data="p.data"
         v-on:click="trainPresenceClick(primitive.segment, train)"
       ></layout-elem-train-presence>
     </div>

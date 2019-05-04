@@ -1,8 +1,30 @@
 <template>
-  <div
+  <div class="container"
     v-on:click="click()"
     v-bind:class="{'add-train': !train}"
   >
+    <svg xmlns="http://www.w3.org/2000/svg"
+      version="1.1"
+      baseProfile="full"
+      height="100%"
+      width="10px"
+      preserveAspectRatio="none"
+      style="left: 100%"
+      v-if="train && data.id === 0"
+    >
+      <rect x="0%" y="20%" width="100%" height="60%" style="fill: #f0f0f0; stroke-width: 0"></rect>
+    </svg>
+    <svg xmlns="http://www.w3.org/2000/svg"
+      version="1.1"
+      baseProfile="full"
+      height="100%"
+      width="10px"
+      preserveAspectRatio="none"
+      style="left: 0"
+      v-if="train && data.id === 1"
+    >
+      <rect x="-100%" y="20%" width="100%" height="60%" style="fill: #f0f0f0; stroke-width: 0"></rect>
+    </svg>
     <span v-if="!train"
       class="indicator"
       v-bind:title="segment.id">+</span>
@@ -13,21 +35,23 @@
 </template>
 
 <script lang="ts">
-  import { Segment } from '@logic/models/segment';
-  import { Train } from '@logic/models/train';
-  import { Component, Emit, Prop, Vue } from 'vue-property-decorator';
+    import { Data } from '@logic/models/base';
+    import { Segment } from '@logic/models/segment';
+    import { Train } from '@logic/models/train';
+    import { Component, Emit, Prop, Vue } from 'vue-property-decorator';
 
-  @Component({})
-  export default class LayoutElemTrainPresence extends Vue {
-    @Prop() train!: Train | null;
-    @Prop() segment!: Segment;
+    @Component({})
+    export default class LayoutElemTrainPresence extends Vue {
+        @Prop() train!: Train | null;
+        @Prop() segment!: Segment;
+        @Prop() data!: Data;
 
-    @Emit() click(): void {}
-  }
+        @Emit() click(): void {}
+    }
 </script>
 
 <style scoped lang="scss">
-  div {
+  .container {
     width: auto;
     min-width: 100%;
     height: 100%;
@@ -37,11 +61,11 @@
     justify-content: center;
     border: 2px solid #f0f0f0;
     border-radius: 4px;
-    box-sizing: border-box;
     padding: 2px;
 
     &.add-train {
       cursor: pointer;
+
       &:hover {
         background-color: #606060;
       }
@@ -53,13 +77,20 @@
       font-weight: bold;
       line-height: 1;
       white-space: nowrap;
+
       &.stopped {
         color: #f06060;
       }
+
       &.moving {
         color: #60d060;
         font-style: italic;
       }
+    }
+
+    svg {
+      position: absolute;
+      overflow: visible;
     }
   }
 </style>

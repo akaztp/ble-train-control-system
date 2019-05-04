@@ -11,3 +11,6 @@ export interface PlacedPrimitive {
   data: Data | null;
   segment: Segment | null;
 }
+
+export const trainFrontRight = {id: 0};
+export const trainFrontLeft = {id: 1};
