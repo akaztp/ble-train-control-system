@@ -10,6 +10,7 @@ import {
 } from '@logic/state/action';
 import { Dispatcher } from '@logic/state/store';
 import { findNextSegmentId } from '@logic/state/utils/find-next-segment-id';
+import { segmentDirection } from '@logic/state/utils/segment';
 
 interface SimulatedTrainState {
     id: Id;
@@ -109,13 +110,7 @@ function triggerExitSensor(trainId: Id): void {
     if (trainState) {
         const segmentId = trainState.segmentId;
         if (segmentId !== null) {
-            let signalLight: SignalLight | null;
-            if (trainState.speed > 0) {
-                signalLight = state.segments[segmentId].toSignalLight;
-            } else {
-                signalLight = state.segments[segmentId].fromSignalLight;
-            }
-
+            const signalLight = segmentDirection(state.segments[segmentId], trainState.speed);
             if (signalLight !== null) {
                 dispatcher(
                     createActionTrainSensor({
@@ -128,6 +123,7 @@ function triggerExitSensor(trainId: Id): void {
                     createActionTrainSpeed({
                         trainId,
                         speed: 0,
+                        temporary: false,
                     }));
             }
         }

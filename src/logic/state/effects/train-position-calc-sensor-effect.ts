@@ -9,7 +9,7 @@ import {
 import { Effect, StoreAction, triggerEffectForAction } from '@logic/state/store';
 import { findNextSegmentId } from '@logic/state/utils/find-next-segment-id';
 import { findTrainEnteringSegment, findTrainInsideSegment } from '@logic/state/utils/find-train';
-import { segmentSignalLight } from '@logic/state/utils/segment-signal-light';
+import { segmentSignalLight } from '@logic/state/utils/segment';
 
 const effect: Effect<State> =
     (
@@ -39,6 +39,7 @@ const effect: Effect<State> =
                     createActionTrainSpeed({
                         trainId: train.id,
                         speed: 0,
+                        temporary: true,
                     }),
                 ];
             } else {

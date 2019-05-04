@@ -177,7 +177,7 @@ On Action: TrainSensor(state, segmentId, signalId)
 On Action: SignalLight(segmentId, signalId, state)
   If state == GREEN
       train =  findTrainInsideSegment(segmentId)
-      if train && train.speed == 0 &&  && isInCurrentDevice(trainId) 
+      if train && train.speed == 0 && train.speedBeforeStop !== 0 &&  isInCurrentDevice(trainId) 
           >TrainPosition(trainId, train.segmentId, enteringSegmentId = nextSegment(segmentId, signalId))
           >TrainSpeed(train.speedBeforeStop)
 ```

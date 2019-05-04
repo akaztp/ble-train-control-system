@@ -69,6 +69,7 @@ export function createActionTrainPosition(
 export interface ActionPayloadTrainSpeed {
   trainId: Id;
   speed: number;
+  temporary: boolean;
 }
 
 export function createActionTrainSpeed(

@@ -1,7 +1,7 @@
 import { State } from '@logic/models/state';
 import { ActionPayloadSignalLight, ActionType, LocalAction } from '@logic/state/action';
 import { Reducer } from '@logic/state/store';
-import { segmentSignalLight } from '@logic/state/utils/segment-signal-light';
+import { segmentSignalLight } from '@logic/state/utils/segment';
 
 export const signalLightReducer: Reducer<State, LocalAction<ActionPayloadSignalLight>> =
   (state: State, action: LocalAction<ActionPayloadSignalLight>): void => {

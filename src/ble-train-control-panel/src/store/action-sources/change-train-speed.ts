@@ -5,15 +5,19 @@ import { createActionTrainSpeed } from '@logic/state/action';
 import { Dispatcher } from '@logic/state/store';
 
 export function changeTrainSpeed(
-  state: State,
-  dispatcher: Dispatcher,
-  storeInterface: StoreInterface,
+    state: State,
+    dispatcher: Dispatcher,
+    storeInterface: StoreInterface,
 ): StoreInterface {
-  storeInterface.changeTrainSpeed = (
-    trainId: Id,
-    speed: number,
-  ): void => {
-    return dispatcher(createActionTrainSpeed({trainId, speed}));
-  };
-  return storeInterface;
+    storeInterface.changeTrainSpeed = (
+        trainId: Id,
+        speed: number,
+    ): void => {
+        return dispatcher(createActionTrainSpeed({
+            trainId,
+            speed,
+            temporary: false,
+        }));
+    };
+    return storeInterface;
 }

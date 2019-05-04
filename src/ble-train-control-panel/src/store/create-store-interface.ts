@@ -14,7 +14,8 @@ import { State } from '@logic/models/state';
 import { LocalAction } from '@logic/state/action';
 import { createInitialState } from '@logic/state/create-initial-state';
 import { signalLightsCalcEffect } from '@logic/state/effects/signal-lights-calc-effect';
-import { trainPositionCalcSensorEffect } from '@logic/state/effects/train-position-calc-sensor';
+import { trainGreenGoEffect } from '@logic/state/effects/train-green-go-effect';
+import { trainPositionCalcSensorEffect } from '@logic/state/effects/train-position-calc-sensor-effect';
 import { signalLightReducer } from '@logic/state/reducers/signal-light-reducer';
 import { switchReducer } from '@logic/state/reducers/switch-reducer';
 import { trainPositionReducer } from '@logic/state/reducers/train-position-reducer';
@@ -47,6 +48,7 @@ const effects: Array<Effect<State>> = [
   signalLightsCalcEffect,
   trainSensorSimulatorEffect,
   trainPositionCalcSensorEffect,
+  trainGreenGoEffect,
 ];
 
 

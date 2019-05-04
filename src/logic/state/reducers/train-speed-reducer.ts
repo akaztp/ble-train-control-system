@@ -10,7 +10,7 @@ export const trainSpeedReducer: Reducer<State, LocalAction<ActionPayloadTrainSpe
         if (train) {
           const newSpeed = action.payload.speed;
           if (newSpeed === 0) {
-            train.speedBeforeStop = train.speed;
+            train.speedBeforeStop = action.payload.temporary ? train.speed : 0;
           }
           train.speed = newSpeed;
         }

@@ -2,7 +2,7 @@ import { Id, SimpleMap } from '@logic/models/base';
 import { Segment } from '@logic/models/segment';
 import { Switch } from '@logic/models/switch';
 import { isPathOpen } from '@logic/state/utils/is-path-open';
-import { segmentPaths } from '@logic/state/utils/segment-paths';
+import { segmentPaths } from '@logic/state/utils/segment';
 
 export function findNextSegmentId(
     segment: Segment,
