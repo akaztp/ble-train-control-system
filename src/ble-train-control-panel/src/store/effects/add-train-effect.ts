@@ -17,6 +17,7 @@ const effect: Effect<State> =
                     trainId: train.id,
                     segmentId: train.segment.id,
                     enteringSegmentId: (train.enteringSegment !== null) ? train.enteringSegment.id : null,
+                    stoppedAtSignalLight: null,
                 }),
                 createActionTrainSpeed({
                     trainId: train.id,

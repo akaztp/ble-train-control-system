@@ -17,6 +17,7 @@ export const trainAddReducer: Reducer<State, LocalAction<ActionPayloadTrainAdd>>
                     speed: 0,
                     speedBeforeStop: 0,
                     isUncontrolled: action.payload.isUncontrolled,
+                    stoppedAtSignalLight: null,
                 };
             }
         }

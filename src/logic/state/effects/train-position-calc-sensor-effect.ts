@@ -30,11 +30,18 @@ const effect: Effect<State> =
                                 trainId: train.id,
                                 segmentId,
                                 enteringSegmentId: nextSegmentId,
+                                stoppedAtSignalLight: null,
                             }),
                         ];
                     }
                 }
                 return [
+                    createActionTrainPosition({
+                        trainId: train.id,
+                        segmentId,
+                        enteringSegmentId: null,
+                        stoppedAtSignalLight: signalId,
+                    }),
                     createActionTrainSpeed({
                         trainId: train.id,
                         speed: 0,
@@ -50,6 +57,7 @@ const effect: Effect<State> =
                             trainId: train.id,
                             segmentId,
                             enteringSegmentId: null,
+                            stoppedAtSignalLight: null,
                         }),
                     ];
                 }

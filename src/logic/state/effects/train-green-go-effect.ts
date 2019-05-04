@@ -34,6 +34,7 @@ const effect: Effect<State> =
                                 trainId: train.id,
                                 segmentId,
                                 enteringSegmentId: nextSegmentId,
+                                stoppedAtSignalLight: null,
                             }),
                             createActionTrainSpeed({
                                 trainId: train.id,

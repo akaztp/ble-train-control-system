@@ -16,6 +16,9 @@ export const trainPositionReducer: Reducer<State, LocalAction<ActionPayloadTrain
           train.enteringSegment = action.payload.enteringSegmentId !== null ?
             state.segments[action.payload.enteringSegmentId] :
             null;
+          if (action.payload.stoppedAtSignalLight !== undefined) {
+            train.stoppedAtSignalLight = action.payload.stoppedAtSignalLight;
+          }
         }
       }
     }

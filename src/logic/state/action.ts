@@ -55,6 +55,7 @@ export interface ActionPayloadTrainPosition {
   trainId: Id;
   segmentId: Id;
   enteringSegmentId: Id | null;
+  stoppedAtSignalLight?: Id | null;
 }
 
 export function createActionTrainPosition(
