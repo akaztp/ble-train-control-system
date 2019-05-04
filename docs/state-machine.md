@@ -32,6 +32,19 @@ State machine diagram (a bit outdated)
   - Updates Segments
 - MilestoneHit(trainId, segmentId, signalId, signalLightState)
 - TrainSensor(state, segmentId, signalId)
+
+
+## Reducers
+
+- Reducer: Switch Availability
+  - Devices: Train Control Panel
+```text
+On Action: TrainPosition(trainId, segmentId, enteringSegmentId)
+    segmentPaths.forEach(path)
+        If findTrainFromToSegments(segmentId, enteringSegmentId)
+          switchInPath.forEach(switch)
+            switch.enabled = !train; // Set to false must win if settings several times the same switch
+```
   
   
  ## Action Sources
@@ -124,18 +137,6 @@ On Action: TrainPosition() or Switch()
         >SignalLight(segment, signalLight, green), if it is not already and if owned by current device
       Else
         >SignalLight(segment, signalLight, red), if it is not already and if owned by current device
-```
-
-- Effect: Switch Availability
-  - Devices: Train Control Panel
-```text
-On Action: TrainPosition(trainId, segmentId, enteringSegmentId)
-    If enteringSegmentId != null
-        Layout.switches.forEach(switch)
-            If isSwitchInPath(segmentId, enteringSegmentId)
-                >Switch(switch, pos, enabled=false), set broadcasted to true
-            Else
-                >Switch(switch, pos, enabled=true), set broadcasted to true
 ```
 
 - Effect: Train Position Calculation for Milestone

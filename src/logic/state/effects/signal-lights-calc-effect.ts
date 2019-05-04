@@ -12,7 +12,7 @@ import {
     LocalAction,
 } from '@logic/state/action';
 import { Effect, StoreAction, triggerEffectForAction } from '@logic/state/store';
-import { isPathOpen } from '@logic/state/utils/is-path-open';
+import { isPathOpen } from '@logic/state/utils/path';
 
 const effect: Effect<State> =
     (

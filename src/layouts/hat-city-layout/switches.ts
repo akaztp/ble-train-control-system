@@ -2,13 +2,14 @@ import { SimpleMap } from '@logic/models/base';
 import { Switch, SwitchPosition } from '@logic/models/switch';
 
 export const switches: SimpleMap<Switch> = new Array(8).fill(null)
-.reduce(
-  (acc, val, idx) => ({
-    ...acc,
-    [idx]: {
-      id: idx,
-      position: SwitchPosition.Straight,
-    } as Switch,
-  }),
-  {},
-);
+    .reduce<SimpleMap<Switch>>(
+        (acc, val, idx) => ({
+            ...acc,
+            [idx]: {
+                id: idx,
+                position: SwitchPosition.Straight,
+                enabled: true,
+            },
+        }),
+        {},
+    );

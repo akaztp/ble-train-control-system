@@ -7,9 +7,8 @@ import {
     createActionTrainSpeed,
 } from '@logic/state/action';
 import { Effect, StoreAction, triggerEffectForAction } from '@logic/state/store';
-import { findNextSegmentId } from '@logic/state/utils/find-next-segment-id';
-import { findTrainInsideSegment } from '@logic/state/utils/find-train';
-import { segmentDirection } from '@logic/state/utils/segment';
+import { findTrainInsideSegment } from '@logic/state/utils/train';
+import { findNextSegmentId, segmentDirection } from '@logic/state/utils/segment';
 
 const effect: Effect<State> =
     (

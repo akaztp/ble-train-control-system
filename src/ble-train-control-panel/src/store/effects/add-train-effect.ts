@@ -6,7 +6,7 @@ import {
     createActionTrainSpeed,
 } from '@logic/state/action';
 import { Effect, StoreAction, triggerEffectForAction } from '@logic/state/store';
-import { findTrainTouchingSegment } from '@logic/state/utils/find-train';
+import { findTrainTouchingSegment } from '@logic/state/utils/train';
 
 const effect: Effect<State> =
     (action: StoreAction<ActionPayloadTrainAdd>, state: State): Array<StoreAction<any>> => {

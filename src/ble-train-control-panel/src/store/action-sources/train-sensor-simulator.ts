@@ -9,8 +9,7 @@ import {
     createActionTrainSpeed,
 } from '@logic/state/action';
 import { Dispatcher } from '@logic/state/store';
-import { findNextSegmentId } from '@logic/state/utils/find-next-segment-id';
-import { segmentDirection } from '@logic/state/utils/segment';
+import { findNextSegmentId, segmentDirection } from '@logic/state/utils/segment';
 
 interface SimulatedTrainState {
     id: Id;

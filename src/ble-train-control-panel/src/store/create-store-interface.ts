@@ -5,6 +5,7 @@ import { trainSensorSimulator } from '@/store/action-sources/train-sensor-simula
 import { addTrainEffect } from '@/store/effects/add-train-effect';
 import { trainSensorSimulatorEffect } from '@/store/effects/train-sensor-simulator-effect';
 import { Observer } from '@/store/observer';
+import { switchAvailabilityReducer } from '@/store/reducers/switch-availability-reducer';
 import { trainAddReducer } from '@/store/reducers/train-add-reducer';
 import { findTrainTouchingSegmentSelector$ } from '@/store/selectors/find-train-touching-segment-selector';
 import { trainsListSelector$ } from '@/store/selectors/trains-list-selector';
@@ -28,49 +29,50 @@ export const deviceId = '????';
 const stateObserver$ = new Observer<State>();
 
 const reducers: Array<Reducer<State, LocalAction<any>>> = [
-  trainAddReducer,
-  trainPositionReducer,
-  switchReducer,
-  signalLightReducer,
-  trainSpeedReducer,
-  (state, _action) => stateObserver$.notify(state),
+    trainAddReducer,
+    trainPositionReducer,
+    switchReducer,
+    signalLightReducer,
+    trainSpeedReducer,
+    switchAvailabilityReducer,
+    (state, _action) => stateObserver$.notify(state),
 ];
 
 const actionSources: Array<ActionSource<State, StoreInterface>> = [
-  addTrain,
-  changeTrainSpeed,
-  switchChanger,
-  trainSensorSimulator,
+    addTrain,
+    changeTrainSpeed,
+    switchChanger,
+    trainSensorSimulator,
 ];
 
 const effects: Array<Effect<State>> = [
-  addTrainEffect,
-  signalLightsCalcEffect,
-  trainSensorSimulatorEffect,
-  trainPositionCalcSensorEffect,
-  trainGreenGoEffect,
+    addTrainEffect,
+    signalLightsCalcEffect,
+    trainSensorSimulatorEffect,
+    trainPositionCalcSensorEffect,
+    trainGreenGoEffect,
 ];
 
 
 export function createStoreInterface(): StoreInterface {
 
-  const initialStoreInterface: StoreInterface = {
-    addTrain: noop,
-    changeTrainSpeed: noop,
-    findTrainTouchingSegment$: () => () => undefined,
-    switchChanger: noop,
-    trainsList$: () => () => undefined,
-  };
+    const initialStoreInterface: StoreInterface = {
+        addTrain: noop,
+        changeTrainSpeed: noop,
+        findTrainTouchingSegment$: () => () => undefined,
+        switchChanger: noop,
+        trainsList$: () => () => undefined,
+    };
 
-  const {store, context} = baseCreateStore<State, StoreInterface>(
-    createInitialState(layoutId, deviceId),
-    reducers,
-    effects,
-    actionSources,
-    initialStoreInterface,
-  );
+    const {store, context} = baseCreateStore<State, StoreInterface>(
+        createInitialState(layoutId, deviceId),
+        reducers,
+        effects,
+        actionSources,
+        initialStoreInterface,
+    );
 
-  context.findTrainTouchingSegment$ = findTrainTouchingSegmentSelector$(stateObserver$);
-  context.trainsList$ = trainsListSelector$(stateObserver$);
-  return context;
+    context.findTrainTouchingSegment$ = findTrainTouchingSegmentSelector$(stateObserver$);
+    context.trainsList$ = trainsListSelector$(stateObserver$);
+    return context;
 }
