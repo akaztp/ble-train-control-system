@@ -1,0 +1,25 @@
+@import "variables";
+
+body {
+  margin: 0;
+  background-color: $color-back-body;
+  font-family: Helvetica, Arial, sans-serif;
+  line-height: 1.4;
+  font-size: $font-size-body;
+  color: $color-font-body;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button {
+  outline: none;
+  border: none;
+  background-color: #505050;
+  cursor: pointer;
+  padding: $button-padding;
+  color: $color-font-body;
+}
+
+@import "dashboard";

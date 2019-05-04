@@ -1,36 +1,74 @@
 <template>
-<div class="panel">
-  <div>Train {{train.name}}&nbsp;&nbsp;&nbsp;id: {{train.id}}</div>
-  <div>
-    <button v-on:click="revClick">REV</button>
-    <button v-on:click="fwClick">FW</button>
-    <button v-on:click="stopClick">STOP</button>
+  <div class="panel">
+    <div class="dashboard">
+      <div class="dashboard__cell title">Train Control Dashboard</div>
+      <div class="dashboard__cell dashboard__cell--grow"></div>
+      <div class="train-id">ID: {{train.id}}</div>
+    </div>
+    <div class="dashboard">
+      <div class="dashboard__cell">
+        <div class="train-name">{{train.name}}</div>
+      </div>
+      <div class="dashboard__cell">
+        <button
+          v-bind:class="{dashboard__button: true, 'dashboard__button--highlight': train.speed < 0}"
+          v-on:click="revClick">««</button>
+        <button
+          class="dashboard__button dashboard__button--stop"
+          v-on:click="stopClick"
+          v-bind:disabled="train.speed === 0"
+        >STOP</button>
+        <button
+          v-bind:class="{dashboard__button: true, 'dashboard__button--highlight': train.speed > 0}"
+          v-on:click="fwClick">»»</button>
+      </div>
+      <div class="dashboard__cell">
+        <span v-if="train.speedBeforeStop !== 0">WAITING</span>
+      </div>
+      <div class="dashboard__cell dashboard__cell--grow"></div>
+      <div class="dashboard__cell">
+        <span>Simulated Train</span>
+      </div>
+    </div>
+
   </div>
-  speed: {{train.speed}}
-</div>
 </template>
 
 <script lang="ts">
-  import { Component, Emit, Prop, Vue } from 'vue-property-decorator';
-  import { Train } from '@logic/models/train';
+    import { Train } from '@logic/models/train';
+    import { Component, Emit, Prop, Vue } from 'vue-property-decorator';
 
-  @Component({
-    components: {
-    },
-  })
-  export default class TrainView extends Vue {
-    @Prop() train!: Train;
-    @Emit() revClick(): void {}
-    @Emit() fwClick(): void {}
-    @Emit() stopClick(): void {}
-  }
+    @Component({
+        components: {},
+    })
+    export default class TrainView extends Vue {
+        @Prop() train!: Train;
+
+        @Emit() revClick(): void {}
+
+        @Emit() fwClick(): void {}
+
+        @Emit() stopClick(): void {}
+    }
 </script>
 
-<style scoped>
-.panel {
-  width: 100%;
-  background-color: #2c3e50;
-  padding-bottom: 16px;
-  color: white;
-}
+<style scoped lang="scss">
+  @import "../../styles/train-panel.scss";
+
+  .panel {
+    @extend %train-panel;
+
+    .title {
+      @extend %train-panel__title;
+    }
+
+    .train-name {
+      font-size: 2rem;
+    }
+
+    .train-id {
+      font-size: $font-size-note;
+      color: $color-font-secondary;
+    }
+  }
 </style>

@@ -1,10 +1,11 @@
 <template>
   <div
     v-on:click="click()"
+    v-bind:class="{'add-train': !train}"
   >
     <span v-if="!train"
-      v-bind:class="{indicator: true}"
-      v-bind:title="segment.id">-</span>
+      class="indicator"
+      v-bind:title="segment.id">+</span>
     <span v-if="train"
       v-bind:class="{indicator: true, moving: train.speed !== 0, stopped: train.speed === 0}"
       v-bind:title="segment.id">{{train.name}}</span>
@@ -38,6 +39,13 @@
     border-radius: 4px;
     box-sizing: border-box;
     padding: 2px;
+
+    &.add-train {
+      cursor: pointer;
+      &:hover {
+        background-color: #606060;
+      }
+    }
 
     .indicator {
       color: #f0f0f0;

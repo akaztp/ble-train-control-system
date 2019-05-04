@@ -1,0 +1,13 @@
+@import "variables";
+
+%train-panel {
+  width: 100%;
+  padding: $panel-outer-padding;
+  margin: $panel-outer-padding 0;
+  background-color: $color-back-panel;
+}
+
+%train-panel__title {
+  font-size: 0.9rem;
+  color: $color-font-secondary;
+}
