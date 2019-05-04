@@ -179,10 +179,11 @@
   }
 
   svg.selectable {
-    background-color: rgba(127, 127, 127, 0.2);
+    background-color: rgba(127, 127, 127, 0.4);
+    cursor: pointer;
 
     &:hover {
-      background-color: rgba(127, 127, 127, 0.5);
+      background-color: rgba(127, 127, 127, 0.8);
     }
   }
 </style>
