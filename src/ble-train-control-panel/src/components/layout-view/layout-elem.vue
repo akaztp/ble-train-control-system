@@ -15,7 +15,9 @@
       <layout-elem-switch-right v-if="p.primitive === primitiveSwitchRight"
         v-bind:data="p.data"></layout-elem-switch-right>
       <layout-elem-signal-light v-if="p.primitive === primitiveSignalLight"
-        v-bind:data="p.data"></layout-elem-signal-light>
+        v-bind:data="p.data"
+        v-bind:blocking="train && train.stoppedAtSignalLight === p.data.id"
+      ></layout-elem-signal-light>
       <layout-elem-train-presence v-if="p.primitive === primitiveTrainPresence"
         v-bind:segment="primitive.segment"
         v-bind:train="train"

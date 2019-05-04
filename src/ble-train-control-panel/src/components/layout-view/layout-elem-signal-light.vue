@@ -32,6 +32,8 @@
       cy="5%"
       r="20%"
       style="fill: darkgreen; stroke-width: 0;"></circle>
+    <rect v-if="blocking"
+      x="-10%" y="25%" height="50%" width="30%" style="fill: red; stroke-width: 0;"></rect>
   </svg>
 </template>
 
@@ -45,6 +47,7 @@
   @Component({})
   export default class LayoutElemSignalLight extends Vue {
     @Prop() data!: SignalLight;
+    @Prop() blocking!: boolean;
 
     stateGreen = SignalLightState.Green;
     stateRed = SignalLightState.Red;
