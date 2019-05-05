@@ -8,6 +8,6 @@ export interface Train extends Data {
     enteringSegment: Segment | null;
     speed: number;
     speedBeforeStop: number;
-    driverDevice: string | null;
+    driverDevice: string | null; // null: simulated train
     stoppedAtSignalLight: Id | null;
 }

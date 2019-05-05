@@ -15,9 +15,11 @@ export const trainChangeReducer: Reducer<State, LocalAction<ActionPayloadTrainCh
                         train.name = newName;
                     }
                     if (newDriverDevice !== undefined) {
-                        train.driverDevice = newDriverDevice;
+                        if (newDriverDevice === null || (train.speed === 0 && !train.stoppedAtSignalLight)) {
+                            train.driverDevice = newDriverDevice;
+                            train.speedBeforeStop = 0;
+                        }
                     }
-
                 }
             }
         }

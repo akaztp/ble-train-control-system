@@ -34,24 +34,6 @@
   </div>
 </template>
 
-<script lang="ts">
-    import { Train } from '@logic/models/train';
-    import { Component, Emit, Prop, Vue } from 'vue-property-decorator';
-
-    @Component({
-        components: {},
-    })
-    export default class TrainView extends Vue {
-        @Prop() train!: Train;
-
-        @Emit() revClick(): void {}
-
-        @Emit() fwClick(): void {}
-
-        @Emit() stopClick(): void {}
-    }
-</script>
-
 <style scoped lang="scss">
   @import "../../styles/train-panel.scss";
 
@@ -72,3 +54,5 @@
     }
   }
 </style>
+
+<script lang="ts" src="./train-view.ts"></script>
