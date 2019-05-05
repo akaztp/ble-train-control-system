@@ -26,6 +26,7 @@ export function localActionCreator<P>(
 export enum ActionType {
   Init = 0,
   TrainAdd = 1,
+  TrainChange,
   TrainPosition,
   TrainSpeed,
   Switch,
