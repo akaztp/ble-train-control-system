@@ -1,5 +1,6 @@
 import { State } from '@logic/models/state';
-import { ActionPayloadTrainAdd, ActionType, LocalAction } from '@logic/state/action';
+import { ActionType, LocalAction } from '@logic/state/action';
+import { ActionPayloadTrainAdd } from '@logic/state/actions/train-add';
 import { Reducer } from '@logic/state/store';
 
 export const trainAddReducer: Reducer<State, LocalAction<ActionPayloadTrainAdd>> =

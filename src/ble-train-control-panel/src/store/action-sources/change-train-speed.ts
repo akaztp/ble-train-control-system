@@ -1,6 +1,6 @@
 import { Id } from '@logic/models/base';
 import { State } from '@logic/models/state';
-import { createActionTrainSpeed } from '@logic/state/action';
+import { createActionTrainSpeed } from '@logic/state/actions/train-speed';
 import { Dispatcher } from '@logic/state/store';
 import { StoreInterface } from '../store-interface';
 

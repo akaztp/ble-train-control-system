@@ -1,14 +1,12 @@
 import { SignalLightState } from '@logic/models/signal-light';
 import { State } from '@logic/models/state';
-import {
-    ActionPayloadTrainSensor,
-    ActionType,
-    createActionTrainPosition,
-    createActionTrainSpeed,
-} from '@logic/state/action';
+import { ActionType } from '@logic/state/action';
+import { createActionTrainPosition } from '@logic/state/actions/train-position';
+import { ActionPayloadTrainSensor } from '@logic/state/actions/train-sensor';
+import { createActionTrainSpeed } from '@logic/state/actions/train-speed';
 import { Effect, StoreAction, triggerEffectForAction } from '@logic/state/store';
-import { findTrainEnteringSegment, findTrainInsideSegment } from '@logic/state/utils/train';
 import { findNextSegmentId, segmentSignalLight } from '@logic/state/utils/segment';
+import { findTrainEnteringSegment, findTrainInsideSegment } from '@logic/state/utils/train';
 
 const effect: Effect<State> =
     (

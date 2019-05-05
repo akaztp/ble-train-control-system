@@ -1,11 +1,8 @@
 import { Id, SimpleMap } from '@logic/models/base';
 import { State } from '@logic/models/state';
-import {
-    ActionPayloadTrainPosition,
-    ActionPayloadTrainSpeed,
-    createActionTrainSensor,
-    createActionTrainSpeed,
-} from '@logic/state/action';
+import { ActionPayloadTrainPosition } from '@logic/state/actions/train-position';
+import { createActionTrainSensor } from '@logic/state/actions/train-sensor';
+import { ActionPayloadTrainSpeed, createActionTrainSpeed } from '@logic/state/actions/train-speed';
 import { Dispatcher } from '@logic/state/store';
 import { findNextSegmentId, segmentDirection } from '@logic/state/utils/segment';
 import { StoreInterface } from '../store-interface';

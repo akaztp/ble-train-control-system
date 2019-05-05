@@ -4,13 +4,9 @@ import { SignalLight, SignalLightState } from '@logic/models/signal-light';
 import { State } from '@logic/models/state';
 import { Switch } from '@logic/models/switch';
 import { Train } from '@logic/models/train';
-import {
-    ActionPayloadSignalLight,
-    ActionPayloadSwitch,
-    ActionType,
-    createActionSignalLight,
-    LocalAction,
-} from '@logic/state/action';
+import { ActionType, LocalAction } from '@logic/state/action';
+import { ActionPayloadSignalLight, createActionSignalLight } from '@logic/state/actions/signal-light';
+import { ActionPayloadSwitch } from '@logic/state/actions/switch';
 import { Effect, StoreAction, triggerEffectForAction } from '@logic/state/store';
 import { isPathOpen } from '@logic/state/utils/path';
 

@@ -1,10 +1,8 @@
 import { State } from '@logic/models/state';
-import {
-    ActionPayloadTrainAdd,
-    ActionType,
-    createActionTrainPosition,
-    createActionTrainSpeed,
-} from '@logic/state/action';
+import { ActionType } from '@logic/state/action';
+import { ActionPayloadTrainAdd } from '@logic/state/actions/train-add';
+import { createActionTrainPosition } from '@logic/state/actions/train-position';
+import { createActionTrainSpeed } from '@logic/state/actions/train-speed';
 import { Effect, StoreAction, triggerEffectForAction } from '@logic/state/store';
 import { findTrainTouchingSegment } from '@logic/state/utils/train';
 

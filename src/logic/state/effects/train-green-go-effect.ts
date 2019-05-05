@@ -1,11 +1,9 @@
 import { SignalLightState } from '@logic/models/signal-light';
 import { State } from '@logic/models/state';
-import {
-    ActionPayloadSignalLight,
-    ActionType,
-    createActionTrainPosition,
-    createActionTrainSpeed,
-} from '@logic/state/action';
+import { ActionType } from '@logic/state/action';
+import { ActionPayloadSignalLight } from '@logic/state/actions/signal-light';
+import { createActionTrainPosition } from '@logic/state/actions/train-position';
+import { createActionTrainSpeed } from '@logic/state/actions/train-speed';
 import { Effect, StoreAction, triggerEffectForAction } from '@logic/state/store';
 import { findNextSegmentId, segmentDirection } from '@logic/state/utils/segment';
 import { findTrainInsideSegment } from '@logic/state/utils/train';

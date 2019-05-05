@@ -1,8 +1,8 @@
-import { StoreInterface } from '../store-interface';
 import { getUniqueId, Id } from '@logic/models/base';
 import { State } from '@logic/models/state';
-import { createActionTrainAdd } from '@logic/state/action';
+import { createActionTrainAdd } from '@logic/state/actions/train-add';
 import { Dispatcher } from '@logic/state/store';
+import { StoreInterface } from '../store-interface';
 
 export function addTrain(
   state: State,

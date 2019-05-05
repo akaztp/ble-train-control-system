@@ -1,5 +1,6 @@
 import { State } from '@logic/models/state';
-import { ActionPayloadSignalLight, ActionType, LocalAction } from '@logic/state/action';
+import { ActionType, LocalAction } from '@logic/state/action';
+import { ActionPayloadSignalLight } from '@logic/state/actions/signal-light';
 import { Reducer } from '@logic/state/store';
 import { segmentSignalLight } from '@logic/state/utils/segment';
 
