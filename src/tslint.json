@@ -5,15 +5,20 @@
   ],
   "linterOptions": {
     "exclude": [
-      "node_modules/**"
+      "node_modules/**",
+      "dist"
     ]
   },
   "rules": {
     "quotemark": [true, "single"],
-    "indent": [true, "spaces", 2],
+    "indent": [true, "spaces", 4],
     "interface-name": false,
     "ordered-imports": false,
     "object-literal-sort-keys": false,
-    "no-consecutive-blank-lines": false
+    "no-consecutive-blank-lines": false,
+    "member-access": false,
+    "member-ordering": false,
+    "no-console": [true, "debug"],
+    "no-empty": false
   }
 }

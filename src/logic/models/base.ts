@@ -23,7 +23,7 @@ export interface SimpleMap<T extends Data> {
 export function getUniqueId(data: SimpleMap<Data>): Id {
   return Object.keys(data).reduce(
     (max, k) => {
-      const id = parseInt(k);
+      const id = parseInt(k, 10);
       return id >= max ? id + 1 : max;
     }, 0);
 }

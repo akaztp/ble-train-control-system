@@ -1,6 +1,6 @@
-import { StoreInterface, storeInterfaceInjectorKey } from '@/store/store-interface';
 import { Switch, SwitchPosition } from '@logic/models/switch';
 import { Inject, Prop, Vue } from 'vue-property-decorator';
+import { StoreInterface, storeInterfaceInjectorKey } from '../../store/store-interface';
 
 export class LayoutElemSwitch extends Vue {
     @Prop() data!: Switch;

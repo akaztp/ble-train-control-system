@@ -27,9 +27,9 @@ const allSegments: SimpleMap<Segment> = resolveSegmentsRefs({
 
 export const segments = resolvePaths(allSegments);
 
-function resolvePaths(segments: SimpleMap<Segment>): SimpleMap<Segment> {
+function resolvePaths(unresolvedSegments: SimpleMap<Segment>): SimpleMap<Segment> {
   Object.keys(allSegments).forEach(
     (id) => applyPaths(allSegments[id as any], allSegments),
   );
-  return segments;
+  return unresolvedSegments;
 }

@@ -25,7 +25,7 @@
 </template>
 
 <script lang="ts">
-  import { LayoutElemSwitch } from '@/components/layout-view/layout-elem-switch';
+  import { LayoutElemSwitch } from './layout-elem-switch';
   import { Component } from 'vue-property-decorator';
 
   @Component({})

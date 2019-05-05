@@ -1,15 +1,15 @@
-import { addTrain } from '@/store/action-sources/add-train';
-import { changeTrainSpeed } from '@/store/action-sources/change-train-speed';
-import { switchChanger } from '@/store/action-sources/switch-changer';
-import { trainSensorSimulator } from '@/store/action-sources/train-sensor-simulator';
-import { addTrainEffect } from '@/store/effects/add-train-effect';
-import { trainSensorSimulatorEffect } from '@/store/effects/train-sensor-simulator-effect';
-import { Observer } from '@/store/observer';
-import { switchAvailabilityReducer } from '@/store/reducers/switch-availability-reducer';
-import { trainAddReducer } from '@/store/reducers/train-add-reducer';
-import { findTrainTouchingSegmentSelector$ } from '@/store/selectors/find-train-touching-segment-selector';
-import { trainsListSelector$ } from '@/store/selectors/trains-list-selector';
-import { StoreInterface } from '@/store/store-interface';
+import { addTrain } from './action-sources/add-train';
+import { changeTrainSpeed } from './action-sources/change-train-speed';
+import { switchChanger } from './action-sources/switch-changer';
+import { trainSensorSimulator } from './action-sources/train-sensor-simulator';
+import { addTrainEffect } from './effects/add-train-effect';
+import { trainSensorSimulatorEffect } from './effects/train-sensor-simulator-effect';
+import { Observer } from './observer';
+import { switchAvailabilityReducer } from './reducers/switch-availability-reducer';
+import { trainAddReducer } from './reducers/train-add-reducer';
+import { findTrainTouchingSegmentSelector$ } from './selectors/find-train-touching-segment-selector';
+import { trainsListSelector$ } from './selectors/trains-list-selector';
+import { StoreInterface } from './store-interface';
 import { layoutId } from '@layout/layout-id';
 import { State } from '@logic/models/state';
 import { LocalAction } from '@logic/state/action';
@@ -35,7 +35,7 @@ const reducers: Array<Reducer<State, LocalAction<any>>> = [
     signalLightReducer,
     trainSpeedReducer,
     switchAvailabilityReducer,
-    (state, _action) => stateObserver$.notify(state),
+    (state, action) => stateObserver$.notify(state),
 ];
 
 const actionSources: Array<ActionSource<State, StoreInterface>> = [

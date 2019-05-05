@@ -7,8 +7,8 @@ import {
     createActionTrainSpeed,
 } from '@logic/state/action';
 import { Effect, StoreAction, triggerEffectForAction } from '@logic/state/store';
-import { findTrainInsideSegment } from '@logic/state/utils/train';
 import { findNextSegmentId, segmentDirection } from '@logic/state/utils/segment';
+import { findTrainInsideSegment } from '@logic/state/utils/train';
 
 const effect: Effect<State> =
     (
@@ -16,7 +16,7 @@ const effect: Effect<State> =
         state: State,
     ): Array<StoreAction<any>> => {
         if (action.payload.state === SignalLightState.Green) {
-            let segmentId = action.payload.segmentId;
+            const segmentId = action.payload.segmentId;
             const train = findTrainInsideSegment(state.trains, segmentId);
             if (train && train.speed === 0 && train.speedBeforeStop !== 0) {
                 const segment = state.segments[segmentId];
@@ -40,7 +40,7 @@ const effect: Effect<State> =
                                 trainId: train.id,
                                 speed: train.speedBeforeStop,
                                 temporary: false,
-                            })
+                            }),
                         ];
                     }
                 }

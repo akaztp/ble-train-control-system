@@ -11,42 +11,44 @@
 </template>
 
 <script lang="ts">
-  import LayoutView from '@/components/layout-view/layout-view.vue';
-  import TrainsView from '@/components/trains-view/trains-view.vue';
-  import { createStoreInterface } from '@/store/create-store-interface';
-  import {
-    StoreInterface,
-    storeInterfaceInjectorKey,
-  } from '@/store/store-interface';
-  import { Segment } from '@logic/models/segment';
-  import { Train } from '@logic/models/train';
-  import { Component, Provide, Vue } from 'vue-property-decorator';
+    import LayoutView from '@/components/layout-view/layout-view.vue';
+    import TrainsView from '@/components/trains-view/trains-view.vue';
+    import { Segment } from '@logic/models/segment';
+    import { Train } from '@logic/models/train';
+    import { Component, Provide, Vue } from 'vue-property-decorator';
+    import { createStoreInterface } from './store/create-store-interface';
+    import {
+        StoreInterface,
+        storeInterfaceInjectorKey,
+    } from './store/store-interface';
 
-  @Component({
-    components: {
-      TrainsView,
-      LayoutView,
-    },
-  })
-  export default class App extends Vue {
-    @Provide(storeInterfaceInjectorKey) storeInterface: StoreInterface = createStoreInterface();
+    @Component({
+        components: {
+            TrainsView,
+            LayoutView,
+        },
+    })
+    export default class App extends Vue {
+        @Provide(storeInterfaceInjectorKey) storeInterface: StoreInterface = createStoreInterface();
 
-    addingTrainToSegment: Segment | null = null;
+        addingTrainToSegment: Segment | null = null;
 
-    trainPresenceClick(
-      segment: Segment,
-      train: Train,
-    ): void {
-      console.log('trainPresenceClick():', segment, train);
-      if (!train)
-        this.addingTrainToSegment = segment;
+        trainPresenceClick(
+            segment: Segment,
+            train: Train,
+        ): void {
+            console.log('trainPresenceClick():', segment, train);
+            if (!train) {
+                this.addingTrainToSegment = segment;
+            }
+        }
+
+        addTrain(segment: Segment): void {
+            this.storeInterface.addTrain('TR-' +
+                Math.round(Math.random() * 100), segment.id, true);
+            this.addingTrainToSegment = null;
+        }
     }
-
-    addTrain(segment: Segment): void {
-      this.storeInterface.addTrain('TR-' + Math.round(Math.random() * 100), segment.id, true);
-      this.addingTrainToSegment = null;
-    }
-  }
 
 </script>
 

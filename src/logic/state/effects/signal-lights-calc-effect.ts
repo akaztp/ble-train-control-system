@@ -66,7 +66,7 @@ function checkSignalLight(
     // TODO: check if signalLight is owned by current device
 
     const openPath = paths.find((path) => isPathOpen(path, switches));
-    let newSignalLightState: SignalLightState =
+    const newSignalLightState: SignalLightState =
         (openPath && !occupation[openPath.segmentId]) ?
             SignalLightState.Green :
             SignalLightState.Red;
@@ -86,10 +86,10 @@ function segmentsOccupation(
     segments: SimpleMap<Segment>,
     trains: SimpleMap<Train>,
 ): { [key: number]: boolean } {
-    let occupation = Object.keys(segments).reduce(
-        (occupation, id) => {
-            occupation[id as any] = false;
-            return occupation;
+    const occupation = Object.keys(segments).reduce(
+        (occ, id) => {
+            occ[id as any] = false;
+            return occ;
         },
         {} as { [key: number]: boolean },
     );
