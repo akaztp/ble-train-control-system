@@ -22,6 +22,8 @@ State machine diagram (a bit outdated)
 ## Actions and Reducers
 - TrainAdd(name, segmentId, isUncontrolled)
   - Updates Trains
+- TrainChange(trainId, name?, driverDevice?)
+  - Updates Trains
 - TrainPosition(trainId, segmentId, enteringSegmentId)
   - Updates Trains
 - TrainSpeed(trainId, speed)
