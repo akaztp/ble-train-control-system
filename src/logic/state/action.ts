@@ -39,7 +39,6 @@ export interface ActionPayloadTrainAdd {
   id: Id;
   name: string;
   segmentId: Id;
-  isUncontrolled: boolean;
 }
 
 export function createActionTrainAdd(

@@ -5,14 +5,13 @@ import { segmentSignalLight } from '@logic/state/utils/segment';
 
 export const signalLightReducer: Reducer<State, LocalAction<ActionPayloadSignalLight>> =
   (state: State, action: LocalAction<ActionPayloadSignalLight>): void => {
-    switch (action.type) {
-      case ActionType.SignalLight:
-        const segment = state.segments[action.payload.segmentId];
-        if (segment) {
-          const signalLight = segmentSignalLight(segment, action.payload.signalId);
-          if (signalLight) {
-            signalLight.state = action.payload.state;
-          }
+    if (action.type === ActionType.SignalLight) {
+      const segment = state.segments[action.payload.segmentId];
+      if (segment) {
+        const signalLight = segmentSignalLight(segment, action.payload.signalId);
+        if (signalLight) {
+          signalLight.state = action.payload.state;
         }
+      }
     }
   };

@@ -8,8 +8,8 @@ import { Reducer } from '@logic/state/store';
 
 export const switchReducer: Reducer<State, LocalAction<ActionPayloadSwitch>> =
   (state, action): void => {
-    switch (action.type) {
-      case ActionType.Switch: {
+    if (action.type === ActionType.Switch) {
+      {
         const sw = state.switches[action.payload.switchId];
         sw.position = action.payload.position;
         sw.enabled = action.payload.enabled;

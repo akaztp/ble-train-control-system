@@ -4,8 +4,8 @@ import { Reducer } from '@logic/state/store';
 
 export const trainSpeedReducer: Reducer<State, LocalAction<ActionPayloadTrainSpeed>> =
     (state, action): void => {
-        switch (action.type) {
-            case ActionType.TrainSpeed: {
+        if (action.type === ActionType.TrainSpeed) {
+            {
                 const train = state.trains[action.payload.trainId];
                 if (train) {
                     const newSpeed = action.payload.speed;

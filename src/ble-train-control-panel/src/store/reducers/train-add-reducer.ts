@@ -4,8 +4,8 @@ import { Reducer } from '@logic/state/store';
 
 export const trainAddReducer: Reducer<State, LocalAction<ActionPayloadTrainAdd>> =
     (state, action): void => {
-        switch (action.type) {
-            case ActionType.TrainAdd: {
+        if (action.type === ActionType.TrainAdd) {
+            {
                 // TODO: needs to check if id is free
                 // TODO: needs to check if target segment is free
                 // TODO: needs to check if name is unique
@@ -16,7 +16,7 @@ export const trainAddReducer: Reducer<State, LocalAction<ActionPayloadTrainAdd>>
                     enteringSegment: null,
                     speed: 0,
                     speedBeforeStop: 0,
-                    isUncontrolled: action.payload.isUncontrolled,
+                    driverDevice: null,
                     stoppedAtSignalLight: null,
                 };
             }

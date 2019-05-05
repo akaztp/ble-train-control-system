@@ -12,10 +12,9 @@ export function addTrain(
   storeInterface.addTrain = (
     name: string,
     segmentId: Id,
-    isUncontrolled: boolean,
   ): void => {
     const id = getUniqueId(state.trains);
-    return dispatcher(createActionTrainAdd({id, name, segmentId, isUncontrolled}));
+    return dispatcher(createActionTrainAdd({id, name, segmentId}));
   };
   return storeInterface;
 }

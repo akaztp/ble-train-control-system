@@ -8,8 +8,8 @@ import { Reducer } from '@logic/state/store';
 
 export const trainPositionReducer: Reducer<State, LocalAction<ActionPayloadTrainPosition>> =
   (state, action): void => {
-    switch (action.type) {
-      case ActionType.TrainPosition: {
+    if (action.type === ActionType.TrainPosition) {
+      {
         const train = state.trains[action.payload.trainId];
         if (train) {
           train.segment = state.segments[action.payload.segmentId];
