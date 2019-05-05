@@ -1,4 +1,4 @@
-import { Observer, Subscriber, Unsubscriber } from '@/store/observer';
+import { Observer, Subscriber, Unsubscriber } from '../observer';
 import { findTrainTouchingSegment } from '@logic/state/utils/train';
 import { Segment } from '@logic/models/segment';
 import { State } from '@logic/models/state';

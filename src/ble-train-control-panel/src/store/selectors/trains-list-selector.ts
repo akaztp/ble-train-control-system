@@ -1,4 +1,4 @@
-import { Observer, Subscriber, Unsubscriber } from '@/store/observer';
+import { Observer, Subscriber, Unsubscriber } from '../observer';
 import { State } from '@logic/models/state';
 import { Train } from '@logic/models/train';
 

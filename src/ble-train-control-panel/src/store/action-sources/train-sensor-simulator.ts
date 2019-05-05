@@ -1,6 +1,4 @@
-import { StoreInterface } from '@/store/store-interface';
 import { Id, SimpleMap } from '@logic/models/base';
-import { SignalLight } from '@logic/models/signal-light';
 import { State } from '@logic/models/state';
 import {
     ActionPayloadTrainPosition,
@@ -10,6 +8,7 @@ import {
 } from '@logic/state/action';
 import { Dispatcher } from '@logic/state/store';
 import { findNextSegmentId, segmentDirection } from '@logic/state/utils/segment';
+import { StoreInterface } from '../store-interface';
 
 interface SimulatedTrainState {
     id: Id;

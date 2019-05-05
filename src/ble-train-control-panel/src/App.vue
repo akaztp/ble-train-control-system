@@ -13,11 +13,11 @@
 <script lang="ts">
   import LayoutView from '@/components/layout-view/layout-view.vue';
   import TrainsView from '@/components/trains-view/trains-view.vue';
-  import { createStoreInterface } from '@/store/create-store-interface';
+  import { createStoreInterface } from './store/create-store-interface';
   import {
     StoreInterface,
     storeInterfaceInjectorKey,
-  } from '@/store/store-interface';
+  } from './store/store-interface';
   import { Segment } from '@logic/models/segment';
   import { Train } from '@logic/models/train';
   import { Component, Provide, Vue } from 'vue-property-decorator';

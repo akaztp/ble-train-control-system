@@ -1,4 +1,4 @@
-import { positionChanged, speedChanged } from '@/store/action-sources/train-sensor-simulator';
+import { positionChanged, speedChanged } from '../action-sources/train-sensor-simulator';
 import { State } from '@logic/models/state';
 import { ActionPayloadTrainPosition, ActionPayloadTrainSpeed, ActionType } from '@logic/state/action';
 import { Effect, StoreAction, triggerEffectForAction } from '@logic/state/store';

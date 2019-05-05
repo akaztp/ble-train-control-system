@@ -1,4 +1,4 @@
-import { StoreInterface } from '@/store/store-interface';
+import { StoreInterface } from '../store-interface';
 import { getUniqueId, Id } from '@logic/models/base';
 import { State } from '@logic/models/state';
 import { createActionTrainAdd } from '@logic/state/action';

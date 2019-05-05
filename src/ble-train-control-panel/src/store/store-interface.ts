@@ -1,4 +1,4 @@
-import { Subscriber, Unsubscriber } from '@/store/observer';
+import { Subscriber, Unsubscriber } from './observer';
 import { Id } from '@logic/models/base';
 import { Segment } from '@logic/models/segment';
 import { SwitchPosition } from '@logic/models/switch';

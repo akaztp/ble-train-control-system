@@ -16,7 +16,6 @@
       "webpack-env"
     ],
     "paths": {
-      "@/*": ["./src/*"],
       "@logic/*": [
         "../logic/*"
       ],
