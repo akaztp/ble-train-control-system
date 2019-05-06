@@ -9,7 +9,11 @@ export const trainChangeReducer: Reducer<State, LocalAction<ActionPayloadTrainCh
             {
                 const train = state.trains[action.payload.id];
                 if (train) {
-                    const {name: newName, driverDevice: newDriverDevice} = action.payload;
+                    const {
+                        name: newName,
+                        driverDevice: newDriverDevice,
+                        invertedDir: newInvertedDir,
+                    } = action.payload;
                     if (newName) {
                         // TODO: needs to check if name is unique
                         train.name = newName;
@@ -18,6 +22,12 @@ export const trainChangeReducer: Reducer<State, LocalAction<ActionPayloadTrainCh
                         if (newDriverDevice === null || (train.speed === 0 && !train.stoppedAtSignalLight)) {
                             train.driverDevice = newDriverDevice;
                             train.speedBeforeStop = 0;
+                        }
+                    }
+
+                    if (newInvertedDir !== undefined) {
+                        if (train.speed === 0 && !train.stoppedAtSignalLight) {
+                            train.invertedDir = newInvertedDir;
                         }
                     }
                 }

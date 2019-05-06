@@ -19,7 +19,11 @@ const effect: Effect<State> =
             if (train && train.speed === 0 && train.speedBeforeStop !== 0) {
                 const segment = state.segments[segmentId];
                 const signalId = action.payload.signalId;
-                const directionSignalLight = segmentDirection(segment, train.speedBeforeStop);
+                const directionSignalLight = segmentDirection(
+                    segment,
+                    train.speedBeforeStop,
+                    train.invertedDir,
+                );
                 if (directionSignalLight !== null && directionSignalLight.id === signalId) {
                     const nextSegmentId = findNextSegmentId(
                         segment,

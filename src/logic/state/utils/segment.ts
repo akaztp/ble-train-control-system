@@ -35,10 +35,12 @@ export function segmentSignalLight(
 export function segmentDirection(
     segment: Segment,
     speed: number,
+    invertedDir: boolean,
 ): SignalLight | null {
-    if (speed > 0) {
+    const adjustedSpeed = invertedDir ? -speed : speed;
+    if (adjustedSpeed > 0) {
         return segment.toSignalLight;
-    } else if (speed < 0) {
+    } else if (adjustedSpeed < 0) {
         return segment.fromSignalLight;
     }
     return null;

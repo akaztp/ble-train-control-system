@@ -12,6 +12,7 @@ interface SimulatedTrainState {
     timerId: number | null;
     segmentId: Id | null;
     speed: number;
+    invertedDir: boolean;
 }
 
 const trainsState: SimpleMap<SimulatedTrainState> = {};
@@ -72,12 +73,16 @@ export function positionChanged(positionInfo: ActionPayloadTrainPosition): void 
 }
 
 function addTrain(id: Id, segmentId: Id | null): void {
-    trainsState[id] = {
-        id,
-        segmentId,
-        timerId: null,
-        speed: 0,
-    };
+    const train = state.trains[id];
+    if (train) {
+        trainsState[id] = {
+            id,
+            segmentId,
+            timerId: null,
+            speed: 0,
+            invertedDir: train.invertedDir,
+        };
+    }
 }
 
 function moveTrain(id: Id, speed: number): void {
@@ -105,7 +110,11 @@ function triggerExitSensor(trainId: Id): void {
     if (trainState) {
         const segmentId = trainState.segmentId;
         if (segmentId !== null) {
-            const signalLight = segmentDirection(state.segments[segmentId], trainState.speed);
+            const signalLight = segmentDirection(
+                state.segments[segmentId],
+                trainState.speed,
+                trainState.invertedDir,
+            );
             if (signalLight !== null) {
                 dispatcher(
                     createActionTrainSensor({

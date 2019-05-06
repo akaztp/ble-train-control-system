@@ -5,6 +5,7 @@ export interface ActionPayloadTrainChange {
     id: Id;
     name?: string;
     driverDevice?: string | null;
+    invertedDir?: boolean;
 }
 
 export function createActionTrainChange(

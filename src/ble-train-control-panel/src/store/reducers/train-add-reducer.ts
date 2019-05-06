@@ -19,6 +19,7 @@ export const trainAddReducer: Reducer<State, LocalAction<ActionPayloadTrainAdd>>
                     speedBeforeStop: 0,
                     driverDevice: null,
                     stoppedAtSignalLight: null,
+                    invertedDir: false,
                 };
             }
         }

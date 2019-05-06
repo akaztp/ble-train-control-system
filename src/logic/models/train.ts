@@ -10,4 +10,5 @@ export interface Train extends Data {
     speedBeforeStop: number;
     driverDevice: string | null; // null: simulated train
     stoppedAtSignalLight: Id | null;
+    invertedDir: boolean;
 }
