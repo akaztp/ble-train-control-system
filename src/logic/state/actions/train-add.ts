@@ -2,7 +2,7 @@ import { Id } from '@logic/models/base';
 import { ActionType, LocalAction, localActionCreator } from '@logic/state/action';
 
 export interface ActionPayloadTrainAdd {
-    id: Id;
+    trainId: Id;
     name: string;
     segmentId: Id;
 }

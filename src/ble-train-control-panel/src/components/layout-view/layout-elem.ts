@@ -13,7 +13,7 @@ import LayoutElemSignalLight from './layout-elem-signal-light.vue';
 import LayoutElemStraight from './layout-elem-straight.vue';
 import LayoutElemSwitchLeft from './layout-elem-switch-left.vue';
 import LayoutElemSwitchRight from './layout-elem-switch-right.vue';
-import LayoutElemTrainPresence from './layout-elem-train-presence.vue';
+import LayoutElemTrainPresence from './layout-elem-train-presence';
 
 @Component({
     components: {

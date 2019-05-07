@@ -10,7 +10,7 @@
       width="10px"
       preserveAspectRatio="none"
       style="left: 100%"
-      v-if="train && data.id === 0"
+      v-if="train && trainToRight()"
     >
       <rect x="0%" y="20%" width="100%" height="60%" style="fill: #f0f0f0; stroke-width: 0"></rect>
     </svg>
@@ -21,7 +21,7 @@
       width="10px"
       preserveAspectRatio="none"
       style="left: 0"
-      v-if="train && data.id === 1"
+      v-if="train && !trainToRight()"
     >
       <rect x="-100%" y="20%" width="100%" height="60%" style="fill: #f0f0f0; stroke-width: 0"></rect>
     </svg>

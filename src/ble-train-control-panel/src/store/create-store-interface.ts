@@ -12,6 +12,7 @@ import { trainSpeedReducer } from '@logic/state/reducers/train-speed-reducer';
 import { ActionSource, createStore as baseCreateStore, Effect, Reducer } from '@logic/state/store';
 import { noop } from 'vue-class-component/lib/util';
 import { addTrain } from './action-sources/add-train';
+import { changeTrainDir } from './action-sources/change-train-dir';
 import { changeTrainSpeed } from './action-sources/change-train-speed';
 import { switchChanger } from './action-sources/switch-changer';
 import { trainSensorSimulator } from './action-sources/train-sensor-simulator';
@@ -42,6 +43,7 @@ const reducers: Array<Reducer<State, LocalAction<any>>> = [
 
 const actionSources: Array<ActionSource<State, StoreInterface>> = [
     addTrain,
+    changeTrainDir,
     changeTrainSpeed,
     switchChanger,
     trainSensorSimulator,
@@ -55,11 +57,11 @@ const effects: Array<Effect<State>> = [
     trainGreenGoEffect,
 ];
 
-
 export function createStoreInterface(): StoreInterface {
 
     const initialStoreInterface: StoreInterface = {
         addTrain: noop,
+        changeTrainDir: noop,
         changeTrainSpeed: noop,
         findTrainTouchingSegment$: () => () => undefined,
         switchChanger: noop,

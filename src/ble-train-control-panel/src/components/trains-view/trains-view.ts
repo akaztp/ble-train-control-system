@@ -19,6 +19,11 @@ export default class TrainsView extends Vue {
         this.storeInterface.changeTrainSpeed(trainId, speed);
     }
 
+    invertTrainDir(trainId: Id): void {
+        const invertedDir = this.trainsList[trainId].invertedDir;
+        this.storeInterface.changeTrainDir(trainId, !invertedDir);
+    }
+
     created() {
         this.trainsList$$ =
             this.storeInterface.trainsList$((trains: Train[]) => {

@@ -13,8 +13,8 @@ export function addTrain(
     name: string,
     segmentId: Id,
   ): void => {
-    const id = getUniqueId(state.trains);
-    return dispatcher(createActionTrainAdd({id, name, segmentId}));
+    const trainId = getUniqueId(state.trains);
+    return dispatcher(createActionTrainAdd({trainId, name, segmentId}));
   };
   return storeInterface;
 }

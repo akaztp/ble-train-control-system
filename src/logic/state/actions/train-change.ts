@@ -2,7 +2,7 @@ import { Id } from '@logic/models/base';
 import { ActionType, LocalAction, localActionCreator } from '@logic/state/action';
 
 export interface ActionPayloadTrainChange {
-    id: Id;
+    trainId: Id;
     name?: string;
     driverDevice?: string | null;
     invertedDir?: boolean;
@@ -12,7 +12,7 @@ export function createActionTrainChange(
     payload: ActionPayloadTrainChange,
 ): LocalAction<ActionPayloadTrainChange> {
     return localActionCreator<ActionPayloadTrainChange>(
-        ActionType.TrainAdd,
+        ActionType.TrainChange,
         payload,
     );
 }

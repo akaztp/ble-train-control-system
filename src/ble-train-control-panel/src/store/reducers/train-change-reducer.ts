@@ -7,7 +7,7 @@ export const trainChangeReducer: Reducer<State, LocalAction<ActionPayloadTrainCh
     (state, action): void => {
         if (action.type === ActionType.TrainChange) {
             {
-                const train = state.trains[action.payload.id];
+                const train = state.trains[action.payload.trainId];
                 if (train) {
                     const {
                         name: newName,
@@ -27,6 +27,7 @@ export const trainChangeReducer: Reducer<State, LocalAction<ActionPayloadTrainCh
 
                     if (newInvertedDir !== undefined) {
                         if (train.speed === 0 && !train.stoppedAtSignalLight) {
+                            train.speedBeforeStop = 0;
                             train.invertedDir = newInvertedDir;
                         }
                     }

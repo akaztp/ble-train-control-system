@@ -9,7 +9,7 @@ import { findTrainTouchingSegment } from '@logic/state/utils/train';
 const effect: Effect<State> =
     (action: StoreAction<ActionPayloadTrainAdd>, state: State): Array<StoreAction<any>> => {
         const train = findTrainTouchingSegment(state.trains, action.payload.segmentId);
-        if (train && train.id === action.payload.id) {
+        if (train && train.id === action.payload.trainId) {
             return [
                 createActionTrainPosition({
                     trainId: train.id,

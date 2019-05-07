@@ -5,6 +5,7 @@
       v-on:rev-click="changeSpeed(train.id, -1)"
       v-on:fw-click="changeSpeed(train.id, 1)"
       v-on:stop-click="changeSpeed(train.id, 0)"
+      v-on:invert-click="invertTrainDir(train.id)"
     ></train-view>
   </div>
 </template>

@@ -3,7 +3,12 @@
     <div class="dashboard">
       <div class="dashboard__cell title">Train Control Dashboard</div>
       <div class="dashboard__cell dashboard__cell--grow"></div>
-      <div class="train-id">ID: {{train.id}}</div>
+      <div class="dashboard__cell  train-id">
+        <button v-on:click="invertClick" v-bind:disabled="invertDirDisabled()">
+          Invert Dir
+        </button>
+      </div>
+      <div class="dashboard__cell  train-id">ID: {{train.id}}</div>
     </div>
     <div class="dashboard">
       <div class="dashboard__cell">

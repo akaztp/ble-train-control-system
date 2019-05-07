@@ -78,11 +78,12 @@ function logAction(action: StoreAction<any>): void {
 }
 
 const logActionType = [
-  'Init',
-  'TrainAdd',
-  'TrainPosition',
-  'TrainSpeed',
-  'Switch',
-  'SignalLight',
-  'TrainSensor',
+    'Init',
+    'TrainAdd',
+    'TrainChange',
+    'TrainPosition',
+    'TrainSpeed',
+    'Switch',
+    'SignalLight',
+    'TrainSensor',
 ];

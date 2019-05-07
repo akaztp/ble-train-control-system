@@ -12,4 +12,15 @@ export default class TrainView extends Vue {
     @Emit() fwClick(): void {}
 
     @Emit() stopClick(): void {}
+
+    @Emit() invertClick(): void {}
+
+    invertDirDisabled(): boolean {
+        if (this.train) {
+            return this.train.speed !== 0 ||
+                this.train.stoppedAtSignalLight !== null ||
+                this.train.enteringSegment !== null;
+        }
+        return true;
+    }
 }

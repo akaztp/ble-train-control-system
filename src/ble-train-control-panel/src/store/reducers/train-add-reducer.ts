@@ -10,8 +10,8 @@ export const trainAddReducer: Reducer<State, LocalAction<ActionPayloadTrainAdd>>
                 // TODO: needs to check if id is free
                 // TODO: needs to check if target segment is free
                 // TODO: needs to check if name is unique
-                state.trains[action.payload.id] = {
-                    id: action.payload.id,
+                state.trains[action.payload.trainId] = {
+                    id: action.payload.trainId,
                     name: action.payload.name,
                     segment: state.segments[action.payload.segmentId],
                     enteringSegment: null,

@@ -19,7 +19,12 @@ button {
   background-color: #505050;
   cursor: pointer;
   padding: $button-padding;
-  color: $color-font-body;
+  color: $button-font-color;
+
+  &[disabled] {
+    color: $button-font-color-disabled;
+    cursor: not-allowed;
+  }
 }
 
 @import "dashboard";

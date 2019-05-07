@@ -3,6 +3,7 @@ $color-back-panel: #2c3e50;
 $color-font-body: #f0f0f0;
 $color-font-secondary: #a0a0a0;
 
+
 $font-size-body: 1rem;
 $font-size-note: 0.8rem;
 
@@ -10,3 +11,5 @@ $panel-outer-padding: 16px;
 $panel-inner-margin: 16px;
 
 $button-padding: 8px;
+$button-font-color: $color-font-body;
+$button-font-color-disabled: #808080;
