@@ -4,7 +4,7 @@ import { ActionType, LocalAction, localActionCreator } from '@logic/state/action
 export interface ActionPayloadTrainChange {
     trainId: Id;
     name?: string;
-    driverDevice?: string | null;
+    driverDevice?: string;
     invertedDir?: boolean;
 }
 

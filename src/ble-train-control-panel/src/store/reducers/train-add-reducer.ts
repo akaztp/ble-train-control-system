@@ -17,7 +17,7 @@ export const trainAddReducer: Reducer<State, LocalAction<ActionPayloadTrainAdd>>
                     enteringSegment: null,
                     speed: 0,
                     speedBeforeStop: 0,
-                    driverDevice: null,
+                    driverDeviceId: state.currentDeviceId,
                     stoppedAtSignalLight: null,
                     invertedDir: false,
                 };

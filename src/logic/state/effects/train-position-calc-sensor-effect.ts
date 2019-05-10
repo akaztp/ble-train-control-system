@@ -16,48 +16,50 @@ const effect: Effect<State> =
         if (action.payload.state) {
             const {segmentId, signalId} = action.payload;
             let train = findTrainInsideSegment(state.trains, segmentId);
-            // TODO: check if train is controlled by current device
             if (train) {
-                const segment = state.segments[segmentId];
-                const signalLight = segmentSignalLight(segment, signalId);
-                if (signalLight && signalLight.state === SignalLightState.Green) {
-                    const nextSegmentId = findNextSegmentId(segment, signalId, state.switches);
-                    if (nextSegmentId !== null) {
-                        return [
-                            createActionTrainPosition({
-                                trainId: train.id,
-                                segmentId,
-                                enteringSegmentId: nextSegmentId,
-                                stoppedAtSignalLight: null,
-                            }),
-                        ];
+                if (train.driverDeviceId === state.currentDeviceId) {
+                    const segment = state.segments[segmentId];
+                    const signalLight = segmentSignalLight(segment, signalId);
+                    if (signalLight && signalLight.state === SignalLightState.Green) {
+                        const nextSegmentId = findNextSegmentId(segment, signalId, state.switches);
+                        if (nextSegmentId !== null) {
+                            return [
+                                createActionTrainPosition({
+                                    trainId: train.id,
+                                    segmentId,
+                                    enteringSegmentId: nextSegmentId,
+                                    stoppedAtSignalLight: null,
+                                }),
+                            ];
+                        }
                     }
-                }
-                return [
-                    createActionTrainPosition({
-                        trainId: train.id,
-                        segmentId,
-                        enteringSegmentId: null,
-                        stoppedAtSignalLight: signalId,
-                    }),
-                    createActionTrainSpeed({
-                        trainId: train.id,
-                        speed: 0,
-                        temporary: true,
-                    }),
-                ];
-            } else {
-                train = findTrainEnteringSegment(state.trains, segmentId);
-                if (train) {
-                    // TODO: check if train is controlled by current device
                     return [
                         createActionTrainPosition({
                             trainId: train.id,
                             segmentId,
                             enteringSegmentId: null,
-                            stoppedAtSignalLight: null,
+                            stoppedAtSignalLight: signalId,
+                        }),
+                        createActionTrainSpeed({
+                            trainId: train.id,
+                            speed: 0,
+                            temporary: true,
                         }),
                     ];
+                }
+            } else {
+                train = findTrainEnteringSegment(state.trains, segmentId);
+                if (train) {
+                    if (train.driverDeviceId === state.currentDeviceId) {
+                        return [
+                            createActionTrainPosition({
+                                trainId: train.id,
+                                segmentId,
+                                enteringSegmentId: null,
+                                stoppedAtSignalLight: null,
+                            }),
+                        ];
+                    }
                 }
             }
         }

@@ -26,7 +26,8 @@ import { findTrainTouchingSegmentSelector$ } from './selectors/find-train-touchi
 import { trainsListSelector$ } from './selectors/trains-list-selector';
 import { StoreInterface } from './store-interface';
 
-export const deviceId = '????';
+// TODO: Does this needs to be unique in connected webapps to the same layout ?
+export const deviceId = '_local';
 
 const stateObserver$ = new Observer<State>();
 
