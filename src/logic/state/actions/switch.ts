@@ -1,6 +1,6 @@
 import { Id } from '@logic/models/base';
 import { SwitchPosition } from '@logic/models/switch';
-import { ActionType, LocalAction, localActionCreator } from '@logic/state/action';
+import { ActionType, BroadcastAction, localActionCreator } from '@logic/state/action';
 
 export interface ActionPayloadSwitch {
     switchId: Id;
@@ -10,7 +10,7 @@ export interface ActionPayloadSwitch {
 
 export function createActionSwitch(
     payload: ActionPayloadSwitch,
-): LocalAction<ActionPayloadSwitch> {
+): BroadcastAction<ActionPayloadSwitch> {
     return localActionCreator<ActionPayloadSwitch>(
         ActionType.Switch,
         payload,

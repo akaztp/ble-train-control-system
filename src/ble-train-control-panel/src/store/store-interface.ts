@@ -1,7 +1,8 @@
-import { Id } from '@logic/models/base';
+import { Id, SimpleMap } from '@logic/models/base';
 import { Segment } from '@logic/models/segment';
 import { SwitchPosition } from '@logic/models/switch';
 import { Train } from '@logic/models/train';
+import { ConnectedTrain } from './action-sources/ble-connection-client';
 import { Subscriber, Unsubscriber } from './observer';
 
 export interface StoreInterface {
@@ -29,6 +30,10 @@ export interface StoreInterface {
         enabled: boolean,
     ) => void;
     trainsList$: (s: Subscriber<Train[]>) => Unsubscriber;
+
+    connectTrainDriver: (trainId: Id) => void;
+    connectedTrains: SimpleMap<ConnectedTrain>;
+    disconnectTrainDriver: (trainId: Id) => void;
 }
 
 export const storeInterfaceInjectorKey = 'StoreInterface';

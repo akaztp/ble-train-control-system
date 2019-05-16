@@ -1,13 +1,12 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "module": "commonjs",
+    "module": "esnext",
     "strict": true,
-    "allowSyntheticDefaultImports": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
+    "allowSyntheticDefaultImports": false,
     "baseUrl": ".",
     "moduleResolution": "node",
+    "importHelpers": true,
     "lib": [
       "es2015",
       "dom" // setInterval, console
@@ -18,7 +17,18 @@
       ],
       "@layout/*": [
         "./layouts/hat-city-layout/*"
+      ],
+      "@utils/*": [
+        "./utils/*"
+      ],
+      "tslib": [
+        "./espruino-device/node_modules/tslib/tslib.d.ts"
       ]
     }
-  }
+  },
+  "include": [
+    "./layouts/**/.ts",
+    "./logic/**/*.ts",
+    "./utils/**/*.ts"
+  ]
 }

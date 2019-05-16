@@ -11,6 +11,7 @@ module.exports = {
       alias: {
         '@layout': root('../layouts/hat-city-layout'),
         '@logic': root('../logic'),
+        '@utils': root('../utils'),
       },
     },
   },

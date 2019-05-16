@@ -1,5 +1,5 @@
 import { Id } from '@logic/models/base';
-import { ActionType, LocalAction, localActionCreator } from '@logic/state/action';
+import { ActionType, BroadcastAction, localActionCreator } from '@logic/state/action';
 
 export interface ActionPayloadTrainAdd {
     trainId: Id;
@@ -9,7 +9,7 @@ export interface ActionPayloadTrainAdd {
 
 export function createActionTrainAdd(
     payload: ActionPayloadTrainAdd,
-): LocalAction<ActionPayloadTrainAdd> {
+): BroadcastAction<ActionPayloadTrainAdd> {
     return localActionCreator<ActionPayloadTrainAdd>(
         ActionType.TrainAdd,
         payload,

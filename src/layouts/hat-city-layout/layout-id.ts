@@ -1,3 +1,1 @@
-import { Id } from '@logic/models/base';
-
-export const layoutId: Id = 1;
+export const layoutId = 'ZT';

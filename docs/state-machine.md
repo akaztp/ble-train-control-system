@@ -92,9 +92,9 @@ On Action: TrainPosition(trainId, segmentId, enteringSegmentId)
   - Ignores repeated received actions by using timestamp
 
 - Actions Source: BLE Connection
-  - Devices: Train Driver
+  - Devices: Train Driver, Train Control Panel
   - Input: BLE hardware
-  - Dispatch BLE received action, setting broadcasted to false
+  - Dispatch BLE received action, setting broadcasted to false (if on Train Driver) or true (if on Train Control Panel)
 
 
 ## Effects
@@ -105,7 +105,7 @@ On Action: TrainPosition(trainId, segmentId, enteringSegmentId)
   - BLE advertisement repeats last action at intervals
 
 - Effect: BLE Connection
-  - Devices: Train Driver
+  - Devices: Train Driver, Train control Panel
   - Send all state Actions through BLE Connection, if not broadcasted
 
 - Effect: Train Actuator

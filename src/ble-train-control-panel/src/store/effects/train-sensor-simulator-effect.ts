@@ -1,13 +1,13 @@
-import { State } from '@logic/models/state';
-import { ActionType } from '@logic/state/action';
+import { ActionType, BroadcastAction } from '@logic/state/action';
 import { ActionPayloadTrainPosition } from '@logic/state/actions/train-position';
 import { ActionPayloadTrainSpeed } from '@logic/state/actions/train-speed';
-import { Effect, StoreAction, triggerEffectForAction } from '@logic/state/store';
+import { Effect, triggerEffectForAction } from '@logic/state/store';
 import { positionChanged, speedChanged } from '../action-sources/train-sensor-simulator';
+import { DeviceState } from '../device-state';
 
-const effect: Effect<State> = (
-    action: StoreAction<ActionPayloadTrainPosition | ActionPayloadTrainSpeed>,
-): Array<StoreAction<any>> => {
+const effect: Effect<DeviceState, BroadcastAction<any>> = (
+    action: BroadcastAction<ActionPayloadTrainPosition | ActionPayloadTrainSpeed>,
+): Array<BroadcastAction<any>> => {
     switch (action.type) {
         case ActionType.TrainPosition:
             positionChanged(action.payload as ActionPayloadTrainPosition);
@@ -19,7 +19,8 @@ const effect: Effect<State> = (
     return [];
 };
 
-export const trainSensorSimulatorEffect: Effect<State> = triggerEffectForAction<State>(
-    [ActionType.TrainSpeed, ActionType.TrainPosition],
-    effect,
-);
+export const trainSensorSimulatorEffect: Effect<DeviceState, BroadcastAction<any>> =
+    triggerEffectForAction<DeviceState, BroadcastAction<any>>(
+        [ActionType.TrainSpeed, ActionType.TrainPosition],
+        effect,
+    );

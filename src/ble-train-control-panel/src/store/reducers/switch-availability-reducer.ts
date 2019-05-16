@@ -1,14 +1,14 @@
 import { Id, SimpleMap } from '@logic/models/base';
 import { Segment } from '@logic/models/segment';
-import { State } from '@logic/models/state';
 import { Train } from '@logic/models/train';
-import { ActionType, LocalAction } from '@logic/state/action';
+import { ActionType, BroadcastAction } from '@logic/state/action';
 import { ActionPayloadTrainPosition } from '@logic/state/actions/train-position';
 import { Reducer } from '@logic/state/store';
 import { segmentPaths } from '@logic/state/utils/segment';
 import { findTrainFromToSegments } from '@logic/state/utils/train';
+import { DeviceState } from '../device-state';
 
-export const switchAvailabilityReducer: Reducer<State, LocalAction<ActionPayloadTrainPosition>> =
+export const switchAvailabilityReducer: Reducer<DeviceState, BroadcastAction<ActionPayloadTrainPosition>> =
     (state, action): void => {
         if (action.type === ActionType.TrainPosition) {
             const {segmentId} = action.payload;

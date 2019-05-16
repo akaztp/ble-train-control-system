@@ -1,9 +1,9 @@
-import { State } from '@logic/models/state';
-import { ActionType, LocalAction } from '@logic/state/action';
+import { ActionType, BroadcastAction } from '@logic/state/action';
 import { ActionPayloadTrainSpeed } from '@logic/state/actions/train-speed';
+import { State } from '@logic/state/state';
 import { Reducer } from '@logic/state/store';
 
-export const trainSpeedReducer: Reducer<State, LocalAction<ActionPayloadTrainSpeed>> =
+export const trainSpeedReducer: Reducer<State, BroadcastAction<ActionPayloadTrainSpeed>> =
     (state, action): void => {
         if (action.type === ActionType.TrainSpeed) {
             {

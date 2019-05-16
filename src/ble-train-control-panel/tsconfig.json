@@ -12,18 +12,19 @@
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "baseUrl": ".",
-    "types": [
-      "webpack-env"
-    ],
     "paths": {
       "@logic/*": [
         "../logic/*"
       ],
       "@layout/*": [
         "../layouts/hat-city-layout/*"
+      ],
+      "@utils/*": [
+        "../utils/*"
       ]
     },
     "lib": [
+      "es2017.object",
       "esnext",
       "dom",
       "dom.iterable",

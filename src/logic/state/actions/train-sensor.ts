@@ -1,15 +1,15 @@
 import { Id } from '@logic/models/base';
-import { ActionType, LocalAction, localActionCreator } from '@logic/state/action';
+import { ActionType, BroadcastAction, localActionCreator } from '@logic/state/action';
 
 export interface ActionPayloadTrainSensor {
-    segmentId: Id;
     signalId: Id;
+    segmentId: Id;
     state: boolean;
 }
 
 export function createActionTrainSensor(
     payload: ActionPayloadTrainSensor,
-): LocalAction<ActionPayloadTrainSensor> {
+): BroadcastAction<ActionPayloadTrainSensor> {
     return localActionCreator<ActionPayloadTrainSensor>(
         ActionType.TrainSensor,
         payload,

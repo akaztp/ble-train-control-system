@@ -1,13 +1,16 @@
-import { State } from '@logic/models/state';
-import { ActionType } from '@logic/state/action';
+import { ActionType, BroadcastAction } from '@logic/state/action';
 import { ActionPayloadTrainAdd } from '@logic/state/actions/train-add';
 import { createActionTrainPosition } from '@logic/state/actions/train-position';
 import { createActionTrainSpeed } from '@logic/state/actions/train-speed';
-import { Effect, StoreAction, triggerEffectForAction } from '@logic/state/store';
+import { Effect, triggerEffectForAction } from '@logic/state/store';
 import { findTrainTouchingSegment } from '@logic/state/utils/train';
+import { DeviceState } from '../device-state';
 
-const effect: Effect<State> =
-    (action: StoreAction<ActionPayloadTrainAdd>, state: State): Array<StoreAction<any>> => {
+const effect: Effect<DeviceState, BroadcastAction<any>> =
+    (
+        action: BroadcastAction<ActionPayloadTrainAdd>,
+        state: DeviceState,
+    ): Array<BroadcastAction<any>> => {
         const train = findTrainTouchingSegment(state.trains, action.payload.segmentId);
         if (train && train.id === action.payload.trainId) {
             return [
@@ -29,7 +32,8 @@ const effect: Effect<State> =
         }
     };
 
-export const addTrainEffect: Effect<State> = triggerEffectForAction<State>(
-    ActionType.TrainAdd,
-    effect,
-);
+export const addTrainEffect: Effect<DeviceState, BroadcastAction<any>> =
+    triggerEffectForAction<DeviceState, BroadcastAction<any>>(
+        ActionType.TrainAdd,
+        effect,
+    );

@@ -1,0 +1,35 @@
+{
+  "name": "ble-train-control-system",
+  "version": "0.1.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "build": "gulp tools",
+    "build-debug": "gulp tools --debug",
+    "upload": "gulp send-to-espruino"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/lodash": "^4.14.126",
+    "espruino": "^0.1.27",
+    "flat": "^4.0.0",
+    "gulp": "^3.9.1",
+    "gulp-better-rollup": "^4.0.1",
+    "gulp-string-replace": "^1.1.2",
+    "js-yaml": "^3.13.1",
+    "lodash": "^4.17.11",
+    "rollup": "^1.11.3",
+    "rollup-plugin-node-resolve": "^5.0.0",
+    "rollup-plugin-replace": "^2.2.0",
+    "rollup-plugin-typescript2": "0.21.0",
+    "rollup-plugin-uglify": "^6.0.2",
+    "typescript": "^3.4.5",
+    "uglify-js": "^3.5.12",
+    "rollup-plugin-alias": "^1.5.1",
+    "tslib": "^1.9.3"
+  },
+  "dependencies": {
+    "serialport": "^7.1.4"
+  }
+}

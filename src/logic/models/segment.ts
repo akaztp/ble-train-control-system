@@ -1,6 +1,6 @@
 import { Data, Id, SimpleMap } from './base';
 import { SignalLight } from './signal-light';
-import { Switch, SwitchPosition } from './switch';
+import { SwitchPosition } from './switch';
 
 export interface SwitchState {
   id: Id;
@@ -28,9 +28,10 @@ export function resolveSegmentsRefs(segments: SimpleMap<Segment>): SimpleMap<Seg
     segment.fromPaths.forEach(resolveSegmentRefs);
     segment.toPaths.forEach(resolveSegmentRefs);
   });
-  return segments;
 
   function resolveSegmentRefs(path: PathToSegment): void {
     path.segment = segments[path.segmentId];
   }
+
+  return segments;
 }

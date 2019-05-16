@@ -1,16 +1,16 @@
 import { segments } from '@layout/segments';
 import { switches } from '@layout/switches';
-import { State } from '@logic/models/state';
+import { State } from '@logic/state/state';
 
-export function createInitialState(
-  layoutId: number,
-  currentDeviceId: string,
-): State {
-  return {
-    layoutId,
-    currentDeviceId,
-    segments,
-    switches,
-    trains: {},
-  };
+export function createInitialState<D>(
+    currentDeviceId: string | null,
+    deviceConfig: D,
+): State<D> {
+    return {
+        segments: segments(),
+        switches,
+        trains: {},
+        currentDeviceId,
+        deviceConfig,
+    };
 }

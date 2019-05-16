@@ -1,27 +1,27 @@
 import { SimpleMap } from '@logic/models/base';
 import { PathToSegment, Segment } from '@logic/models/segment';
 import { SignalLight, SignalLightState } from '@logic/models/signal-light';
-import { State } from '@logic/models/state';
 import { Switch } from '@logic/models/switch';
 import { Train } from '@logic/models/train';
-import { ActionType, LocalAction } from '@logic/state/action';
+import { ActionType, BroadcastAction } from '@logic/state/action';
 import { ActionPayloadSignalLight, createActionSignalLight } from '@logic/state/actions/signal-light';
-import { ActionPayloadSwitch } from '@logic/state/actions/switch';
-import { Effect, StoreAction, triggerEffectForAction } from '@logic/state/store';
+import { State } from '@logic/state/state';
+import { Effect, triggerEffectForAction } from '@logic/state/store';
 import { isPathOpen } from '@logic/state/utils/path';
+import { SignalLightsConfig } from '../../models/device-configs';
 
-const effect: Effect<State> =
+const effect: Effect<State<SignalLightsConfig<unknown>>, BroadcastAction<any>> =
     (
-        action: StoreAction<ActionPayloadSignalLight | ActionPayloadSwitch>,
-        state: State,
-    ): Array<StoreAction<any>> => {
+        _action: BroadcastAction<unknown>,
+        state: State<SignalLightsConfig<unknown>>,
+    ): Array<BroadcastAction<ActionPayloadSignalLight>> => {
 
         const occupation = segmentsOccupation(state.segments, state.trains);
 
-        const outputActions: Array<LocalAction<ActionPayloadSignalLight>> = [];
+        const outputActions: Array<BroadcastAction<ActionPayloadSignalLight>> = [];
         Object.keys(state.segments).forEach((id) => {
             const segment: Segment = state.segments[id as any];
-            let newAction: LocalAction<ActionPayloadSignalLight> | null = null;
+            let newAction: BroadcastAction<ActionPayloadSignalLight> | null = null;
             if (segment.fromSignalLight) {
                 newAction = checkSignalLight(
                     segment,
@@ -29,6 +29,7 @@ const effect: Effect<State> =
                     segment.fromPaths,
                     state.switches,
                     occupation,
+                    state.deviceConfig,
                 );
                 if (newAction) {
                     outputActions.push(newAction);
@@ -42,6 +43,7 @@ const effect: Effect<State> =
                     segment.toPaths,
                     state.switches,
                     occupation,
+                    state.deviceConfig,
                 );
                 if (newAction) {
                     outputActions.push(newAction);
@@ -57,22 +59,23 @@ function checkSignalLight(
     paths: PathToSegment[],
     switches: SimpleMap<Switch>,
     occupation: { [key: number]: boolean },
-): LocalAction<ActionPayloadSignalLight> | null {
+    deviceConfig: SignalLightsConfig<unknown> | null,
+): BroadcastAction<ActionPayloadSignalLight> | null {
     let action = null;
-    // TODO: check if signalLight is owned by current device
+    if (deviceConfig && deviceConfig.signalLights[signalLight.id] !== undefined) {
+        const openPath = paths.find((path) => isPathOpen(path, switches));
+        const newSignalLightState: SignalLightState =
+            (openPath && !occupation[openPath.segmentId]) ?
+                SignalLightState.Green :
+                SignalLightState.Red;
 
-    const openPath = paths.find((path) => isPathOpen(path, switches));
-    const newSignalLightState: SignalLightState =
-        (openPath && !occupation[openPath.segmentId]) ?
-            SignalLightState.Green :
-            SignalLightState.Red;
-
-    if (signalLight.state !== newSignalLightState) {
-        action = createActionSignalLight({
-            segmentId: segment.id,
-            signalId: signalLight.id,
-            state: newSignalLightState,
-        });
+        if (signalLight.state !== newSignalLightState) {
+            action = createActionSignalLight({
+                segmentId: segment.id,
+                signalId: signalLight.id,
+                state: newSignalLightState,
+            });
+        }
     }
 
     return action;
@@ -100,7 +103,8 @@ function segmentsOccupation(
     return occupation;
 }
 
-export const signalLightsCalcEffect: Effect<State> = triggerEffectForAction<State>(
-    [ActionType.TrainPosition, ActionType.Switch],
-    effect,
-);
+export const signalLightsCalcEffect: Effect<State<SignalLightsConfig<unknown>>, BroadcastAction<any>> =
+    triggerEffectForAction<State<SignalLightsConfig<unknown>>, BroadcastAction<any>>(
+        [ActionType.TrainPosition, ActionType.Switch],
+        effect,
+    );

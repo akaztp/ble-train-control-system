@@ -1,10 +1,11 @@
 import { Id, SimpleMap } from '@logic/models/base';
-import { State } from '@logic/models/state';
+import { BroadcastAction } from '@logic/state/action';
 import { ActionPayloadTrainPosition } from '@logic/state/actions/train-position';
 import { createActionTrainSensor } from '@logic/state/actions/train-sensor';
 import { ActionPayloadTrainSpeed, createActionTrainSpeed } from '@logic/state/actions/train-speed';
 import { Dispatcher } from '@logic/state/store';
 import { findNextSegmentId, segmentDirection } from '@logic/state/utils/segment';
+import { DeviceState } from '../device-state';
 import { StoreInterface } from '../store-interface';
 
 interface SimulatedTrainState {
@@ -15,12 +16,12 @@ interface SimulatedTrainState {
 }
 
 const trainsState: SimpleMap<SimulatedTrainState> = {};
-let state: State;
-let dispatcher: Dispatcher;
+let state: DeviceState;
+let dispatcher: Dispatcher<BroadcastAction<any>>;
 
 export function trainSensorSimulator(
-    extState: State,
-    extDispatcher: Dispatcher,
+    extState: DeviceState,
+    extDispatcher: Dispatcher<BroadcastAction<any>>,
     storeInterface: StoreInterface,
 ): StoreInterface {
     state = extState;
@@ -83,7 +84,7 @@ function addTrain(id: Id, segmentId: Id | null): void {
 function moveTrain(id: Id, speed: number): void {
     const trainState = trainsState[id];
     trainState.speed = speed;
-    trainState.timerId = setTimeout(
+    trainState.timerId = window.setTimeout(
         () => triggerExitSensor(id),
         2000 + Math.random() * 1000,
     );
@@ -93,7 +94,7 @@ function stopTrain(id: Id): void {
     const trainState = trainsState[id];
     if (trainState) {
         if (trainState.timerId !== null) {
-            clearTimeout(trainState.timerId);
+            window.clearTimeout(trainState.timerId);
         }
         trainState.timerId = null;
         trainState.speed = 0;
@@ -136,7 +137,7 @@ function triggerEnteringSensor(
 ) {
     const signalLightId = findEnteringSignalLightId(enteringSegmentId, segmentId);
     if (signalLightId !== null) {
-        setTimeout(
+        window.setTimeout(
             () =>
                 dispatcher(
                     createActionTrainSensor({

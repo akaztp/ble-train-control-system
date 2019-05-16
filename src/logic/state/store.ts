@@ -1,80 +1,83 @@
 import { ActionType } from '@logic/state/action';
 
 export interface StoreAction<T> {
-  type: number;
-  payload: T;
+    type: number;
+    payload: T;
 }
 
 export type Reducer<S, A extends StoreAction<any> = StoreAction<any>> = (state: S, action: A) => void;
 
-export type Dispatcher = (action: StoreAction<any>) => void;
+export type Dispatcher<A> = (action: A) => void;
 
-export type ActionSource<S, C> = (state: S, dispatcher: Dispatcher, context: C) => C;
+export type ActionSource<S, C, A> = (state: S, dispatcher: Dispatcher<A>, context: C) => C;
 
-export type Effect<S> = (action: StoreAction<any>, state: S) => Array<StoreAction<any>>;
+export type Effect<S, A extends StoreAction<any>> = (action: A, state: S) => Array<A>;
 
-export interface Store<S> {
-  state: S;
-  reducers: Array<Reducer<S, any>>;
-  effects: Array<Effect<S>>;
-  dispatch: Dispatcher;
+export interface Store<S, A extends StoreAction<any>> {
+    state: S;
+    reducers: Array<Reducer<S, A>>;
+    effects: Array<Effect<S, A>>;
+    dispatch: Dispatcher<A>;
 }
 
-export interface CreatedStore<S, C> {
-  store: Store<S>;
-  context: C;
+export interface CreatedStore<S, C, A extends StoreAction<any>> {
+    store: Store<S, A>;
+    context: C;
 }
 
-export function createStore<S, C>(
-  state: S,
-  reducers: Array<Reducer<S, any>>,
-  effects: Array<Effect<S>>,
-  actionSources: Array<ActionSource<S, C>>,
-  initialContext: C,
-): CreatedStore<S, C> {
-  const store: Store<S> = {
-    state,
-    reducers,
-    effects,
-    dispatch,
-  };
+export function createStore<S, C, A extends StoreAction<any> = StoreAction<any>>(
+    state: S,
+    reducers: Array<Reducer<S, A>>,
+    effects: Array<Effect<S, A>>,
+    actionSources: Array<ActionSource<S, C, A>>,
+    initialContext: C,
+): CreatedStore<S, C, A> {
+    const store: Store<S, A> = {
+        state,
+        reducers,
+        effects,
+        dispatch,
+    };
 
-  const context =
-    actionSources.reduce(
-      (prevContext, actionSource) => actionSource(store.state, store.dispatch, prevContext),
-      initialContext,
-    );
+    const context =
+        actionSources.reduce(
+            (prevContext, actionSource) => actionSource(store.state, store.dispatch, prevContext),
+            initialContext,
+        );
 
-  store.dispatch({type: ActionType.Init, payload: null} as StoreAction<null>);
+    store.dispatch({type: ActionType.Init, payload: null} as A);
 
-  return {
-    store,
-    context,
-  };
+    return {
+        store,
+        context,
+    };
 
-  function dispatch(action: StoreAction<any>): void {
-    logAction(action);
-    store.reducers.forEach((r) => r(store.state, action));
-    // console.log('dispatch(). Updated state:', store.state);
-    store.effects.forEach(
-      (effect) => effect(action, store.state).forEach(
-        (newAction) => dispatch(newAction)));
-  }
-}
-
-export function triggerEffectForAction<S>(types: ActionType | ActionType[], effect: Effect<S>): Effect<S> {
-  return (action: StoreAction<any>, state: S): Array<StoreAction<any>> => {
-    const isType = typeof(types) === 'object' ? types.indexOf(action.type) !== -1 : types === action.type;
-    if (isType) {
-      return effect(action, state);
-    } else {
-      return [];
+    function dispatch(action: A): void {
+        logAction(action);
+        store.reducers.forEach((r) => r(store.state, action));
+        // console.log('dispatch(). Updated state:', store.state);
+        store.effects.forEach(
+            (effect) => effect(action, store.state).forEach(
+                (newAction) => dispatch(newAction)));
     }
-  };
+}
+
+export function triggerEffectForAction<S, A extends StoreAction<any>>(
+    types: ActionType | ActionType[],
+    effect: Effect<S, A>,
+): Effect<S, A> {
+    return (action: A, state: S): Array<A> => {
+        const isType = typeof (types) === 'object' ? types.indexOf(action.type) !== -1 : types === action.type;
+        if (isType) {
+            return effect(action, state);
+        } else {
+            return [];
+        }
+    };
 }
 
 function logAction(action: StoreAction<any>): void {
-  console.log('ACTION: ', logActionType[action.type], action.payload);
+    console.log('ACTION: ', logActionType[action.type], action.payload);
 }
 
 const logActionType = [

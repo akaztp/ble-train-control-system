@@ -1,18 +1,18 @@
 import { SignalLightState } from '@logic/models/signal-light';
-import { State } from '@logic/models/state';
-import { ActionType } from '@logic/state/action';
+import { ActionType, BroadcastAction } from '@logic/state/action';
 import { createActionTrainPosition } from '@logic/state/actions/train-position';
 import { ActionPayloadTrainSensor } from '@logic/state/actions/train-sensor';
 import { createActionTrainSpeed } from '@logic/state/actions/train-speed';
-import { Effect, StoreAction, triggerEffectForAction } from '@logic/state/store';
+import { State } from '@logic/state/state';
+import { Effect, triggerEffectForAction } from '@logic/state/store';
 import { findNextSegmentId, segmentSignalLight } from '@logic/state/utils/segment';
 import { findTrainEnteringSegment, findTrainInsideSegment } from '@logic/state/utils/train';
 
-const effect: Effect<State> =
+const effect: Effect<State<unknown>, BroadcastAction<any>> =
     (
-        action: StoreAction<ActionPayloadTrainSensor>,
-        state: State,
-    ): Array<StoreAction<any>> => {
+        action: BroadcastAction<ActionPayloadTrainSensor>,
+        state: State<unknown>,
+    ): Array<BroadcastAction<any>> => {
         if (action.payload.state) {
             const {segmentId, signalId} = action.payload;
             let train = findTrainInsideSegment(state.trains, segmentId);
@@ -66,7 +66,8 @@ const effect: Effect<State> =
         return [];
     };
 
-export const trainPositionCalcSensorEffect: Effect<State> = triggerEffectForAction<State>(
-    ActionType.TrainSensor,
-    effect,
-);
+export const trainPositionCalcSensorEffect: Effect<State<unknown>, BroadcastAction<any>> =
+    triggerEffectForAction<State<unknown>, BroadcastAction<any>>(
+        ActionType.TrainSensor,
+        effect,
+    );

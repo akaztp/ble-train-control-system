@@ -1,0 +1,43 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "esnext",
+    "strict": true,
+    "allowSyntheticDefaultImports": false,
+    "baseUrl": ".",
+    "outDir": "./dist",
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "types": [
+      "./types/espruino"
+    ],
+    "lib": [
+      "es2015",
+      "dom"
+      // setInterval, console
+    ],
+    "paths": {
+      "@logic/*": [
+        "../logic/*"
+      ],
+      "@layout/*": [
+        "../layouts/hat-city-layout/*"
+      ],
+      "@utils/*": [
+        "../utils/*"
+      ],
+      "tslib": [
+        "./node_modules/tslib/tslib.d.ts"
+      ]
+    },
+    "rootDirs": [
+      "./src",
+      "../logic",
+      "../layouts",
+      "../utils"
+    ]
+  },
+  "include": [
+    "**/*.ts"
+  ]
+}

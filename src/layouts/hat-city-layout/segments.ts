@@ -12,7 +12,7 @@ import { segment7 } from './segments/segment7';
 import { segment8 } from './segments/segment8';
 import { segment9 } from './segments/segment9';
 
-const allSegments: SimpleMap<Segment> = resolveSegmentsRefs({
+const allSegments: SimpleMap<Segment> = {
   ...segment0,
   ...segment1,
   ...segment2,
@@ -23,13 +23,20 @@ const allSegments: SimpleMap<Segment> = resolveSegmentsRefs({
   ...segment7,
   ...segment8,
   ...segment9,
-});
+};
 
-export const segments = resolvePaths(allSegments);
+let resolvedSegments: SimpleMap<Segment>;
 
 function resolvePaths(unresolvedSegments: SimpleMap<Segment>): SimpleMap<Segment> {
-  Object.keys(allSegments).forEach(
-    (id) => applyPaths(allSegments[id as any], allSegments),
+  Object.keys(unresolvedSegments).forEach(
+      (id) => applyPaths(unresolvedSegments[id as any], unresolvedSegments),
   );
   return unresolvedSegments;
+}
+
+export function segments(): SimpleMap<Segment> {
+  if (!resolvedSegments) {
+    resolvedSegments = resolvePaths(resolveSegmentsRefs(allSegments));
+  }
+  return resolvedSegments;
 }

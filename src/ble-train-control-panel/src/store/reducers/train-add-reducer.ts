@@ -1,9 +1,9 @@
-import { State } from '@logic/models/state';
-import { ActionType, LocalAction } from '@logic/state/action';
+import { ActionType, BroadcastAction } from '@logic/state/action';
 import { ActionPayloadTrainAdd } from '@logic/state/actions/train-add';
 import { Reducer } from '@logic/state/store';
+import { DeviceState } from '../device-state';
 
-export const trainAddReducer: Reducer<State, LocalAction<ActionPayloadTrainAdd>> =
+export const trainAddReducer: Reducer<DeviceState, BroadcastAction<ActionPayloadTrainAdd>> =
     (state, action): void => {
         if (action.type === ActionType.TrainAdd) {
             {
@@ -17,7 +17,7 @@ export const trainAddReducer: Reducer<State, LocalAction<ActionPayloadTrainAdd>>
                     enteringSegment: null,
                     speed: 0,
                     speedBeforeStop: 0,
-                    driverDeviceId: state.currentDeviceId,
+                    driverDeviceId: null,
                     stoppedAtSignalLight: null,
                     invertedDir: false,
                 };
