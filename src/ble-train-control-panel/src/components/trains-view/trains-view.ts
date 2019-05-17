@@ -24,6 +24,14 @@ export default class TrainsView extends Vue {
         this.storeInterface.changeTrainDir(trainId, !invertedDir);
     }
 
+    connect(trainId: Id): void {
+        this.storeInterface.connectTrainDriver(trainId);
+    }
+
+    disconnect(trainId: Id): void {
+        this.storeInterface.disconnectTrainDriver(trainId);
+    }
+
     created() {
         this.trainsList$$ =
             this.storeInterface.trainsList$((trains: Train[]) => {

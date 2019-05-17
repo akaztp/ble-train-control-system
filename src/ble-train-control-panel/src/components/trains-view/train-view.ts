@@ -15,11 +15,23 @@ export default class TrainView extends Vue {
 
     @Emit() invertClick(): void {}
 
-    invertDirDisabled(): boolean {
+    @Emit() connectClick(): void {}
+
+    @Emit() disconnectClick(): void {}
+
+
+    isSetupPossible(): boolean {
         if (this.train) {
-            return this.train.speed !== 0 ||
-                this.train.stoppedAtSignalLight !== null ||
-                this.train.enteringSegment !== null;
+            return this.train.speed === 0 &&
+                this.train.stoppedAtSignalLight === null &&
+                this.train.enteringSegment === null;
+        }
+        return false;
+    }
+
+    isSimulated(): boolean {
+        if (this.train) {
+            return this.train.driverDeviceId === null;
         }
         return true;
     }
