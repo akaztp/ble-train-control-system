@@ -75,6 +75,16 @@ export function bleConnectionClient(
                 );
                 return characteristic.startNotifications();
             })
+            .then((characteristic) => characteristic.service!.getCharacteristic(????))
+            .then((characteristic) => {
+                characteristic.addEventListener(
+                    'characteristicvaluechanged',
+                    (event) => {
+                        console.log(event.target.value);
+                    },
+                );
+                return characteristic.startNotifications();
+            })
             .catch(console.error);
     };
 
