@@ -4,6 +4,7 @@ import {setupBroadcastToAction} from '../../broadcast/setup-broadcast-to-action'
 import {deviceId} from '../../globals';
 import {createSignalLightsStore} from './create-store';
 import {DeviceConfig} from './device-config';
+import {initSignalLights} from "./signal-lights-control";
 
 function main() {
     Bluetooth.setConsole(true);
