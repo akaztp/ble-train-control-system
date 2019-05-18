@@ -12,8 +12,6 @@ export function createTrainDriverStore(
     deviceConfig: DeviceConfig,
     serial: Serial,
 ): CreatedStore<DeviceState, StoreInterface, BroadcastAction<any>> {
-    broadcasterEffectFactory(serial);
-
     return createDeviceStore(
         createInitialState(deviceId, deviceConfig),
         [
