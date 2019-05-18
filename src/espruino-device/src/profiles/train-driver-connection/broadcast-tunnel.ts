@@ -6,18 +6,22 @@ import { convertAdvToAction } from '@utils/convert-adv-to-action';
 export function setupTunnel(
     layoutId: string,
     trainName: string,
+    trainDriverDeviceId: string,
     actionHandler: (action: BroadcastAction<any>) => void,
 ) {
+    const deviceId = trainDriverDeviceId.split(':')
+        .map(hex => parseInt(hex, 16));
+
     // @ts-ignore
     NRF.setServices(
         {
             [serviceUUID]: {
                 [characteristicUUIDBroadcast]: {
-                    description: 'Broadcast Tunnel',
+                    value: new Uint8Array(deviceId).buffer,
                     readable: true,
                     writable: true,
                     notify: true,
-                    maxLength: 8,
+                    maxLen: 12,
                     onWrite: tunnelRxHandler,
                 },
             },
@@ -34,8 +38,12 @@ export function setupTunnel(
     );
 
     function tunnelRxHandler(event: any): void {
+        // Serial1.println(JSON.stringify(event));
         if (event && event.data && event.data.length > 0) {
-            let action = convertAdvToAction(event.data);
+            let action = convertAdvToAction(
+                new Uint8ClampedArray(
+                    (event.data as ArrayBuffer),
+                ));
             if (action) {
                 action.isBroadcasted = false;
                 actionHandler(action);
@@ -49,7 +57,7 @@ export function actionToTunnel(action: BroadcastAction<any>) {
     NRF.updateServices({
             [serviceUUID]: {
                 [characteristicUUIDBroadcast]: {
-                    value: convertActionToAdv(action),
+                    value: convertActionToAdv(action)!.buffer,
                     notify: true,
                 },
             },

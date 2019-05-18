@@ -1,5 +1,5 @@
 import { ActionType, BroadcastAction } from '@logic/state/action';
-import { ActionPayloadTrainAdd } from '@logic/state/actions/train-add';
+import { ActionPayloadTrainJoin } from '@logic/state/actions/train-join';
 import { createActionTrainPosition } from '@logic/state/actions/train-position';
 import { createActionTrainSpeed } from '@logic/state/actions/train-speed';
 import { Effect, triggerEffectForAction } from '@logic/state/store';
@@ -8,7 +8,7 @@ import { DeviceState } from '../device-state';
 
 const effect: Effect<DeviceState, BroadcastAction<any>> =
     (
-        action: BroadcastAction<ActionPayloadTrainAdd>,
+        action: BroadcastAction<ActionPayloadTrainJoin>,
         state: DeviceState,
     ): Array<BroadcastAction<any>> => {
         const train = findTrainTouchingSegment(state.trains, action.payload.segmentId);
@@ -34,6 +34,6 @@ const effect: Effect<DeviceState, BroadcastAction<any>> =
 
 export const addTrainEffect: Effect<DeviceState, BroadcastAction<any>> =
     triggerEffectForAction<DeviceState, BroadcastAction<any>>(
-        ActionType.TrainAdd,
+        ActionType.TrainJoin,
         effect,
     );

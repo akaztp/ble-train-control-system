@@ -7,7 +7,7 @@ export const trainPositionReducer: Reducer<State, BroadcastAction<ActionPayloadT
     (state, action): void => {
         if (action.type === ActionType.TrainPosition) {
             {
-                const train = state.trains[action.payload.trainId];
+                let train = state.trains[action.payload.trainId];
                 if (train) {
                     train.segment = state.segments[action.payload.segmentId];
                     train.enteringSegment = action.payload.enteringSegmentId !== null ?

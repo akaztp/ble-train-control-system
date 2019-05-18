@@ -10,10 +10,13 @@ const serialPins: PinPair = {
 };
 
 const trainName = 'TR1';
+let serial: Serial;
+global.trainDriverDeviceId = '0:0:0:0:0:0'; // filled in by the gulp task
 
 function main() {
-    // @ts-ignore
-    const serial = new Serial();
+    Bluetooth.setConsole(true);
+
+    serial = Serial1;
     setupSerial(
         serial,
         serialPins,
@@ -24,6 +27,7 @@ function main() {
     setupTunnel(
         layoutId,
         trainName,
+        global.trainDriverDeviceId,
         (action: BroadcastAction<any>) => {
             actionToSerial(serial, action);
         },
@@ -31,4 +35,3 @@ function main() {
 }
 
 E.on('init', main);
-save();

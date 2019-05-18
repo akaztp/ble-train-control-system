@@ -1,11 +1,11 @@
 import { ActionType, BroadcastAction } from '@logic/state/action';
-import { ActionPayloadTrainAdd } from '@logic/state/actions/train-add';
+import { ActionPayloadTrainJoin } from '@logic/state/actions/train-join';
 import { Reducer } from '@logic/state/store';
 import { DeviceState } from '../device-state';
 
-export const trainAddReducer: Reducer<DeviceState, BroadcastAction<ActionPayloadTrainAdd>> =
+export const trainJoinReducer: Reducer<DeviceState, BroadcastAction<ActionPayloadTrainJoin>> =
     (state, action): void => {
-        if (action.type === ActionType.TrainAdd) {
+        if (action.type === ActionType.TrainJoin) {
             {
                 // TODO: needs to check if id is free
                 // TODO: needs to check if target segment is free

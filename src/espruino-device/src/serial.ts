@@ -17,6 +17,7 @@ export function setupSerial(
     let buffer = '';
 
     function serialRxHandler(data: string): void {
+        // console.log('Serial:', JSON.stringify(data));
         buffer += data;
         let idx: number;
         let line: string;
@@ -34,7 +35,7 @@ export function setupSerial(
 }
 
 export function actionToSerial(serial: Serial, action: BroadcastAction<any>): void {
-    serial.println(convertActionToAdv(action) + '\n');
+    serial.print(convertActionToAdv(action) + '\n');
 }
 
 export function convertSerialDataToAction(line: string): BroadcastAction<any> | null {
@@ -42,7 +43,7 @@ export function convertSerialDataToAction(line: string): BroadcastAction<any> | 
     const data = stringData.map(s => parseInt(s, 10));
     let action: BroadcastAction<any> | null = null;
     if (data.length > 0) {
-        action = convertAdvToAction(Uint8ClampedArray.from(data));
+        action = convertAdvToAction(new Uint8ClampedArray(data));
         if (action) {
             action.isBroadcasted = false;
         }

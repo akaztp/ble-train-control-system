@@ -12,7 +12,7 @@ setInterval(() => {
         const buffer = advQueue.shift()!;
         setBleAdvertising(buffer);
     }
-}, advInterval + 10);
+}, advInterval * 2 + 10);
 
 export function actionToBroadcast(
     action: BroadcastAction<any>,
@@ -39,9 +39,15 @@ export function setBleAdvertising(
         options.manufacturer = 0x0590;
         options.manufacturerData = manufacturerData;
     }
-    // @ts-ignore
-    NRF.setAdvertising(
-        {},
-        options,
-    );
+
+    try {
+        // @ts-ignore
+        NRF.setAdvertising(
+            {},
+            options,
+        );
+    } catch (e) {
+        console.log(e.message);
+        console.log(JSON.stringify(options));
+    }
 }

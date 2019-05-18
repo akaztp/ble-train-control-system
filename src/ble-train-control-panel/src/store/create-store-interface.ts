@@ -7,6 +7,10 @@ import { trainGreenGoEffect } from '@logic/state/effects/train-green-go-effect';
 import { trainPositionCalcSensorEffect } from '@logic/state/effects/train-position-calc-sensor-effect';
 import { signalLightReducer } from '@logic/state/reducers/signal-light-reducer';
 import { switchReducer } from '@logic/state/reducers/switch-reducer';
+import { trainAddReducer } from '@logic/state/reducers/train-add-reducer';
+import { trainDriverIdReducer } from '@logic/state/reducers/train-driver-id-reducer';
+import { trainInvertDirReducer } from '@logic/state/reducers/train-invert-dir-reducer';
+import { trainNameReducer } from '@logic/state/reducers/train-name-reducer';
 import { trainPositionReducer } from '@logic/state/reducers/train-position-reducer';
 import { trainSpeedReducer } from '@logic/state/reducers/train-speed-reducer';
 import { ActionSource, createStore as baseCreateStore, Effect, Reducer } from '@logic/state/store';
@@ -23,8 +27,7 @@ import { broadcasterEffectFactory } from './effects/ble-connection-effect';
 import { trainSensorSimulatorEffect } from './effects/train-sensor-simulator-effect';
 import { Observer } from './observer';
 import { switchAvailabilityReducer } from './reducers/switch-availability-reducer';
-import { trainAddReducer } from './reducers/train-add-reducer';
-import { trainChangeReducer } from './reducers/train-change-reducer';
+import { trainJoinReducer } from './reducers/train-join-reducer';
 import { findTrainTouchingSegmentSelector$ } from './selectors/find-train-touching-segment-selector';
 import { trainsListSelector$ } from './selectors/trains-list-selector';
 import { StoreInterface } from './store-interface';
@@ -35,7 +38,10 @@ const stateObserver$ = new Observer<DeviceState>();
 
 const reducers: Array<Reducer<DeviceState, BroadcastAction<any>>> = [
     trainAddReducer,
-    trainChangeReducer,
+    trainJoinReducer,
+    trainNameReducer,
+    trainDriverIdReducer,
+    trainInvertDirReducer,
     trainPositionReducer,
     switchReducer,
     signalLightReducer,

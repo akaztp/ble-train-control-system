@@ -5,6 +5,7 @@ import { createDeviceStore, StoreInterface } from '../../store/create-store';
 import { broadcasterEffectFactory } from './broadcaster-effect';
 import { DeviceConfig } from './device-config';
 import { DeviceState } from './device-state';
+import { trainDriverEffect } from './train-driver-effect';
 
 export function createTrainDriverStore(
     deviceId: string,
@@ -17,6 +18,7 @@ export function createTrainDriverStore(
         createInitialState(deviceId, deviceConfig),
         [
             broadcasterEffectFactory(serial),
+            trainDriverEffect,
         ],
     );
 }

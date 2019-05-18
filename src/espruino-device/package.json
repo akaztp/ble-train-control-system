@@ -17,6 +17,7 @@
     "gulp": "^3.9.1",
     "gulp-better-rollup": "^4.0.1",
     "gulp-string-replace": "^1.1.2",
+    "gulp-footer": "^2.0.2",
     "js-yaml": "^3.13.1",
     "lodash": "^4.17.11",
     "rollup": "^1.11.3",

@@ -6,6 +6,7 @@ import { PinPair } from '../../pin-pair';
 import { actionToSerial, setupSerial } from '../../serial';
 import { createTrainDriverStore } from './create-store';
 import { DeviceConfig } from './device-config';
+import { initTrainControl } from './motor-control';
 
 const trainDriverPins: PinPair = {
     a: D15,
@@ -17,15 +18,17 @@ const serialPins: PinPair = {
     b: D28, // TX
 };
 
+let serial: Serial;
 
 function main() {
-    console.log('Starting!');
-    // @ts-ignore
-    const serial = new Serial();
+    Bluetooth.setConsole(true);
 
+    serial = Serial1;
     const deviceConfig: DeviceConfig = {
         trainDriver: trainDriverPins,
     };
+
+    initTrainControl(trainDriverPins);
     const createdStore = createTrainDriverStore(deviceId, deviceConfig, serial);
 
     setBleAdvertising(null);
@@ -49,4 +52,4 @@ function main() {
 }
 
 E.on('init', main);
-save();
+

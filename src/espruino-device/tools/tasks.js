@@ -13,6 +13,7 @@ const rollupUglify = require('rollup-plugin-uglify').uglify;
 const rollupAlias = require('rollup-plugin-alias');
 const rollupNodeResolve = require('rollup-plugin-node-resolve');
 const minify = require('uglify-js').minify;
+var footer = require('gulp-footer');
 
 const configDirName = 'config';
 const distDirName = 'dist';
@@ -74,12 +75,17 @@ function isDebug() {
   return Array.from(process.argv).includes('--debug');
 }
 
-module.exports.build = (rootDir, appTsFileName) => cb => {
+module.exports.build = (rootDir, appTsFileName, codeSuffix) => cb => {
   const rollupConfig = rollupConfigFactory(path.join(rootDir, configDirName), isDebug());
-  gulp.src(path.join(rootDir, appTsFileName))
+  let formOutFile = gulp.src(path.join(rootDir, appTsFileName))
     .pipe(rollup(rollupConfig.options, rollupConfig.output))
     .pipe(replace('\'use strict\';', ''))
-    .pipe(replace('"use strict";', ''))
+    .pipe(replace('"use strict";', ''));
+  if (codeSuffix) {
+    formOutFile = formOutFile.pipe(footer(codeSuffix + '\n'));
+  }
+  formOutFile
+    .pipe(footer('save();\n'))
     .pipe(gulp.dest(path.join(rootDir, distDirName)))
     .on('end', () => cb());
 };
