@@ -4,7 +4,7 @@ import { bleGlobals } from '@utils/ble-globals';
 import { convertActionToAdv } from '@utils/convert-action-to-adv';
 import { shortDeviceId } from '../globals';
 
-const advInterval = 100;
+const advInterval = 50;
 const advQueue: Uint8ClampedArray[] = [];
 
 setInterval(() => {
@@ -12,7 +12,7 @@ setInterval(() => {
         const buffer = advQueue.shift()!;
         setBleAdvertising(buffer);
     }
-}, advInterval * 2 + 10);
+}, 1000); //advInterval * 6 + 10);
 
 export function actionToBroadcast(
     action: BroadcastAction<any>,

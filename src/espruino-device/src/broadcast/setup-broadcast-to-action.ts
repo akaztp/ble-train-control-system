@@ -19,30 +19,28 @@ export function setupBroadcastToAction(
     const lastActionSerials: { [key: string]: number } = {};
 
     function processAdvertisements(bleDevice: BluetoothDevice) {
-        let action: BroadcastAction<any> | null = null;
-        const lastSerial = lastActionSerials[
-            // @ts-ignore
-            bleDevice.id];
-        if (lastSerial) {
+        // @ts-ignore
+        if (bleDevice.manufacturerData && bleDevice.manufacturerData.length > 0) {
+            const lastSerial = lastActionSerials[
+                // @ts-ignore
+                bleDevice.id];
             // TODO: ignore other layout actions
             const newSerial: number = bleDevice
                 // @ts-ignore
                 .manufacturerData[2];
-            if (newSerial != lastSerial) {
+            if (newSerial !== lastSerial) {
                 lastActionSerials[
                     // @ts-ignore
                     bleDevice.id] =
                     newSerial;
                 // @ts-ignore
-                if (bleDevice.manufacturerData && bleDevice.manufacturerData.length > 0) {
-                    action = convertAdvToAction(
-                        // @ts-ignore
-                        bleDevice.manufacturerData,
-                    );
-                    if (action) {
-                        action.isBroadcasted = true;
-                        actionHandler(action);
-                    }
+                const action = convertAdvToAction(
+                    // @ts-ignore
+                    bleDevice.manufacturerData,
+                );
+                if (action) {
+                    action.isBroadcasted = true;
+                    actionHandler(action);
                 }
             }
         }

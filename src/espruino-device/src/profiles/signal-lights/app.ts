@@ -1,19 +1,19 @@
-import {BroadcastAction} from '@logic/state/action';
-import {setBleAdvertising} from '../../broadcast/action-to-broadcast';
-import {setupBroadcastToAction} from '../../broadcast/setup-broadcast-to-action';
-import {deviceId} from '../../globals';
-import {createSignalLightsStore} from './create-store';
-import {DeviceConfig} from './device-config';
-import {initSignalLights} from "./signal-lights-control";
+import { BroadcastAction } from '@logic/state/action';
+import { setBleAdvertising } from '../../broadcast/action-to-broadcast';
+import { setupBroadcastToAction } from '../../broadcast/setup-broadcast-to-action';
+import { deviceId } from '../../globals';
+import { createSignalLightsStore } from './create-store';
+import { DeviceConfig } from './device-config';
+import { initSignalLights } from './signal-lights-control';
 
 function main() {
     Bluetooth.setConsole(true);
 
     const deviceConfig: DeviceConfig = {
         signalLights: {
-            1: {a: D10, b: D11},
-            10: {a: D10, b: D11},
-            20: {a: D10, b: D11}
+            1: {a: D4, b: D5},
+            20: {a: D2, b: D3},
+            // 10: {a: D10, b: D11}
         },
     };
 

@@ -1,22 +1,34 @@
-import {BroadcastAction} from '@logic/state/action';
-import {createInitialState} from '@logic/state/create-initial-state';
-import {CreatedStore} from '@logic/state/store';
-import {createDeviceStore, StoreInterface} from '../../store/create-store';
-import {DeviceConfig} from './device-config';
-import {DeviceState} from './device-state';
-import {broadcasterEffect} from "./broadcaster-effect";
-import {signalLightsEffect} from "./signal-lights-effect";
+import { BroadcastAction } from '@logic/state/action';
+import { createInitialState } from '@logic/state/create-initial-state';
+import { signalLightReducer } from '@logic/state/reducers/signal-light-reducer';
+import { CreatedStore, createStore as baseCreateStore, Effect, Reducer } from '@logic/state/store';
+import { broadcasterEffect } from './broadcaster-effect';
+import { DeviceConfig } from './device-config';
+import { DeviceState } from './device-state';
+import { signalLightsEffect } from './signal-lights-effect';
+
+export interface StoreInterface {
+}
 
 export function createSignalLightsStore(
     deviceId: string,
     deviceConfig: DeviceConfig,
 ): CreatedStore<DeviceState, StoreInterface, BroadcastAction<any>> {
 
-    return createDeviceStore(
-        createInitialState(deviceId, deviceConfig),
-        [
-            broadcasterEffect,
-            signalLightsEffect,
-        ],
+    const reducers: Array<Reducer<DeviceState, BroadcastAction<any>>> = [
+        signalLightReducer,
+    ];
+
+    const effects: Array<Effect<DeviceState, BroadcastAction<any>>> = [
+        broadcasterEffect,
+        signalLightsEffect,
+    ];
+
+    return baseCreateStore<DeviceState, StoreInterface, BroadcastAction<any>>(
+        createInitialState<DeviceConfig>(deviceId, deviceConfig),
+        reducers,
+        effects,
+        [],
+        {},
     );
 }
