@@ -46,3 +46,7 @@ function findTrain(
         .map((id) => trains[id as any])
         .find(predicate) || null;
 }
+
+export function isSimulated(train: Train): boolean {
+    return train.driverDeviceId === null;
+}

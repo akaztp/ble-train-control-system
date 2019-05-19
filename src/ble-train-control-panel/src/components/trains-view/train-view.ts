@@ -1,4 +1,5 @@
 import { Train } from '@logic/models/train';
+import { isSimulated } from '@logic/state/utils/train';
 import { Component, Emit, Prop, Vue } from 'vue-property-decorator';
 
 @Component({
@@ -30,9 +31,6 @@ export default class TrainView extends Vue {
     }
 
     isSimulated(): boolean {
-        if (this.train) {
-            return this.train.driverDeviceId === null;
-        }
-        return true;
+        return this.train ? isSimulated(this.train) : true;
     }
 }
