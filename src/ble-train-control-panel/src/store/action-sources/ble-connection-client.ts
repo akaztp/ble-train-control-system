@@ -1,7 +1,9 @@
 import { layoutId } from '@layout/layout-id';
-import { Id } from '@logic/models/base';
+import { Id, SimpleMap } from '@logic/models/base';
+import { Segment } from '@logic/models/segment';
 import { Train } from '@logic/models/train';
 import { BroadcastAction } from '@logic/state/action';
+import { createActionSignalLight } from '@logic/state/actions/signal-light';
 import { createActionTrainAdd } from '@logic/state/actions/train-add';
 import { createActionTrainDriverId } from '@logic/state/actions/train-driver-id';
 import { createActionTrainName } from '@logic/state/actions/train-name';
@@ -87,6 +89,7 @@ export function bleConnectionClient(
                                 );
                                 console.log('characteristic.value:', deviceId);
                                 advertiseTrain(dispatcher, state.trains[trainId], deviceId);
+                                advertiseSignalLights(dispatcher, state.segments);
                                 characteristic.addEventListener(
                                     'characteristicvaluechanged',
                                     (event) => {
@@ -177,4 +180,31 @@ function advertiseTrain(
         enteringSegmentId: train.enteringSegment ? train.enteringSegment.id : null,
         stoppedAtSignalLight: train.stoppedAtSignalLight,
     }));
+}
+
+function advertiseSignalLights(
+    dispatcher: Dispatcher<BroadcastAction<any>>,
+    segments: SimpleMap<Segment>,
+): void {
+    Object.keys(segments).forEach(
+        (k) => {
+            const segmentId = parseInt(k, 10);
+            let sl = segments[segmentId].fromSignalLight;
+            if (sl) {
+                dispatcher(createActionSignalLight({
+                    signalId: sl.id,
+                    segmentId,
+                    state: sl.state,
+                }));
+            }
+            sl = segments[segmentId].toSignalLight;
+            if (sl) {
+                dispatcher(createActionSignalLight({
+                    signalId: sl.id,
+                    segmentId,
+                    state: sl.state,
+                }));
+            }
+        },
+    );
 }
