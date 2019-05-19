@@ -45,11 +45,7 @@ export function bleConnectionClient(
                 console.log('Here1. Device:', device);
                 if (device.gatt) {
                     device.addEventListener('gattserverdisconnected', () => {
-                        const connectedTrain = storeInterface.connectedTrains[trainId];
-                        if (connectedTrain) {
-                            connectedTrain.disconnect = null;
-                            storeInterface.disconnectTrainDriver(trainId);
-                        }
+                        storeInterface.disconnectTrainDriver(trainId);
                     });
                     return device.gatt.connect();
                 }
@@ -72,13 +68,20 @@ export function bleConnectionClient(
                         let adv = convertActionToAdv(action);
                         if (!!adv) {
                             // console.log('convertActionToAdv(): ', adv.buffer);
-                            writeValueQueue = writeValueQueue.then(() =>
-                                characteristic.writeValue(adv!)
-                                    .catch((e) => console.error(e.message)),
+                            writeValueQueue = writeValueQueue.then(() => {
+                                    if (characteristic &&
+                                        characteristic.service &&
+                                        characteristic.service.device.gatt &&
+                                        characteristic.service.device.gatt.connected) {
+                                        return characteristic.writeValue(adv!)
+                                            .catch((e) => console.error(e.message));
+                                    }
+                                    return;
+                                },
                             );
                         }
                     },
-                    disconnect: characteristic.service!.device.gatt!.disconnect,
+                    disconnect: () => characteristic.service!.device.gatt!.disconnect(),
                 };
                 return characteristic.readValue()
                     .then(

@@ -1,21 +1,13 @@
 import { Id, SimpleMap } from '@logic/models/base';
 import { BroadcastAction } from '@logic/state/action';
-import { ActionPayloadTrainPosition } from '@logic/state/actions/train-position';
 import { createActionTrainSensor } from '@logic/state/actions/train-sensor';
 import { ActionPayloadTrainSpeed, createActionTrainSpeed } from '@logic/state/actions/train-speed';
 import { Dispatcher } from '@logic/state/store';
 import { findNextSegmentId, segmentDirection } from '@logic/state/utils/segment';
+import { isSimulated } from '@logic/state/utils/train';
 import { DeviceState } from '../device-state';
 import { StoreInterface } from '../store-interface';
 
-interface SimulatedTrainState {
-    id: Id;
-    timerId: number | null;
-    segmentId: Id | null;
-    speed: number;
-}
-
-const trainsState: SimpleMap<SimulatedTrainState> = {};
 let state: DeviceState;
 let dispatcher: Dispatcher<BroadcastAction<any>>;
 
@@ -29,46 +21,79 @@ export function trainSensorSimulator(
     return storeInterface;
 }
 
+interface SimulatedTrainState {
+    id: Id;
+    timerId: number | null;
+    segmentId: Id | null;
+    speed: number;
+}
+
+const trainsState: SimpleMap<SimulatedTrainState> = {};
+
 
 export function speedChanged(speedInfo: ActionPayloadTrainSpeed): void {
     const {trainId, speed} = speedInfo;
-    if (speed === 0) {
-        stopTrain(trainId);
-    } else {
-        const trainState = trainsState[trainId];
-        if (trainState) {
-            if (trainState.segmentId !== null) {
-                const oldSpeed = trainState.speed;
-                if (oldSpeed === 0) {
-                    moveTrain(trainId, speed);
-                } else if (oldSpeed * speed < 0) {
-                    moveTrain(trainId, speed);
-                }
-            }
+    const train = state.trains[trainId];
+    if (train && isSimulated(train)) {
+        if (speed === 0) {
+            stopTrain(trainId);
         } else {
-            addTrain(trainId, null);
+            const trainState = trainsState[trainId];
+            if (trainState) {
+                if (trainState.segmentId !== null) {
+                    const oldSpeed = trainState.speed;
+                    if (oldSpeed === 0) {
+                        moveTrain(trainId, speed);
+                    } else if (oldSpeed * speed < 0) {
+                        moveTrain(trainId, speed);
+                    }
+                }
+            } else {
+                addTrain(trainId, null);
+            }
         }
     }
 }
 
-export function positionChanged(positionInfo: ActionPayloadTrainPosition): void {
-    const segmentId = positionInfo.segmentId;
-    const trainId = positionInfo.trainId;
+export function driverIdChanged(trainId: Id): void {
+    const train = state.trains[trainId];
     const trainState = trainsState[trainId];
-    if (positionInfo.enteringSegmentId === null) {
-        if (trainState) {
-            const oldSegmentId = trainState.segmentId;
-            trainState.segmentId = segmentId;
-            const oldSpeed = trainState.speed;
-            if (oldSegmentId !== segmentId && oldSpeed !== null && oldSpeed !== 0) {
-                moveTrain(trainId, oldSpeed);
+    if (train) {
+        if (isSimulated(train)) {
+            if (!trainState) {
+                positionChanged(trainId);
+            }
+        } else if (trainState) {
+            removeTrain(trainId);
+        }
+    } else if (trainState) {
+        removeTrain(trainId);
+    }
+}
+
+export function positionChanged(trainId: Id): void {
+    const train = state.trains[trainId];
+    const trainState = trainsState[trainId];
+    if (train && isSimulated(train)) {
+        const segmentId = train.segment.id;
+        const enteringSegmentId = train.enteringSegment ? train.enteringSegment.id : null;
+        if (enteringSegmentId === null) {
+            if (trainState) {
+                const oldSegmentId = trainState.segmentId;
+                trainState.segmentId = segmentId;
+                const oldSpeed = trainState.speed;
+                if (oldSegmentId !== segmentId && oldSpeed !== null && oldSpeed !== 0) {
+                    moveTrain(trainId, oldSpeed);
+                }
+            } else {
+                addTrain(trainId, segmentId);
             }
         } else {
-            addTrain(trainId, segmentId);
+            trainState.segmentId = segmentId;
+            triggerEnteringSensor(segmentId, enteringSegmentId);
         }
-    } else {
-        trainState.segmentId = segmentId;
-        triggerEnteringSensor(segmentId, positionInfo.enteringSegmentId);
+    } else if (trainState) {
+        removeTrain(trainId);
     }
 }
 
@@ -79,6 +104,11 @@ function addTrain(id: Id, segmentId: Id | null): void {
         timerId: null,
         speed: 0,
     };
+}
+
+function removeTrain(id: Id): void {
+    stopTrain(id);
+    delete trainsState[id];
 }
 
 function moveTrain(id: Id, speed: number): void {
