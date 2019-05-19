@@ -85,7 +85,6 @@ module.exports.build = (rootDir, appTsFileName, codeSuffix) => cb => {
     formOutFile = formOutFile.pipe(footer(codeSuffix + '\n'));
   }
   formOutFile
-    .pipe(footer('save();\n'))
     .pipe(gulp.dest(path.join(rootDir, distDirName)))
     .on('end', () => cb());
 };
@@ -102,6 +101,8 @@ module.exports.send = (rootDir, deviceId) => cb => {
     espruinoCliConfig.push('-d', envConfig.device);
   }
   espruinoCliConfig.push(bundleFilePath);
+  espruinoCliConfig.push('-e', 'save()');
+  espruinoCliConfig.push('--sleep', '25');
   const buildproc = fork(
     require.resolve('espruino/bin/espruino-cli'),
     espruinoCliConfig,
