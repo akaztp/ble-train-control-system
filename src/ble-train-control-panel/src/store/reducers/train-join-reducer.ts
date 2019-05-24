@@ -13,13 +13,13 @@ export const trainJoinReducer: Reducer<DeviceState, BroadcastAction<ActionPayloa
                 state.trains[action.payload.trainId] = {
                     id: action.payload.trainId,
                     name: action.payload.name,
-                    segment: state.segments[action.payload.segmentId],
-                    enteringSegment: null,
+                    seg: state.segments[action.payload.segId],
+                    enterSeg: null,
                     speed: 0,
-                    speedBeforeStop: 0,
+                    speedBefStop: 0,
                     driverDeviceId: null,
-                    stoppedAtSignalLight: null,
-                    invertedDir: false,
+                    stopAtSignal: null,
+                    invDir: false,
                 };
             }
         }

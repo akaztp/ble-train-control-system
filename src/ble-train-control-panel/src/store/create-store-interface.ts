@@ -85,11 +85,11 @@ export function createStoreInterface(): StoreInterface {
     // TODO: signalLights should only be filled in, if lights are to be simulated
     const signalLights = (Object.values(segments()) as Segment[]).reduce<{ [key: number]: null }>(
         (acc, segment) => {
-            if (segment.fromSignalLight) {
-                acc[segment.fromSignalLight.id] = null;
+            if (segment.frSignal) {
+                acc[segment.frSignal.id] = null;
             }
-            if (segment.toSignalLight) {
-                acc[segment.toSignalLight.id] = null;
+            if (segment.toSignal) {
+                acc[segment.toSignal.id] = null;
             }
             return acc;
         },

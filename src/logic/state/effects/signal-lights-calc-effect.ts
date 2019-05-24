@@ -22,11 +22,11 @@ const effect: Effect<State<SignalLightsConfig<unknown>>, BroadcastAction<any>> =
         Object.keys(state.segments).forEach((id) => {
             const segment: Segment = state.segments[id as any];
             let newAction: BroadcastAction<ActionPayloadSignalLight> | null = null;
-            if (segment.fromSignalLight) {
+            if (segment.frSignal) {
                 newAction = checkSignalLight(
                     segment,
-                    segment.fromSignalLight,
-                    segment.fromPaths,
+                    segment.frSignal,
+                    segment.frPaths,
                     state.switches,
                     occupation,
                     state.deviceConfig,
@@ -36,10 +36,10 @@ const effect: Effect<State<SignalLightsConfig<unknown>>, BroadcastAction<any>> =
                 }
             }
 
-            if (segment.toSignalLight) {
+            if (segment.toSignal) {
                 newAction = checkSignalLight(
                     segment,
-                    segment.toSignalLight,
+                    segment.toSignal,
                     segment.toPaths,
                     state.switches,
                     occupation,
@@ -65,13 +65,13 @@ function checkSignalLight(
     if (deviceConfig && deviceConfig.signalLights[signalLight.id] !== undefined) {
         const openPath = paths.find((path) => isPathOpen(path, switches));
         const newSignalLightState: SignalLightState =
-            (openPath && !occupation[openPath.segmentId]) ?
+            (openPath && !occupation[openPath.segId]) ?
                 SignalLightState.Green :
                 SignalLightState.Red;
 
         if (signalLight.state !== newSignalLightState) {
             action = createActionSignalLight({
-                segmentId: segment.id,
+                segId: segment.id,
                 signalId: signalLight.id,
                 state: newSignalLightState,
             });
@@ -95,9 +95,9 @@ function segmentsOccupation(
     Object.keys(trains)
         .forEach((id) => {
             const t = trains[id as any];
-            occupation[t.segment.id] = true;
-            if (t.enteringSegment !== null) {
-                occupation[t.enteringSegment.id] = true;
+            occupation[t.seg.id] = true;
+            if (t.enterSeg !== null) {
+                occupation[t.enterSeg.id] = true;
             }
         });
     return occupation;

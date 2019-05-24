@@ -8,7 +8,7 @@ export const switchReducer: Reducer<State, BroadcastAction<ActionPayloadSwitch>>
     if (action.type === ActionType.Switch) {
       {
         const sw = state.switches[action.payload.switchId];
-        sw.position = action.payload.position;
+          sw.pos = action.payload.pos;
         sw.enabled = action.payload.enabled;
       }
     }

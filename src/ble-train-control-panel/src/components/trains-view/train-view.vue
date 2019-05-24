@@ -31,7 +31,7 @@
                 </button>
             </div>
             <div class="dashboard__cell">
-                <span v-if="train.speedBeforeStop !== 0">WAITING</span>
+              <span v-if="train.speedBefStop !== 0">WAITING</span>
             </div>
             <div class="dashboard__cell dashboard__cell--grow"></div>
             <div class="dashboard__cell">

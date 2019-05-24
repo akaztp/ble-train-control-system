@@ -1,4 +1,5 @@
-import {SignalLightsConfig} from '@logic/models/device-configs';
-import {PinPair} from '../../pin-pair';
+import { SignalLightsConfig, TrainSensorsConfig } from '@logic/models/device-configs';
+import { PinPair } from '../../pin-pair';
 
-export type DeviceConfig = SignalLightsConfig<PinPair>;
+export interface DeviceConfig extends SignalLightsConfig<PinPair>, TrainSensorsConfig<Pin> {
+}

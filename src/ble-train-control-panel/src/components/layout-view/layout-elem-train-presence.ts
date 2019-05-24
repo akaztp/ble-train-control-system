@@ -15,7 +15,7 @@ export default class LayoutElemTrainPresence extends Vue {
     trainToRight(): boolean {
         if (this.train) {
             if (this.data) {
-                return this.data.id === trainFrontRight.id ? !this.train.invertedDir : this.train.invertedDir;
+                return this.data.id === trainFrontRight.id ? !this.train.invDir : this.train.invDir;
             } else {
                 console.error('TrainPresence primitive data field not configured for segment id ' + this.segment.id);
             }

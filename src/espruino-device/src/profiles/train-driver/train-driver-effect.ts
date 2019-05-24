@@ -13,6 +13,9 @@ const effect: Effect<DeviceState, BroadcastAction<any>> =
         const {trainId, speed} = action.payload;
         const train = state.trains[trainId];
         if (train) {
+            // TODO: use inverted dir
+
+            // TODO: use driverDeviceId
             // if (train.driverDeviceId === state.currentDeviceId) {
             motorControl(speed, state.deviceConfig!.trainDriver);
             // }

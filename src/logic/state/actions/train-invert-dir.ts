@@ -3,7 +3,7 @@ import { ActionType, BroadcastAction, localActionCreator } from '@logic/state/ac
 
 export interface ActionPayloadTrainInvertDir {
     trainId: Id;
-    invertedDir: boolean;
+    invDir: boolean;
 }
 
 export function createActionTrainInvertDir(

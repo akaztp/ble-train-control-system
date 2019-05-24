@@ -3,7 +3,7 @@ import { ActionType, BroadcastAction, localActionCreator } from '@logic/state/ac
 
 export interface ActionPayloadTrainAdd {
     trainId: Id;
-    segmentId: Id;
+    segId: Id;
     driverDeviceId: string | null;
 }
 

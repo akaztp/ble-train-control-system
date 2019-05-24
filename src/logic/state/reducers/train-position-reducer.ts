@@ -9,11 +9,11 @@ export const trainPositionReducer: Reducer<State, BroadcastAction<ActionPayloadT
             {
                 let train = state.trains[action.payload.trainId];
                 if (train) {
-                    train.segment = state.segments[action.payload.segmentId];
-                    train.enteringSegment = action.payload.enteringSegmentId !== null ?
-                        state.segments[action.payload.enteringSegmentId] :
+                    train.seg = state.segments[action.payload.segId];
+                    train.enterSeg = action.payload.enterSegId !== null ?
+                        state.segments[action.payload.enterSegId] :
                         null;
-                    train.stoppedAtSignalLight = action.payload.stoppedAtSignalLight;
+                    train.stopAtSignal = action.payload.stopAtSignal;
                 }
             }
         }

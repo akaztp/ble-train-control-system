@@ -4,7 +4,7 @@ import { bleGlobals } from '@utils/ble-globals';
 import { convertActionToAdv } from '@utils/convert-action-to-adv';
 import { shortDeviceId } from '../globals';
 
-const advInterval = 30;
+const advInterval = 20;
 const advSetInterval = 300;
 const advQueue: Uint8ClampedArray[] = [];
 

@@ -14,52 +14,50 @@ const effect: Effect<State<unknown>, BroadcastAction<any>> =
         state: State<unknown>,
     ): Array<BroadcastAction<any>> => {
         if (action.payload.state) {
-            const {segmentId, signalId} = action.payload;
-            let train = findTrainInsideSegment(state.trains, segmentId);
+            const {segId, signalId} = action.payload;
+            let train = findTrainInsideSegment(state.trains, segId);
             if (train) {
-                if (train.driverDeviceId === state.currentDeviceId) {
-                    const segment = state.segments[segmentId];
-                    const signalLight = segmentSignalLight(segment, signalId);
-                    if (signalLight && signalLight.state === SignalLightState.Green) {
-                        const nextSegmentId = findNextSegmentId(segment, signalId, state.switches);
-                        if (nextSegmentId !== null) {
-                            return [
-                                createActionTrainPosition({
-                                    trainId: train.id,
-                                    segmentId,
-                                    enteringSegmentId: nextSegmentId,
-                                    stoppedAtSignalLight: null,
-                                }),
-                            ];
-                        }
-                    }
-                    return [
-                        createActionTrainPosition({
-                            trainId: train.id,
-                            segmentId,
-                            enteringSegmentId: null,
-                            stoppedAtSignalLight: signalId,
-                        }),
-                        createActionTrainSpeed({
-                            trainId: train.id,
-                            speed: 0,
-                            temporary: true,
-                        }),
-                    ];
-                }
-            } else {
-                train = findTrainEnteringSegment(state.trains, segmentId);
-                if (train) {
-                    if (train.driverDeviceId === state.currentDeviceId) {
+                // TODO: check if train controller is the current device
+                const segment = state.segments[segId];
+                const signalLight = segmentSignalLight(segment, signalId);
+                if (signalLight && signalLight.state === SignalLightState.Green) {
+                    const nextSegmentId = findNextSegmentId(segment, signalId, state.switches);
+                    if (nextSegmentId !== null) {
                         return [
                             createActionTrainPosition({
                                 trainId: train.id,
-                                segmentId,
-                                enteringSegmentId: null,
-                                stoppedAtSignalLight: null,
+                                segId: segId,
+                                enterSegId: nextSegmentId,
+                                stopAtSignal: null,
                             }),
                         ];
                     }
+                }
+                return [
+                    createActionTrainPosition({
+                        trainId: train.id,
+                        segId: segId,
+                        enterSegId: null,
+                        stopAtSignal: signalId,
+                    }),
+                    createActionTrainSpeed({
+                        trainId: train.id,
+                        speed: 0,
+                        temp: true,
+                    }),
+                ];
+            } else {
+                train = findTrainEnteringSegment(state.trains, segId);
+                if (train) {
+                    // TODO: check if train controller is the current device
+                    return [
+                        createActionTrainPosition({
+                            trainId: train.id,
+                            segId: segId,
+                            enterSegId: null,
+                            stopAtSignal: null,
+                        }),
+                    ];
                 }
             }
         }

@@ -15,7 +15,7 @@ export function addTrain(
         segmentId: Id,
     ): void => {
         const trainId = getUniqueId(state.trains);
-        return dispatcher(createActionTrainJoin({trainId, name, segmentId}));
+        return dispatcher(createActionTrainJoin({trainId, name, segId: segmentId}));
     };
     return storeInterface;
 }

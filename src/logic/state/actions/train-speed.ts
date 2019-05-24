@@ -4,7 +4,7 @@ import { ActionType, BroadcastAction, localActionCreator } from '@logic/state/ac
 export interface ActionPayloadTrainSpeed {
     trainId: Id;
     speed: number;
-    temporary: boolean;
+    temp: boolean;
 }
 
 export function createActionTrainSpeed(

@@ -9,9 +9,9 @@ export const trainDriverIdReducer: Reducer<State, BroadcastAction<ActionPayloadT
             {
                 const train = state.trains[action.payload.trainId];
                 if (train) {
-                    if (train.speed === 0 && !train.stoppedAtSignalLight) {
+                    if (train.speed === 0 && !train.stopAtSignal) {
                         train.driverDeviceId = action.payload.driverDeviceId;
-                        train.speedBeforeStop = 0;
+                        train.speedBefStop = 0;
                     }
                 }
             }

@@ -7,7 +7,7 @@ export function isPathOpen(
     switches: SimpleMap<Switch>,
 ): boolean {
     return path.switchesStates.reduce(
-        (opened: boolean, switchState) => opened && switches[switchState.id].position === switchState.position,
+        (opened: boolean, switchState) => opened && switches[switchState.id].pos === switchState.pos,
         true,
     );
 }

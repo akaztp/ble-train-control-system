@@ -9,9 +9,9 @@ export const trainInvertDirReducer: Reducer<State, BroadcastAction<ActionPayload
             {
                 const train = state.trains[action.payload.trainId];
                 if (train) {
-                    if (train.speed === 0 && !train.stoppedAtSignalLight) {
-                        train.speedBeforeStop = 0;
-                        train.invertedDir = action.payload.invertedDir;
+                    if (train.speed === 0 && !train.stopAtSignal) {
+                        train.speedBefStop = 0;
+                        train.invDir = action.payload.invDir;
                     }
                 }
             }

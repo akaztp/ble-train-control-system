@@ -24,8 +24,8 @@ export default class TrainView extends Vue {
     isSetupPossible(): boolean {
         if (this.train) {
             return this.train.speed === 0 &&
-                this.train.stoppedAtSignalLight === null &&
-                this.train.enteringSegment === null;
+                this.train.stopAtSignal === null &&
+                this.train.enterSeg === null;
         }
         return false;
     }

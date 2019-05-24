@@ -1,11 +1,13 @@
 import { BroadcastAction } from '@logic/state/action';
+import { CreatedStore } from '@logic/state/store';
 import { actionToBroadcast, setBleAdvertising } from '../../broadcast/action-to-broadcast';
 import { setupBroadcastToAction } from '../../broadcast/setup-broadcast-to-action';
 import { deviceId } from '../../globals';
 import { PinPair } from '../../pin-pair';
 import { actionToSerial, setupSerial } from '../../serial';
-import { createTrainDriverStore } from './create-store';
+import { createTrainDriverStore, StoreInterface } from './create-store';
 import { DeviceConfig } from './device-config';
+import { DeviceState } from './device-state';
 import { initTrainControl } from './motor-control';
 
 const trainDriverPins: PinPair = {
@@ -19,6 +21,7 @@ const serialPins: PinPair = {
 };
 
 let serial: Serial;
+let createdStore: CreatedStore<DeviceState, StoreInterface, BroadcastAction<any>>;
 
 function main() {
     Bluetooth.setConsole(true);
@@ -29,7 +32,7 @@ function main() {
     };
 
     initTrainControl(trainDriverPins);
-    const createdStore = createTrainDriverStore(deviceId, deviceConfig, serial);
+    createdStore = createTrainDriverStore(deviceId, deviceConfig, serial);
 
     setBleAdvertising(null);
 
@@ -52,4 +55,3 @@ function main() {
 }
 
 E.on('init', main);
-

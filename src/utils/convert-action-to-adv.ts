@@ -39,7 +39,7 @@ function convertPayloadToAdv(action: BroadcastAction<any>): number[] | null {
     if (isActionOfType<ActionPayloadTrainSensor>(action, ActionType.TrainSensor)) {
         return [
             action.payload.signalId,
-            action.payload.segmentId,
+            action.payload.segId,
             booleanToNumber(action.payload.state),
         ];
     }
@@ -47,9 +47,9 @@ function convertPayloadToAdv(action: BroadcastAction<any>): number[] | null {
     if (isActionOfType<ActionPayloadTrainPosition>(action, ActionType.TrainPosition)) {
         return [
             action.payload.trainId,
-            action.payload.segmentId,
-            nullToNumber(action.payload.enteringSegmentId),
-            nullToNumber(action.payload.stoppedAtSignalLight),
+            action.payload.segId,
+            nullToNumber(action.payload.enterSegId),
+            nullToNumber(action.payload.stopAtSignal),
         ];
     }
 
@@ -57,14 +57,14 @@ function convertPayloadToAdv(action: BroadcastAction<any>): number[] | null {
         return [
             action.payload.trainId,
             ratioToByte(action.payload.speed),
-            booleanToNumber(action.payload.temporary),
+            booleanToNumber(action.payload.temp),
         ];
     }
 
     if (isActionOfType<ActionPayloadSwitch>(action, ActionType.Switch)) {
         return [
             action.payload.switchId,
-            action.payload.position,
+            action.payload.pos,
             booleanToNumber(action.payload.enabled),
         ];
     }
@@ -72,7 +72,7 @@ function convertPayloadToAdv(action: BroadcastAction<any>): number[] | null {
     if (isActionOfType<ActionPayloadSignalLight>(action, ActionType.SignalLight)) {
         return [
             action.payload.signalId,
-            action.payload.segmentId,
+            action.payload.segId,
             action.payload.state,
         ];
     }
@@ -80,7 +80,7 @@ function convertPayloadToAdv(action: BroadcastAction<any>): number[] | null {
     if (isActionOfType<ActionPayloadTrainAdd>(action, ActionType.TrainAdd)) {
         return [
             action.payload.trainId,
-            action.payload.segmentId,
+            action.payload.segId,
             ...deviceIdToArray(action.payload.driverDeviceId),
         ];
     }
@@ -102,7 +102,7 @@ function convertPayloadToAdv(action: BroadcastAction<any>): number[] | null {
     if (isActionOfType<ActionPayloadTrainInvertDir>(action, ActionType.TrainInvertDir)) {
         return [
             action.payload.trainId,
-            booleanToNumber(action.payload.invertedDir),
+            booleanToNumber(action.payload.invDir),
         ];
     }
 

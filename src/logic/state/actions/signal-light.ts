@@ -4,7 +4,7 @@ import { ActionType, BroadcastAction, localActionCreator } from '@logic/state/ac
 
 export interface ActionPayloadSignalLight {
     signalId: Id;
-    segmentId: Id;
+    segId: Id;
     state: SignalLightState;
 }
 

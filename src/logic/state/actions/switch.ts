@@ -4,7 +4,7 @@ import { ActionType, BroadcastAction, localActionCreator } from '@logic/state/ac
 
 export interface ActionPayloadSwitch {
     switchId: Id;
-    position: SwitchPosition;
+    pos: SwitchPosition;
     enabled: boolean;
 }
 

@@ -168,7 +168,7 @@ function advertiseTrain(
     const trainId = train.id;
     dispatcher(createActionTrainAdd({
         trainId,
-        segmentId: train.segment.id,
+        segId: train.seg.id,
         driverDeviceId: deviceId,
     }));
 
@@ -179,9 +179,9 @@ function advertiseTrain(
 
     dispatcher(createActionTrainPosition({
         trainId,
-        segmentId: train.segment.id,
-        enteringSegmentId: train.enteringSegment ? train.enteringSegment.id : null,
-        stoppedAtSignalLight: train.stoppedAtSignalLight,
+        segId: train.seg.id,
+        enterSegId: train.enterSeg ? train.enterSeg.id : null,
+        stopAtSignal: train.stopAtSignal,
     }));
 }
 
@@ -192,19 +192,19 @@ function advertiseSignalLights(
     Object.keys(segments).forEach(
         (k) => {
             const segmentId = parseInt(k, 10);
-            let sl = segments[segmentId].fromSignalLight;
+            let sl = segments[segmentId].frSignal;
             if (sl) {
                 dispatcher(createActionSignalLight({
                     signalId: sl.id,
-                    segmentId,
+                    segId: segmentId,
                     state: sl.state,
                 }));
             }
-            sl = segments[segmentId].toSignalLight;
+            sl = segments[segmentId].toSignal;
             if (sl) {
                 dispatcher(createActionSignalLight({
                     signalId: sl.id,
-                    segmentId,
+                    segId: segmentId,
                     state: sl.state,
                 }));
             }

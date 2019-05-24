@@ -4,7 +4,7 @@ import { ActionType, BroadcastAction, localActionCreator } from '@logic/state/ac
 export interface ActionPayloadTrainJoin {
     trainId: Id;
     name: string;
-    segmentId: Id;
+    segId: Id;
 }
 
 export function createActionTrainJoin(

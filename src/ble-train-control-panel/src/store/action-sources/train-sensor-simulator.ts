@@ -75,8 +75,8 @@ export function positionChanged(trainId: Id): void {
     const train = state.trains[trainId];
     const trainState = trainsState[trainId];
     if (train && isSimulated(train)) {
-        const segmentId = train.segment.id;
-        const enteringSegmentId = train.enteringSegment ? train.enteringSegment.id : null;
+        const segmentId = train.seg.id;
+        const enteringSegmentId = train.enterSeg ? train.enterSeg.id : null;
         if (enteringSegmentId === null) {
             if (trainState) {
                 const oldSegmentId = trainState.segmentId;
@@ -140,12 +140,12 @@ function triggerExitSensor(trainId: Id): void {
             const signalLight = segmentDirection(
                 state.segments[segmentId],
                 trainState.speed,
-                train.invertedDir,
+                train.invDir,
             );
             if (signalLight !== null) {
                 dispatcher(
                     createActionTrainSensor({
-                        segmentId,
+                        segId: segmentId,
                         signalId: signalLight.id,
                         state: true,
                     }));
@@ -154,7 +154,7 @@ function triggerExitSensor(trainId: Id): void {
                     createActionTrainSpeed({
                         trainId,
                         speed: 0,
-                        temporary: false,
+                        temp: false,
                     }));
             }
         }
@@ -171,7 +171,7 @@ function triggerEnteringSensor(
             () =>
                 dispatcher(
                     createActionTrainSensor({
-                        segmentId: enteringSegmentId,
+                        segId: enteringSegmentId,
                         signalId: signalLightId,
                         state: true,
                     })),
@@ -186,25 +186,25 @@ function findEnteringSignalLightId(
 ): Id | null {
     let signalLightId: Id | null = null;
 
-    if (state.segments[enteringSegmentId].fromSignalLight !== null) {
+    if (state.segments[enteringSegmentId].frSignal !== null) {
         const segmentAId = findNextSegmentId(
             state.segments[enteringSegmentId],
-            state.segments[enteringSegmentId].fromSignalLight!.id,
+            state.segments[enteringSegmentId].frSignal!.id,
             state.switches,
         );
         if (segmentAId === leavingSegmentId) {
-            signalLightId = state.segments[enteringSegmentId].fromSignalLight!.id;
+            signalLightId = state.segments[enteringSegmentId].frSignal!.id;
         }
     }
 
-    if (signalLightId === null && state.segments[enteringSegmentId].toSignalLight !== null) {
+    if (signalLightId === null && state.segments[enteringSegmentId].toSignal !== null) {
         const segmentBId = findNextSegmentId(
             state.segments[enteringSegmentId],
-            state.segments[enteringSegmentId].toSignalLight!.id,
+            state.segments[enteringSegmentId].toSignal!.id,
             state.switches,
         );
         if (segmentBId === leavingSegmentId) {
-            signalLightId = state.segments[enteringSegmentId].toSignalLight!.id;
+            signalLightId = state.segments[enteringSegmentId].toSignal!.id;
         }
     }
     return signalLightId;

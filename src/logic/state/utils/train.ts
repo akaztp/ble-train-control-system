@@ -5,8 +5,8 @@ export function findTrainTouchingSegment(trains: SimpleMap<Train>, segmentId: Id
     return findTrain(
         trains,
         (t: Train) =>
-            t.segment.id === segmentId ||
-            (t.enteringSegment !== null && t.enteringSegment.id === segmentId),
+            t.seg.id === segmentId ||
+            (t.enterSeg !== null && t.enterSeg.id === segmentId),
     );
 }
 
@@ -14,7 +14,7 @@ export function findTrainInsideSegment(trains: SimpleMap<Train>, segmentId: Id):
     return findTrain(
         trains,
         (t: Train) =>
-            t.segment.id === segmentId && (t.enteringSegment === null),
+            t.seg.id === segmentId && (t.enterSeg === null),
     );
 }
 
@@ -22,7 +22,7 @@ export function findTrainEnteringSegment(trains: SimpleMap<Train>, segmentId: Id
     return findTrain(
         trains,
         (t: Train) =>
-            (t.enteringSegment !== null && t.enteringSegment.id === segmentId),
+            (t.enterSeg !== null && t.enterSeg.id === segmentId),
     );
 }
 
@@ -33,8 +33,8 @@ export function findTrainFromToSegments(
 ): Train | null {
     return findTrain(
         trains,
-        (t: Train) => (t.segment.id === fromSegmentId &&
-            (t.enteringSegment !== null && t.enteringSegment.id === toSegmentId)),
+        (t: Train) => (t.seg.id === fromSegmentId &&
+            (t.enterSeg !== null && t.enterSeg.id === toSegmentId)),
     );
 }
 

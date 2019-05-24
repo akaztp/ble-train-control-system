@@ -1,6 +1,6 @@
 <template>
   <svg xmlns="http://www.w3.org/2000/svg"
-    v-if="data.position === switchPositionTurnout"
+    v-if="data.pos === switchPositionTurnout"
     @click="toggleSwitch($event)"
     v-bind:class="{selectable: data.enabled}"
     version="1.1"
@@ -12,7 +12,7 @@
     <line x1="33%" y1="50%" x2="100%" y2="-50%"></line>
   </svg>
   <svg xmlns="http://www.w3.org/2000/svg"
-    v-else-if="data.position === switchPositionStraight"
+    v-else-if="data.pos === switchPositionStraight"
     @click="toggleSwitch($event)"
     v-bind:class="{selectable: data.enabled}"
     version="1.1"
@@ -25,10 +25,10 @@
 </template>
 
 <script lang="ts">
-  import { LayoutElemSwitch } from './layout-elem-switch';
-  import { Component } from 'vue-property-decorator';
+    import { Component } from 'vue-property-decorator';
+    import { LayoutElemSwitch } from './layout-elem-switch';
 
-  @Component({})
+    @Component({})
   export default class LayoutElemSwitchLeft extends LayoutElemSwitch {
   }
 </script>

@@ -56,7 +56,7 @@ function rollupConfigFactory(configDir, debug = true) {
   if (!debug) {
     plugins.push(
       rollupUglify({
-        output: {beautify: true}, // Activate for debugging purposes
+        // output: {beautify: true}, // Activate for debugging purposes
         compress: true,
         mangle: {reserved: ['onInit'], toplevel: true},
       }, minify),
@@ -102,7 +102,7 @@ module.exports.send = (rootDir, deviceId) => cb => {
   }
   espruinoCliConfig.push(bundleFilePath);
   espruinoCliConfig.push('-e', 'save()');
-  espruinoCliConfig.push('--sleep', '25');
+  espruinoCliConfig.push('--sleep', '30');
   const buildproc = fork(
     require.resolve('espruino/bin/espruino-cli'),
     espruinoCliConfig,

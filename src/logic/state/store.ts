@@ -32,12 +32,32 @@ export function createStore<S, C, A extends StoreAction<any> = StoreAction<any>>
     actionSources: Array<ActionSource<S, C, A>>,
     initialContext: C,
 ): CreatedStore<S, C, A> {
+    const dispatchQueue: Array<any> = [];
+
+    function dispatch(action: A): void {
+        dispatchQueue.push(action);
+    }
+
     const store: Store<S, A> = {
         state,
         reducers,
         effects,
         dispatch,
     };
+
+    function processDispatchQueue(): void {
+        if (dispatchQueue.length) {
+            const action = dispatchQueue.shift()!;
+            // logAction(action);
+            // setTimeout(logAction, 10, action);
+            store.reducers.forEach((r) => r(store.state, action));
+            // console.log('dispatch(). Updated state:', store.state);
+            store.effects.forEach(
+                (effect) => effect(action, store.state).forEach(
+                    (newAction) => dispatch(newAction)));
+        }
+        setTimeout(processDispatchQueue, 20);
+    }
 
     const context =
         actionSources.reduce(
@@ -47,19 +67,12 @@ export function createStore<S, C, A extends StoreAction<any> = StoreAction<any>>
 
     store.dispatch({type: ActionType.Init, payload: null} as A);
 
+    setTimeout(processDispatchQueue, 20);
+
     return {
         store,
         context,
     };
-
-    function dispatch(action: A): void {
-        logAction(action);
-        store.reducers.forEach((r) => r(store.state, action));
-        // console.log('dispatch(). Updated state:', store.state);
-        store.effects.forEach(
-            (effect) => effect(action, store.state).forEach(
-                (newAction) => dispatch(newAction)));
-    }
 }
 
 export function triggerEffectForAction<S, A extends StoreAction<any>>(
@@ -77,19 +90,20 @@ export function triggerEffectForAction<S, A extends StoreAction<any>>(
 }
 
 function logAction(action: StoreAction<any>): void {
+    const logActionType = [
+        'Init',
+        'TrainJoin',
+        'TrainAdd',
+        'TrainName',
+        'TrainDriverId',
+        'TrainInvertDir',
+        'TrainPosition',
+        'TrainSpeed',
+        'Switch',
+        'SignalLight',
+        'TrainSensor',
+    ];
     console.log('ACTION: ', logActionType[action.type], action.payload);
 }
 
-const logActionType = [
-    'Init',
-    'TrainJoin',
-    'TrainAdd',
-    'TrainName',
-    'TrainDriverId',
-    'TrainInvertDir',
-    'TrainPosition',
-    'TrainSpeed',
-    'Switch',
-    'SignalLight',
-    'TrainSensor',
-];
+

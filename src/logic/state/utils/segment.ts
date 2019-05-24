@@ -8,10 +8,10 @@ export function segmentPaths(
     segment: Segment,
     signalLightId: Id,
 ): PathToSegment[] {
-    if (segment.fromSignalLight && segment.fromSignalLight.id === signalLightId) {
-        return segment.fromPaths;
+    if (segment.frSignal && segment.frSignal.id === signalLightId) {
+        return segment.frPaths;
     }
-    if (segment.toSignalLight && segment.toSignalLight.id === signalLightId) {
+    if (segment.toSignal && segment.toSignal.id === signalLightId) {
         return segment.toPaths;
     }
     console.error(`SignalLight id ${signalLightId} specified does not exist on segment id ${segment.id}`);
@@ -22,12 +22,12 @@ export function segmentSignalLight(
     segment: Segment,
     signalLightId: Id,
 ): SignalLight | null {
-    let signalLight = (segment.fromSignalLight && segment.fromSignalLight.id === signalLightId) ?
-        segment.fromSignalLight :
+    let signalLight = (segment.frSignal && segment.frSignal.id === signalLightId) ?
+        segment.frSignal :
         null;
 
-    if (!signalLight && segment.toSignalLight) {
-        signalLight = segment.toSignalLight.id === signalLightId ? segment.toSignalLight : null;
+    if (!signalLight && segment.toSignal) {
+        signalLight = segment.toSignal.id === signalLightId ? segment.toSignal : null;
     }
     return signalLight;
 }
@@ -39,9 +39,9 @@ export function segmentDirection(
 ): SignalLight | null {
     const adjustedSpeed = invertedDir ? -speed : speed;
     if (adjustedSpeed > 0) {
-        return segment.toSignalLight;
+        return segment.toSignal;
     } else if (adjustedSpeed < 0) {
-        return segment.fromSignalLight;
+        return segment.frSignal;
     }
     return null;
 }
@@ -55,7 +55,7 @@ export function findNextSegmentId(
     if (paths && paths.length > 0) {
         const openPath = paths.find((path) => isPathOpen(path, switches)) || null;
         if (openPath) {
-            return openPath.segmentId;
+            return openPath.segId;
         }
     }
     return null;

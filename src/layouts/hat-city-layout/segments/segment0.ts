@@ -16,10 +16,10 @@ export const signalLights0: SimpleMap<SignalLight> = {
 export const segment0: SimpleMap<Segment> = {
   0: {
     id: 0,
-    fromPaths: [],
-    fromSignalLight: signalLights0[0],
+      frPaths: [],
+      frSignal: signalLights0[0],
     toPaths: [],
-    toSignalLight: signalLights0[1],
+      toSignal: signalLights0[1],
   } as Segment,
 };
 

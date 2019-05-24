@@ -17,7 +17,7 @@ export function changeTrainSpeed(
         return dispatcher(createActionTrainSpeed({
             trainId,
             speed,
-            temporary: false,
+            temp: false,
         }));
     };
     return storeInterface;

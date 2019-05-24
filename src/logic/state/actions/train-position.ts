@@ -3,9 +3,9 @@ import { ActionType, BroadcastAction, localActionCreator } from '@logic/state/ac
 
 export interface ActionPayloadTrainPosition {
     trainId: Id;
-    segmentId: Id;
-    enteringSegmentId: Id | null;
-    stoppedAtSignalLight: Id | null;
+    segId: Id;
+    enterSegId: Id | null;
+    stopAtSignal: Id | null;
 }
 
 export function createActionTrainPosition(

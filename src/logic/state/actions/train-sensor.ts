@@ -3,7 +3,7 @@ import { ActionType, BroadcastAction, localActionCreator } from '@logic/state/ac
 
 export interface ActionPayloadTrainSensor {
     signalId: Id;
-    segmentId: Id;
+    segId: Id;
     state: boolean;
 }
 

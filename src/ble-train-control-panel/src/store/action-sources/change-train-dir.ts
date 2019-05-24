@@ -16,7 +16,7 @@ export function changeTrainDir(
     ): void => {
         return dispatcher(createActionTrainInvertDir({
             trainId,
-            invertedDir,
+            invDir: invertedDir,
         }));
     };
     return storeInterface;

@@ -11,14 +11,14 @@ import { DeviceState } from '../device-state';
 export const switchAvailabilityReducer: Reducer<DeviceState, BroadcastAction<ActionPayloadTrainPosition>> =
     (state, action): void => {
         if (action.type === ActionType.TrainPosition) {
-            const {segmentId} = action.payload;
-            const segment = state.segments[segmentId];
+            const {segId} = action.payload;
+            const segment = state.segments[segId];
             const switchesToChange: { [key: string]: boolean } = {};
-            if (segment.fromSignalLight) {
-                checkPaths(segment, segment.fromSignalLight.id, switchesToChange, state.trains);
+            if (segment.frSignal) {
+                checkPaths(segment, segment.frSignal.id, switchesToChange, state.trains);
             }
-            if (segment.toSignalLight) {
-                checkPaths(segment, segment.toSignalLight.id, switchesToChange, state.trains);
+            if (segment.toSignal) {
+                checkPaths(segment, segment.toSignal.id, switchesToChange, state.trains);
             }
             Object.keys(switchesToChange).forEach(
                 (key) => {
@@ -36,9 +36,9 @@ function checkPaths(
 ): void {
     const paths = segmentPaths(segment, signalLightId);
     paths.forEach((path) => {
-        let train = findTrainFromToSegments(segment.id, path.segmentId, trains);
+        let train = findTrainFromToSegments(segment.id, path.segId, trains);
         if (!train) {
-            train = findTrainFromToSegments(path.segmentId, segment.id, trains);
+            train = findTrainFromToSegments(path.segId, segment.id, trains);
         }
         path.switchesStates.forEach((sws) => {
             if (train) {

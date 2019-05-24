@@ -6,80 +6,80 @@ const allPaths: PathBetweenSegments[] = [
     {
         segmentAId: 0, signalLightAId: 0,
         segmentBId: 3, signalLightBId: 30,
-        switchesStates: [{id: 0, position: SwitchPosition.Straight}],
+        switchesStates: [{id: 0, pos: SwitchPosition.Straight}],
     },
     {
         segmentAId: 0, signalLightAId: 1,
         segmentBId: 2, signalLightBId: 20,
-        switchesStates: [{id: 7, position: SwitchPosition.Straight}],
+        switchesStates: [{id: 7, pos: SwitchPosition.Straight}],
     },
     {
         segmentAId: 0, signalLightAId: 1,
         segmentBId: 1, signalLightBId: 10,
-        switchesStates: [{id: 7, position: SwitchPosition.Turnout}],
+        switchesStates: [{id: 7, pos: SwitchPosition.Turnout}],
     },
     {
         segmentAId: 1, signalLightAId: 11,
         segmentBId: 3, signalLightBId: 31,
         switchesStates: [
-            {id: 5, position: SwitchPosition.Straight},
-            {id: 6, position: SwitchPosition.Turnout},
+            {id: 5, pos: SwitchPosition.Straight},
+            {id: 6, pos: SwitchPosition.Turnout},
         ],
     },
     {
         segmentAId: 2, signalLightAId: 21,
         segmentBId: 3, signalLightBId: 31,
-        switchesStates: [{id: 6, position: SwitchPosition.Straight}],
+        switchesStates: [{id: 6, pos: SwitchPosition.Straight}],
     },
     {
         segmentAId: 4, signalLightAId: 40,
         segmentBId: 3, signalLightBId: 30,
         switchesStates: [
-            {id: 0, position: SwitchPosition.Turnout},
-            {id: 1, position: SwitchPosition.Straight},
+            {id: 0, pos: SwitchPosition.Turnout},
+            {id: 1, pos: SwitchPosition.Straight},
         ],
     },
     {
         segmentAId: 5, signalLightAId: 50,
         segmentBId: 3, signalLightBId: 30,
         switchesStates: [
-            {id: 0, position: SwitchPosition.Turnout},
-            {id: 1, position: SwitchPosition.Turnout},
-            {id: 2, position: SwitchPosition.Straight},
+            {id: 0, pos: SwitchPosition.Turnout},
+            {id: 1, pos: SwitchPosition.Turnout},
+            {id: 2, pos: SwitchPosition.Straight},
         ],
     },
     {
         segmentAId: 6, signalLightAId: 60,
         segmentBId: 3, signalLightBId: 30,
         switchesStates: [
-            {id: 0, position: SwitchPosition.Turnout},
-            {id: 1, position: SwitchPosition.Turnout},
-            {id: 2, position: SwitchPosition.Turnout},
-            {id: 3, position: SwitchPosition.Straight},
+            {id: 0, pos: SwitchPosition.Turnout},
+            {id: 1, pos: SwitchPosition.Turnout},
+            {id: 2, pos: SwitchPosition.Turnout},
+            {id: 3, pos: SwitchPosition.Straight},
         ],
     },
     {
         segmentAId: 7, signalLightAId: 70,
         segmentBId: 3, signalLightBId: 31,
         switchesStates: [
-            {id: 5, position: SwitchPosition.Turnout},
-            {id: 6, position: SwitchPosition.Turnout},
+            {id: 5, pos: SwitchPosition.Turnout},
+            {id: 6, pos: SwitchPosition.Turnout},
         ],
     },
     {
         segmentAId: 8, signalLightAId: 80,
         segmentBId: 6, signalLightBId: 60,
         switchesStates: [
-            {id: 4, position: SwitchPosition.Turnout},
-            {id: 3, position: SwitchPosition.Turnout},
+            {id: 4, pos: SwitchPosition.Turnout},
+            {id: 3, pos: SwitchPosition.Turnout},
         ],
     },
     {
         segmentAId: 9, signalLightAId: 90,
         segmentBId: 6, signalLightBId: 60,
         switchesStates: [
-            {id: 4, position: SwitchPosition.Straight},
-            {id: 3, position: SwitchPosition.Turnout},
+            {id: 4, pos: SwitchPosition.Straight},
+            {id: 3, pos: SwitchPosition.Turnout},
         ],
     },
 ];
@@ -116,14 +116,14 @@ export function applyPaths(
 
             if (foundSegmentSignalLightId !== null) {
                 const pathToOtherSegment: PathToSegment = {
-                    segmentId: otherEndSegmentId!,
+                    segId: otherEndSegmentId!,
                     segment: allSegments[otherEndSegmentId!],
                     switchesStates: path.switchesStates,
                     signalLightId: otherEndSignalLightId!,
                 };
-                if (segment.fromSignalLight !== null && foundSegmentSignalLightId === segment.fromSignalLight.id) {
-                    segment.fromPaths.push(pathToOtherSegment);
-                } else if (segment.toSignalLight !== null && foundSegmentSignalLightId === segment.toSignalLight.id) {
+                if (segment.frSignal !== null && foundSegmentSignalLightId === segment.frSignal.id) {
+                    segment.frPaths.push(pathToOtherSegment);
+                } else if (segment.toSignal !== null && foundSegmentSignalLightId === segment.toSignal.id) {
                     segment.toPaths.push(pathToOtherSegment);
                 } else {
                     console.error(`Non existing SignalLight id ${foundSegmentSignalLightId} in segment id ${segment.id} referenced by PathBetweenSegments.`);

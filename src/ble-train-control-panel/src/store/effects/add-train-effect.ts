@@ -11,19 +11,19 @@ const effect: Effect<DeviceState, BroadcastAction<any>> =
         action: BroadcastAction<ActionPayloadTrainJoin>,
         state: DeviceState,
     ): Array<BroadcastAction<any>> => {
-        const train = findTrainTouchingSegment(state.trains, action.payload.segmentId);
+        const train = findTrainTouchingSegment(state.trains, action.payload.segId);
         if (train && train.id === action.payload.trainId) {
             return [
                 createActionTrainPosition({
                     trainId: train.id,
-                    segmentId: train.segment.id,
-                    enteringSegmentId: (train.enteringSegment !== null) ? train.enteringSegment.id : null,
-                    stoppedAtSignalLight: null,
+                    segId: train.seg.id,
+                    enterSegId: (train.enterSeg !== null) ? train.enterSeg.id : null,
+                    stopAtSignal: null,
                 }),
                 createActionTrainSpeed({
                     trainId: train.id,
                     speed: 0,
-                    temporary: false,
+                    temp: false,
                 }),
             ];
         } else {

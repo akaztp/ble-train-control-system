@@ -16,6 +16,6 @@ export function switchChanger(
         position: SwitchPosition,
         enabled: boolean,
     ): void =>
-        dispatcher(createActionSwitch({switchId, position, enabled}));
+        dispatcher(createActionSwitch({switchId, pos: position, enabled}));
     return storeInterface;
 }

@@ -4,11 +4,11 @@ import { SwitchPosition } from './switch';
 
 export interface SwitchState {
   id: Id;
-  position: SwitchPosition;
+    pos: SwitchPosition;
 }
 
 export interface PathToSegment {
-  segmentId: Id;
+    segId: Id;
   segment?: Segment;
   signalLightId: Id;
   switchesStates: SwitchState[];
@@ -16,21 +16,21 @@ export interface PathToSegment {
 
 export interface Segment extends Data {
   id: Id;
-  fromPaths: PathToSegment[];
-  fromSignalLight: SignalLight | null;
+    frPaths: PathToSegment[];
+    frSignal: SignalLight | null;
   toPaths: PathToSegment[];
-  toSignalLight: SignalLight | null;
+    toSignal: SignalLight | null;
 }
 
 export function resolveSegmentsRefs(segments: SimpleMap<Segment>): SimpleMap<Segment> {
   Object.keys(segments).forEach((key) => {
     const segment = segments[key as any];
-    segment.fromPaths.forEach(resolveSegmentRefs);
+      segment.frPaths.forEach(resolveSegmentRefs);
     segment.toPaths.forEach(resolveSegmentRefs);
   });
 
   function resolveSegmentRefs(path: PathToSegment): void {
-    path.segment = segments[path.segmentId];
+      path.segment = segments[path.segId];
   }
 
   return segments;

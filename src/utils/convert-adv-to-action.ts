@@ -29,7 +29,7 @@ function convertPayloadToAction(data: Uint8ClampedArray): StoreAction<any> | nul
     if (actionType === ActionType.TrainSensor) {
         return createActionTrainSensor({
             signalId: data[4],
-            segmentId: data[5],
+            segId: data[5],
             state: numberToBoolean(data[6]),
         });
     }
@@ -37,9 +37,9 @@ function convertPayloadToAction(data: Uint8ClampedArray): StoreAction<any> | nul
     if (actionType === ActionType.TrainPosition) {
         return createActionTrainPosition({
             trainId: data[4],
-            segmentId: data[5],
-            enteringSegmentId: numberToNull(data[6]),
-            stoppedAtSignalLight: numberToNull(data[7]),
+            segId: data[5],
+            enterSegId: numberToNull(data[6]),
+            stopAtSignal: numberToNull(data[7]),
         });
     }
 
@@ -47,14 +47,14 @@ function convertPayloadToAction(data: Uint8ClampedArray): StoreAction<any> | nul
         return createActionTrainSpeed({
             trainId: data[4],
             speed: byteToRatio(data[5]),
-            temporary: numberToBoolean(data[6]),
+            temp: numberToBoolean(data[6]),
         });
     }
 
     if (actionType === ActionType.Switch) {
         return createActionSwitch({
             switchId: data[4],
-            position: data[5],
+            pos: data[5],
             enabled: numberToBoolean(data[6]),
         });
     }
@@ -62,7 +62,7 @@ function convertPayloadToAction(data: Uint8ClampedArray): StoreAction<any> | nul
     if (actionType === ActionType.SignalLight) {
         return createActionSignalLight({
             signalId: data[4],
-            segmentId: data[5],
+            segId: data[5],
             state: data[6],
         });
     }
@@ -70,7 +70,7 @@ function convertPayloadToAction(data: Uint8ClampedArray): StoreAction<any> | nul
     if (actionType === ActionType.TrainAdd) {
         return createActionTrainAdd({
             trainId: data[4],
-            segmentId: data[5],
+            segId: data[5],
             // @ts-ignore
             driverDeviceId: deviceIdToString(data.slice(6)),
         });
@@ -95,7 +95,7 @@ function convertPayloadToAction(data: Uint8ClampedArray): StoreAction<any> | nul
     if (actionType === ActionType.TrainInvertDir) {
         return createActionTrainInvertDir({
             trainId: data[4],
-            invertedDir: numberToBoolean(data[5]),
+            invDir: numberToBoolean(data[5]),
         });
     }
 

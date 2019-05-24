@@ -7,7 +7,7 @@ import { segmentSignalLight } from '@logic/state/utils/segment';
 export const signalLightReducer: Reducer<State, BroadcastAction<ActionPayloadSignalLight>> =
     (state: State, action: BroadcastAction<ActionPayloadSignalLight>): void => {
     if (action.type === ActionType.SignalLight) {
-      const segment = state.segments[action.payload.segmentId];
+        const segment = state.segments[action.payload.segId];
       if (segment) {
         const signalLight = segmentSignalLight(segment, action.payload.signalId);
         if (signalLight) {

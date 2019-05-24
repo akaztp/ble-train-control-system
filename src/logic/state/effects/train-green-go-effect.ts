@@ -14,15 +14,15 @@ const effect: Effect<State<unknown>, BroadcastAction<any>> =
         state: State<unknown>,
     ): Array<BroadcastAction<any>> => {
         if (action.payload.state === SignalLightState.Green) {
-            const segmentId = action.payload.segmentId;
+            const segmentId = action.payload.segId;
             const train = findTrainInsideSegment(state.trains, segmentId);
-            if (train && train.speed === 0 && train.speedBeforeStop !== 0) {
+            if (train && train.speed === 0 && train.speedBefStop !== 0) {
                 const segment = state.segments[segmentId];
                 const signalId = action.payload.signalId;
                 const directionSignalLight = segmentDirection(
                     segment,
-                    train.speedBeforeStop,
-                    train.invertedDir,
+                    train.speedBefStop,
+                    train.invDir,
                 );
                 if (directionSignalLight !== null && directionSignalLight.id === signalId) {
                     const nextSegmentId = findNextSegmentId(
@@ -34,14 +34,14 @@ const effect: Effect<State<unknown>, BroadcastAction<any>> =
                         return [
                             createActionTrainPosition({
                                 trainId: train.id,
-                                segmentId,
-                                enteringSegmentId: nextSegmentId,
-                                stoppedAtSignalLight: null,
+                                segId: segmentId,
+                                enterSegId: nextSegmentId,
+                                stopAtSignal: null,
                             }),
                             createActionTrainSpeed({
                                 trainId: train.id,
-                                speed: train.speedBeforeStop,
-                                temporary: false,
+                                speed: train.speedBefStop,
+                                temp: false,
                             }),
                         ];
                     }
