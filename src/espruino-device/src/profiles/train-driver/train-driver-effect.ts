@@ -17,7 +17,7 @@ const effect: Effect<DeviceState, BroadcastAction<any>> =
 
             // TODO: use driverDeviceId
             // if (train.driverDeviceId === state.currentDeviceId) {
-            motorControl(speed, state.deviceConfig!.trainDriver);
+            motorControl(speed, state.deviceConfig.trainDriver);
             // }
         }
         return [];

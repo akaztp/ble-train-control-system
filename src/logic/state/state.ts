@@ -8,5 +8,5 @@ export interface State<D = unknown> {
     trains: SimpleMap<Train>;
     switches: SimpleMap<Switch>;
     currentDeviceId: string | null;
-    deviceConfig: D | null;
+    deviceConfig: D;
 }

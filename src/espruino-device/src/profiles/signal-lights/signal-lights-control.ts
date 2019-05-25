@@ -1,5 +1,5 @@
-import {PinPair} from '../../pin-pair';
-import {SignalLightState} from "@logic/models/signal-light";
+import { SignalLightState } from '@logic/models/signal-light';
+import { PinPair } from '../../pin-pair';
 
 export function signalLightControl(state: SignalLightState, pins: PinPair): void {
     if (state === SignalLightState.Green) {
@@ -11,7 +11,7 @@ export function signalLightControl(state: SignalLightState, pins: PinPair): void
     }
 }
 
-export function initSignalLights(signalLights: { [key: number]: PinPair }): void {
+export function setupSignalLights(signalLights: { [key: number]: PinPair }): void {
     Object.keys(signalLights).forEach(k => {
         const pins = signalLights[k as any];
         pinMode(pins.a, 'output', true);
