@@ -27,3 +27,35 @@ export function setupTrainSensors(
     });
 }
 
+var w1;
+var ledLastState = false;
+
+function pulOn() {
+    analogWrite(D13, 0.5, {freq: 38000, soft: true});
+    analogWrite(D12, 0.01, {freq: 10, soft: true});
+}
+
+function pulOff() {
+    digitalWrite(D13, 0);
+    digitalWrite(D12, 0);
+}
+
+function rxIR(e) {
+    ledLastState = !ledLastState;
+    digitalWrite(D7, ledLastState);
+}
+
+function txIR() {
+    stopIR();
+    pinMode(D15, 'input');
+    pulOn();
+    w1 = setWatch(rxIR, D15, {repeat: true, edge: 'rising', debounce: 0});
+}
+
+function stopIR() {
+    pulOff();
+    if (w1) {
+        clearWatch(w1);
+        w1 = null;
+    }
+}
