@@ -3,6 +3,8 @@ import { bleGlobals, characteristicUUIDBroadcast, serviceUUID } from '@utils/ble
 import { convertActionToAdv } from '@utils/convert-action-to-adv';
 import { convertAdvToAction } from '@utils/convert-adv-to-action';
 
+let connected: boolean = false;
+
 export function setupTunnel(
     layoutId: string,
     trainName: string,
@@ -11,6 +13,24 @@ export function setupTunnel(
 ) {
     const deviceId = trainDriverDeviceId.split(':')
         .map(hex => parseInt(hex, 16));
+
+    NRF.on('connect', () => {
+        connected = true;
+    });
+
+    NRF.on('disconnect', () => {
+        connected = false;
+        // @ts-ignore
+        NRF.updateServices({
+                [serviceUUID]: {
+                    [characteristicUUIDBroadcast]: {
+                        value: new Uint8Array(deviceId).buffer,
+                        notify: true,
+                    },
+                },
+            },
+        );
+    });
 
     // @ts-ignore
     NRF.setServices(
@@ -53,14 +73,16 @@ export function setupTunnel(
 }
 
 export function actionToTunnel(action: BroadcastAction<any>) {
-    // @ts-ignore
-    NRF.updateServices({
-            [serviceUUID]: {
-                [characteristicUUIDBroadcast]: {
-                    value: convertActionToAdv(action)!.buffer,
-                    notify: true,
+    if (connected) {
+        // @ts-ignore
+        NRF.updateServices({
+                [serviceUUID]: {
+                    [characteristicUUIDBroadcast]: {
+                        value: convertActionToAdv(action)!.buffer,
+                        notify: true,
+                    },
                 },
             },
-        },
-    );
+        );
+    }
 }
