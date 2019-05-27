@@ -16,9 +16,9 @@ const effect: Effect<DeviceState, BroadcastAction<any>> =
             // TODO: use inverted dir
 
             // TODO: use driverDeviceId
-            // if (train.driverDeviceId === state.currentDeviceId) {
-            motorControl(speed, state.deviceConfig.trainDriver);
-            // }
+            if (train.driverDeviceId === state.currentDeviceId) {
+                motorControl(speed, state.deviceConfig.trainDriver);
+            }
         }
         return [];
     };
