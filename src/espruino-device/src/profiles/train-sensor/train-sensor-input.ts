@@ -6,56 +6,42 @@ export function setupTrainSensors(
     config: Array<TrainSensorConfig<Pin>>,
     dispatcher: (action: BroadcastAction<any>) => void,
 ): void {
+    const freq = 7; // Hz
+    let sampleLength = 3 * freq; // seg * freq
+    const clearDebounce = 2; // seg
+    let clearCounter = 0;
+    let valueSeq = 0;
+
     config.forEach((trainSensorConfig) => {
-        setWatch(
-            () => {
-                console.log('Button pressed');
-                dispatcher(createActionTrainSensor({
-                    segId: trainSensorConfig.segId,
-                    signalId: trainSensorConfig.signalId,
-                    state: true,
-                }));
-            },
-            trainSensorConfig.port,
-            {
-                repeat: true,
-                edge: 'falling',
-                debounce: 100,
-                data: trainSensorConfig.port,
-            },
-        );
+        const port = trainSensorConfig.port;
+        let mean = analogRead(port);
+
+        function readSensor() {
+            let value = analogRead(port);
+            console.log(value, mean);
+            if (sampleLength > 0) {
+                sampleLength--;
+                mean = mean * 0.9 + value * 0.1;
+            } else if ((mean - value) > 0.3 * mean) {
+                valueSeq++;
+                if (valueSeq === 3 && clearCounter === 0) {
+                    clearCounter = clearDebounce * freq;
+                    valueSeq = 0;
+                    dispatcher(createActionTrainSensor({
+                        state: true,
+                        signalId: trainSensorConfig.signalId,
+                        segId: trainSensorConfig.segId,
+                    }));
+                }
+            } else {
+                if (clearCounter !== 0) {
+                    clearCounter--;
+                }
+                mean = mean * 0.9 + value * 0.1;
+                valueSeq = 0;
+            }
+        }
+
+        setInterval(readSensor, 1000 / freq);
     });
-}
-
-var w1;
-var ledLastState = false;
-
-function pulOn() {
-    analogWrite(D13, 0.5, {freq: 38000, soft: true});
-    analogWrite(D12, 0.01, {freq: 10, soft: true});
-}
-
-function pulOff() {
-    digitalWrite(D13, 0);
-    digitalWrite(D12, 0);
-}
-
-function rxIR(e) {
-    ledLastState = !ledLastState;
-    digitalWrite(D7, ledLastState);
-}
-
-function txIR() {
-    stopIR();
-    pinMode(D15, 'input');
-    pulOn();
-    w1 = setWatch(rxIR, D15, {repeat: true, edge: 'rising', debounce: 0});
-}
-
-function stopIR() {
-    pulOff();
-    if (w1) {
-        clearWatch(w1);
-        w1 = null;
-    }
 }
