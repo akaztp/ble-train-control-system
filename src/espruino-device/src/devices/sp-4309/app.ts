@@ -8,6 +8,7 @@ import { setupBroadcastToAction } from '../../broadcast/setup-broadcast-to-actio
 import { deviceId } from '../../globals';
 import { setupSignalLights } from '../../profiles/signal-lights/signal-lights-control';
 import { signalLightsEffect } from '../../profiles/signal-lights/signal-lights-effect';
+import { setupTrainSensors } from '../../profiles/train-sensor/train-sensor-input';
 import { DeviceConfig } from './device-config';
 
 export interface StoreInterface {
@@ -18,20 +19,20 @@ function main() {
 
     const deviceConfig: DeviceConfig = {
         signalLights: {
-            20: {a: D2, b: D3},
-            1: {a: D4, b: D5},
+            1: {a: D12, b: D13},
+            20: {a: D14, b: D15},
         },
         // switches: {
         //     6: {a: D5, b: D7},
         //     7: {a: D12, b: D14},
         // },
-        // trainSensors: [
-        //     {
-        //         segId: 0,
-        //         signalId: 1,
-        //         port: D6,
-        //     },
-        // ],
+        trainSensors: [
+            {
+                segId: 0,
+                signalId: 1,
+                port: D2,
+            },
+        ],
     };
 
     setupSignalLights(deviceConfig.signalLights);
@@ -50,10 +51,10 @@ function main() {
         {},
     );
 
-    // setupTrainSensors(
-    //     deviceConfig.trainSensors,
-    //     createdStore.store.dispatch,
-    // );
+    setupTrainSensors(
+        deviceConfig.trainSensors,
+        createdStore.store.dispatch,
+    );
 
     // setupSwitches(deviceConfig.switches);
 
