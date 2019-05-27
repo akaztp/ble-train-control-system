@@ -32,7 +32,7 @@ const effect: Effect<DeviceState, BroadcastAction<any>> =
         }
     };
 
-export const addTrainEffect: Effect<DeviceState, BroadcastAction<any>> =
+export const trainJoinEffect: Effect<DeviceState, BroadcastAction<any>> =
     triggerEffectForAction<DeviceState, BroadcastAction<any>>(
         ActionType.TrainJoin,
         effect,

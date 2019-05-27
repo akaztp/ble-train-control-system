@@ -22,8 +22,8 @@ import { changeTrainSpeed } from './action-sources/change-train-speed';
 import { switchChanger } from './action-sources/switch-changer';
 import { trainSensorSimulator } from './action-sources/train-sensor-simulator';
 import { DeviceState } from './device-state';
-import { addTrainEffect } from './effects/add-train-effect';
 import { broadcasterEffectFactory } from './effects/ble-connection-effect';
+import { trainJoinEffect } from './effects/train-join-effect';
 import { trainSensorSimulatorEffect } from './effects/train-sensor-simulator-effect';
 import { Observer } from './observer';
 import { switchAvailabilityReducer } from './reducers/switch-availability-reducer';
@@ -74,7 +74,7 @@ export function createStoreInterface(): StoreInterface {
     };
 
     const effects: Array<Effect<DeviceState, BroadcastAction<any>>> = [
-        addTrainEffect,
+        trainJoinEffect,
         signalLightsCalcEffect,
         trainSensorSimulatorEffect,
         trainPositionCalcSensorEffect,
