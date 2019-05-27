@@ -73,20 +73,19 @@ export function driverIdChanged(trainId: Id): void {
 
 export function positionChanged(trainId: Id): void {
     const train = state.trains[trainId];
-    const trainState = trainsState[trainId];
+    let trainState = trainsState[trainId];
     if (train && isSimulated(train)) {
         const segmentId = train.seg.id;
         const enteringSegmentId = train.enterSeg ? train.enterSeg.id : null;
+        if (!trainState) {
+            trainState = addTrain(trainId, segmentId);
+        }
         if (enteringSegmentId === null) {
-            if (trainState) {
-                const oldSegmentId = trainState.segmentId;
-                trainState.segmentId = segmentId;
-                const oldSpeed = trainState.speed;
-                if (oldSegmentId !== segmentId && oldSpeed !== null && oldSpeed !== 0) {
-                    moveTrain(trainId, oldSpeed);
-                }
-            } else {
-                addTrain(trainId, segmentId);
+            const oldSegmentId = trainState.segmentId;
+            trainState.segmentId = segmentId;
+            const oldSpeed = trainState.speed;
+            if (oldSegmentId !== segmentId && oldSpeed !== null && oldSpeed !== 0) {
+                moveTrain(trainId, oldSpeed);
             }
         } else {
             trainState.segmentId = segmentId;
@@ -97,8 +96,8 @@ export function positionChanged(trainId: Id): void {
     }
 }
 
-function addTrain(id: Id, segmentId: Id | null): void {
-    trainsState[id] = {
+function addTrain(id: Id, segmentId: Id | null): SimulatedTrainState {
+    return trainsState[id] = {
         id,
         segmentId,
         timerId: null,
