@@ -25,7 +25,6 @@ function main() {
         },
         switches: {
             6: {a: D5, b: D7},
-            7: {a: D12, b: D14},
         },
         // trainSensors: [
         //     {
@@ -36,12 +35,9 @@ function main() {
         // ],
     };
 
-    setupSignalLights(deviceConfig.signalLights);
-
     const createdStore = baseCreateStore<State<DeviceConfig>, StoreInterface, BroadcastAction<any>>(
         createInitialState<DeviceConfig>(deviceId, deviceConfig),
         [
-            // signalLightReducer,
         ],
         [
             broadcasterEffect,
@@ -52,12 +48,14 @@ function main() {
         {},
     );
 
+    setupSignalLights(deviceConfig.signalLights);
+
+    setupSwitches(deviceConfig.switches);
+
     // setupTrainSensors(
     //     deviceConfig.trainSensors,
     //     createdStore.store.dispatch,
     // );
-
-    setupSwitches(deviceConfig.switches);
 
     setBleAdvertising(null);
     setupBroadcastToAction(createdStore.store.dispatch);
