@@ -13,7 +13,7 @@ import { trainInvertDirReducer } from '@logic/state/reducers/train-invert-dir-re
 import { trainNameReducer } from '@logic/state/reducers/train-name-reducer';
 import { trainPositionReducer } from '@logic/state/reducers/train-position-reducer';
 import { trainSpeedReducer } from '@logic/state/reducers/train-speed-reducer';
-import { ActionSource, createStore as baseCreateStore, Effect, Reducer } from '@logic/state/store';
+import { ActionSource, createStore as baseCreateStore, Effect, logAction, Reducer } from '@logic/state/store';
 import { noop } from 'vue-class-component/lib/util';
 import { addTrain } from './action-sources/add-train';
 import { bleConnectionClient } from './action-sources/ble-connection-client';
@@ -37,6 +37,7 @@ const deviceId: string | null = null;
 const stateObserver$ = new Observer<DeviceState>();
 
 const reducers: Array<Reducer<DeviceState, BroadcastAction<any>>> = [
+    (s, a) => { logAction(a); },
     trainAddReducer,
     trainJoinReducer,
     trainNameReducer,
