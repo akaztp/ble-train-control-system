@@ -48,7 +48,7 @@ export function createStore<S, C, A extends StoreAction<any> = StoreAction<any>>
     function processDispatchQueue(): void {
         if (dispatchQueue.length) {
             const action = dispatchQueue.shift()!;
-            logAction(action);
+            // logAction(action);
             // setTimeout(logAction, 10, action);
             store.reducers.forEach((r) => r(store.state, action));
             // console.log('dispatch(). Updated state:', store.state);
@@ -89,7 +89,7 @@ export function triggerEffectForAction<S, A extends StoreAction<any>>(
     };
 }
 
-function logAction(action: StoreAction<any>): void {
+export function logAction(action: StoreAction<any>): void {
     const logActionType = [
         'Init',
         'TrainJoin',
