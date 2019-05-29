@@ -13,17 +13,17 @@ import { StoreAction } from '@logic/state/store';
 export function convertAdvToAction(data: Uint8ClampedArray): BroadcastAction<any> | null {
     const storeAction = convertPayloadToAction(data);
     if (storeAction) {
-        const action: BroadcastAction<any> = {
+        return {
             ...storeAction,
             layoutId: String.fromCharCode(data[0]) + String.fromCharCode(data[1]),
             isBroadcasted: true,
         };
-        return action;
     }
     return null;
 }
 
-function convertPayloadToAction(data: Uint8ClampedArray): StoreAction<any> | null {
+function convertPayloadToAction(dataBuffer: ArrayBuffer): StoreAction<any> | null {
+    const data: Uint8Array = new Uint8Array(dataBuffer, dataBuffer.byteLength);
     const actionType: ActionType = data[3];
 
     if (actionType === ActionType.TrainSensor) {
