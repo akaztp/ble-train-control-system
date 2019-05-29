@@ -7,18 +7,20 @@ export function setupTrainSensors(
     dispatcher: (action: BroadcastAction<any>) => void,
 ): void {
     const freq = 7; // Hz
-    let sampleLength = 3 * freq; // seg * freq
     const clearDebounce = 2; // seg
-    let clearCounter = 0;
-    let valueSeq = 0;
 
     config.forEach((trainSensorConfig) => {
         const port = trainSensorConfig.port;
         let mean = analogRead(port);
+        let sampleLength = 3 * freq; // seg * freq
+        let clearCounter = 0;
+        let valueSeq = 0;
 
         function readSensor() {
             let value = analogRead(port);
-            console.log(value, mean);
+            if (global.logSensors) {
+                console.log(trainSensorConfig.signalId, value, mean);
+            }
             if (sampleLength > 0) {
                 sampleLength--;
                 mean = mean * 0.9 + value * 0.1;
@@ -27,6 +29,9 @@ export function setupTrainSensors(
                 if (valueSeq === 3 && clearCounter === 0) {
                     clearCounter = clearDebounce * freq;
                     valueSeq = 0;
+                    if (global.logSensors) {
+                        console.log('Sensor: ', trainSensorConfig.signalId);
+                    }
                     dispatcher(createActionTrainSensor({
                         state: true,
                         signalId: trainSensorConfig.signalId,
