@@ -5,6 +5,7 @@ import { convertAdvToAction } from '@utils/convert-adv-to-action';
 
 let connected: boolean = false;
 
+// setup BLE connection client and data receive callback
 export function setupTunnel(
     layoutId: string,
     trainName: string,
@@ -72,6 +73,7 @@ export function setupTunnel(
     }
 }
 
+// send data to BLE connection
 export function actionToTunnel(action: BroadcastAction<any>) {
     if (connected) {
         // @ts-ignore
